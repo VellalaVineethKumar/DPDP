@@ -1,0 +1,337 @@
+{
+    "sections": [
+      {
+        "name": "Consent Management",
+        "weight": 0.15,
+        "questions": [
+          "Does your organization obtain explicit consent before collecting personal data?",
+          "Is your consent mechanism presented in clear, plain language?",
+          "Do you have separate consent mechanisms for different data processing activities?",
+          "Can users easily withdraw their consent?"
+        ],
+        "options": [
+          ["Yes, with clear affirmative action required", "Partially, but consent mechanisms need improvement", "No, we rely on implicit consent", "Not applicable"],
+          ["Yes, we use simple language and avoid legal jargon", "Partially, but needs simplification", "No, our consent notices use technical/legal terminology", "Not applicable"],
+          ["Yes, we obtain separate consent for each purpose", "Partially, but some purposes are bundled", "No, we use a single consent for all processing", "Not applicable"],
+          ["Yes, through a simple, accessible process", "Yes, but the process is somewhat complicated", "No, withdrawal options are difficult to access", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Purpose Limitation",
+        "weight": 0.12,
+        "questions": [
+          "Does your organization clearly document all purposes for which personal data is processed?",
+          "Is personal data used only for the specific purposes for which it was collected?",
+          "Do you have mechanisms to prevent data use beyond stated purposes?"
+        ],
+        "options": [
+          ["Yes, all purposes are documented and reviewed regularly", "Partially, some purposes are documented", "No, purposes are not systematically documented", "Not applicable"],
+          ["Yes, strictly limited to stated purposes", "Mostly, with rare exceptions", "No, data is often repurposed", "Not applicable"],
+          ["Yes, we have technical and policy controls", "Partially, some controls exist", "No, limited controls exist", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Data Minimization",
+        "weight": 0.10,
+        "questions": [
+          "Does your organization collect only data that is necessary for specified purposes?",
+          "Do you have processes to identify and remove redundant or excessive data?"
+        ],
+        "options": [
+          ["Yes, we regularly review and minimize data collection", "Partially, some unnecessary data may be collected", "No, we collect data that may not be necessary", "Not applicable"],
+          ["Yes, regular data minimization reviews", "Partially, occasional reviews", "No systematic process", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Data Retention",
+        "weight": 0.10,
+        "questions": [
+          "Does your organization have a documented data retention policy?",
+          "Are retention periods defined for different categories of personal data?",
+          "Do you have automated processes to delete or anonymize data after retention periods expire?"
+        ],
+        "options": [
+          ["Yes, comprehensive and regularly reviewed", "Partially, basic policy exists", "No documented policy", "Not applicable"],
+          ["Yes, specific periods for each data category", "Partially, general periods defined", "No defined periods", "Not applicable"],
+          ["Yes, fully automated", "Partially automated with manual oversight", "Manual process only", "No systematic process", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Data Subject Rights",
+        "weight": 0.15,
+        "questions": [
+          "Does your organization have procedures to handle data subject access requests?",
+          "Can you provide data subjects with copies of their personal data in a structured, commonly used format?",
+          "Do you have processes to correct inaccurate personal data upon request?",
+          "Can you completely erase personal data upon valid request ('right to be forgotten')?"
+        ],
+        "options": [
+          ["Yes, comprehensive procedures", "Basic procedures exist", "No formal procedures", "Not applicable"],
+          ["Yes, automated export functionality", "Yes, but manual process", "Limited capability", "No capability", "Not applicable"],
+          ["Yes, systematic process", "Basic process exists", "Ad hoc handling", "No process", "Not applicable"],
+          ["Yes, across all systems", "Partially, in primary systems", "Limited capability", "No capability", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Security Measures",
+        "weight": 0.15,
+        "questions": [
+          "Does your organization implement appropriate technical security measures for personal data?",
+          "Do you conduct regular security assessments of systems processing personal data?",
+          "Do you have access controls limiting who can access personal data?",
+          "Is personal data encrypted at rest and in transit?"
+        ],
+        "options": [
+          ["Yes, comprehensive measures following industry standards", "Basic security measures", "Minimal security measures", "Not applicable"],
+          ["Yes, scheduled regular assessments", "Occasional assessments", "Rarely or never", "Not applicable"],
+          ["Yes, role-based access with principle of least privilege", "Basic access controls", "Limited or no access controls", "Not applicable"],
+          ["Yes, comprehensive encryption", "Partial encryption (either at rest or in transit)", "Limited or no encryption", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Data Breach Management",
+        "weight": 0.12,
+        "questions": [
+          "Does your organization have a data breach response plan?",
+          "Can you detect data breaches in a timely manner?",
+          "Do you have procedures to notify authorities of data breaches within required timeframes?",
+          "Do you document all data breaches and remediation actions?"
+        ],
+        "options": [
+          ["Yes, comprehensive and tested", "Basic plan exists", "No formal plan", "Not applicable"],
+          ["Yes, monitoring systems in place", "Basic detection capabilities", "Limited or no detection capabilities", "Not applicable"],
+          ["Yes, clear procedures", "Basic procedures exist", "No formal procedures", "Not applicable"],
+          ["Yes, comprehensive documentation", "Basic documentation", "Limited or no documentation", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Cross-Border Data Transfers",
+        "weight": 0.05,
+        "questions": [
+          "Does your organization transfer personal data outside India?",
+          "If yes, do you ensure adequate protection for cross-border data transfers?",
+          "Do you maintain records of all cross-border data transfers?"
+        ],
+        "options": [
+          ["No", "Yes, to whitelisted countries only", "Yes, including to non-whitelisted countries", "Not applicable"],
+          ["Yes, comprehensive measures", "Basic measures", "Limited or no measures", "Not applicable"],
+          ["Yes, detailed records", "Basic records", "Limited or no records", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Data Protection Impact Assessments",
+        "weight": 0.03,
+        "questions": [
+          "Do you conduct Data Protection Impact Assessments for high-risk processing activities?",
+          "Are DPIA results incorporated into processing designs?"
+        ],
+        "options": [
+          ["Yes, systematically", "Occasionally", "Rarely or never", "Not applicable"],
+          ["Yes, systematically", "Sometimes", "Rarely or never", "Not applicable"]
+        ]
+      },
+      {
+        "name": "Data Protection Officer and Governance",
+        "weight": 0.03,
+        "questions": [
+          "Has your organization designated a Data Protection Officer or equivalent role?",
+          "Does your organization provide regular data protection training to staff?",
+          "Is compliance with data protection regulations regularly audited?"
+        ],
+        "options": [
+          ["Yes, dedicated DPO", "Yes, as additional responsibility", "No designated role", "Not applicable"],
+          ["Yes, comprehensive training program", "Basic training provided", "Limited or no training", "Not applicable"],
+          ["Yes, scheduled regular audits", "Occasional audits", "Rarely or never audited", "Not applicable"]
+        ]
+      }
+    ],
+    "answer_points": {
+      "Yes, with clear affirmative action required": 1.0,
+      "Yes, we use simple language and avoid legal jargon": 1.0,
+      "Yes, we obtain separate consent for each purpose": 1.0,
+      "Yes, through a simple, accessible process": 1.0,
+      "Yes, all purposes are documented and reviewed regularly": 1.0,
+      "Yes, strictly limited to stated purposes": 1.0,
+      "Yes, we have technical and policy controls": 1.0,
+      "Yes, we regularly review and minimize data collection": 1.0,
+      "Yes, regular data minimization reviews": 1.0,
+      "Yes, comprehensive and regularly reviewed": 1.0,
+      "Yes, specific periods for each data category": 1.0,
+      "Yes, fully automated": 1.0,
+      "Yes, comprehensive procedures": 1.0,
+      "Yes, automated export functionality": 1.0,
+      "Yes, systematic process": 1.0,
+      "Yes, across all systems": 1.0,
+      "Yes, comprehensive measures following industry standards": 1.0,
+      "Yes, scheduled regular assessments": 1.0,
+      "Yes, role-based access with principle of least privilege": 1.0,
+      "Yes, comprehensive encryption": 1.0,
+      "Yes, comprehensive and tested": 1.0,
+      "Yes, monitoring systems in place": 1.0,
+      "Yes, clear procedures": 1.0,
+      "Yes, comprehensive documentation": 1.0,
+      "No": 1.0,
+      "Yes, comprehensive measures": 1.0,
+      "Yes, detailed records": 1.0,
+      "Yes, systematically": 1.0,
+      "Yes, dedicated DPO": 1.0,
+      "Yes, comprehensive training program": 1.0,
+      "Yes, scheduled regular audits": 1.0,
+      
+      "Partially, but consent mechanisms need improvement": 0.5,
+      "Partially, but needs simplification": 0.5,
+      "Partially, but some purposes are bundled": 0.5,
+      "Yes, but the process is somewhat complicated": 0.5,
+      "Partially, some purposes are documented": 0.5,
+      "Mostly, with rare exceptions": 0.5,
+      "Partially, some controls exist": 0.5,
+      "Partially, some unnecessary data may be collected": 0.5,
+      "Partially, occasional reviews": 0.5,
+      "Partially, basic policy exists": 0.5,
+      "Partially, general periods defined": 0.5,
+      "Partially automated with manual oversight": 0.5,
+      "Basic procedures exist": 0.5,
+      "Yes, but manual process": 0.5,
+      "Basic process exists": 0.5,
+      "Partially, in primary systems": 0.5,
+      "Basic security measures": 0.5,
+      "Occasional assessments": 0.5,
+      "Basic access controls": 0.5,
+      "Partial encryption (either at rest or in transit)": 0.5,
+      "Basic plan exists": 0.5,
+      "Basic detection capabilities": 0.5,
+      "Basic procedures exist": 0.5,
+      "Basic documentation": 0.5,
+      "Yes, to whitelisted countries only": 0.5,
+      "Basic measures": 0.5,
+      "Basic records": 0.5,
+      "Occasionally": 0.5,
+      "Sometimes": 0.5,
+      "Yes, as additional responsibility": 0.5,
+      "Basic training provided": 0.5,
+      "Occasional audits": 0.5,
+      
+      "No, we rely on implicit consent": 0.0,
+      "No, our consent notices use technical/legal terminology": 0.0,
+      "No, we use a single consent for all processing": 0.0,
+      "No, withdrawal options are difficult to access": 0.0,
+      "No, purposes are not systematically documented": 0.0,
+      "No, data is often repurposed": 0.0,
+      "No, limited controls exist": 0.0,
+      "No, we collect data that may not be necessary": 0.0,
+      "No systematic process": 0.0,
+      "No documented policy": 0.0,
+      "No defined periods": 0.0,
+      "Manual process only": 0.0,
+      "No formal procedures": 0.0,
+      "Limited capability": 0.0,
+      "No capability": 0.0,
+      "Ad hoc handling": 0.0,
+      "No process": 0.0,
+      "Minimal security measures": 0.0,
+      "Rarely or never": 0.0,
+      "Limited or no access controls": 0.0,
+      "Limited or no encryption": 0.0,
+      "No formal plan": 0.0,
+      "Limited or no detection capabilities": 0.0,
+      "Limited or no documentation": 0.0,
+      "Yes, including to non-whitelisted countries": 0.0,
+      "Limited or no measures": 0.0,
+      "Limited or no records": 0.0,
+      "No designated role": 0.0,
+      "Limited or no training": 0.0,
+      "Rarely or never audited": 0.0,
+      
+      "Not applicable": null
+    },
+    "recommendations": {
+      "Consent Management": {
+        "Partially, but consent mechanisms need improvement": "Implement clearer consent mechanisms with explicit opt-in options",
+        "No, we rely on implicit consent": "Replace implicit consent with explicit consent mechanisms",
+        "Partially, but needs simplification": "Simplify consent language and avoid technical jargon",
+        "No, our consent notices use technical/legal terminology": "Rewrite consent notices in plain, simple language",
+        "Partially, but some purposes are bundled": "Separate consent for different data processing purposes",
+        "No, we use a single consent for all processing": "Implement granular consent options for different processing activities",
+        "Yes, but the process is somewhat complicated": "Simplify the consent withdrawal process",
+        "No, withdrawal options are difficult to access": "Make consent withdrawal options easily accessible"
+      },
+      "Purpose Limitation": {
+        "Partially, some purposes are documented": "Document all purposes for personal data processing",
+        "No, purposes are not systematically documented": "Create a comprehensive data processing register",
+        "Mostly, with rare exceptions": "Implement stricter controls to prevent purpose creep",
+        "No, data is often repurposed": "Establish clear purpose limitation policy and controls",
+        "Partially, some controls exist": "Strengthen controls to prevent data use beyond stated purposes",
+        "No, limited controls exist": "Implement technical and policy controls for purpose limitation"
+      },
+      "Data Minimization": {
+        "Partially, some unnecessary data may be collected": "Review data collection processes to minimize data collected",
+        "No, we collect data that may not be necessary": "Conduct a data inventory and eliminate unnecessary collection",
+        "Partially, occasional reviews": "Implement regular data minimization reviews",
+        "No systematic process": "Establish a systematic process for identifying redundant data"
+      },
+      "Data Retention": {
+        "Partially, basic policy exists": "Develop a comprehensive data retention policy",
+        "No documented policy": "Create and implement a formal data retention policy",
+        "Partially, general periods defined": "Define specific retention periods for each data category",
+        "No defined periods": "Establish clear retention periods for all data categories",
+        "Partially automated with manual oversight": "Enhance automation of data deletion processes",
+        "Manual process only": "Implement semi-automated data deletion processes",
+        "No systematic process": "Establish a systematic process for data deletion after retention periods"
+      },
+      "Data Subject Rights": {
+        "Basic procedures exist": "Enhance procedures for handling data subject requests",
+        "No formal procedures": "Establish formal procedures for data subject access requests",
+        "Yes, but manual process": "Develop more automated export functionality",
+        "Limited capability": "Improve capability to provide data in structured formats",
+        "No capability": "Implement systems to export data in structured formats",
+        "Basic process exists": "Enhance processes for correcting inaccurate data",
+        "Ad hoc handling": "Formalize processes for handling correction requests",
+        "No process": "Establish processes for correcting personal data upon request",
+        "Partially, in primary systems": "Extend deletion capabilities to all systems",
+        "Limited capability": "Improve data erasure capabilities across systems",
+        "No capability": "Implement mechanisms for complete data erasure"
+      },
+      "Security Measures": {
+        "Basic security measures": "Enhance security measures with encryption and access controls",
+        "Minimal security measures": "Implement comprehensive security based on ISO 27001",
+        "Occasional assessments": "Establish regular security assessment schedule",
+        "Rarely or never": "Implement regular security assessments of data processing systems",
+        "Basic access controls": "Implement role-based access with least privilege principle",
+        "Limited or no access controls": "Develop comprehensive access control framework",
+        "Partial encryption (either at rest or in transit)": "Implement full encryption for data at rest and in transit",
+        "Limited or no encryption": "Establish encryption standards for all personal data"
+      },
+      "Data Breach Management": {
+        "Basic plan exists": "Develop and test a comprehensive breach response plan",
+        "No formal plan": "Create and implement a formal data breach response plan",
+        "Basic detection capabilities": "Enhance breach detection systems",
+        "Limited or no detection capabilities": "Implement monitoring systems for timely breach detection",
+        "Basic procedures exist": "Enhance procedures for authority notifications",
+        "No formal procedures": "Establish procedures for timely breach notifications",
+        "Basic documentation": "Improve documentation processes for breaches",
+        "Limited or no documentation": "Implement comprehensive breach documentation system"
+      },
+      "Cross-Border Data Transfers": {
+        "Yes, to whitelisted countries only": "Review adequacy decisions and transfer mechanisms",
+        "Yes, including to non-whitelisted countries": "Implement appropriate safeguards for all international transfers",
+        "Basic measures": "Enhance protection measures for cross-border transfers",
+        "Limited or no measures": "Implement adequate safeguards for international transfers",
+        "Basic records": "Improve record-keeping for cross-border transfers",
+        "Limited or no records": "Establish comprehensive records of all data transfers"
+      },
+      "Data Protection Impact Assessments": {
+        "Occasionally": "Conduct DPIAs systematically for all high-risk processing",
+        "Rarely or never": "Implement DPIA framework for high-risk processing activities",
+        "Sometimes": "Ensure DPIA results are consistently incorporated into designs",
+        "Rarely or never": "Create processes to incorporate DPIA findings into system design"
+      },
+      "Data Protection Officer and Governance": {
+        "Yes, as additional responsibility": "Consider dedicated DPO role based on processing volume",
+        "No designated role": "Designate a Data Protection Officer or equivalent role",
+        "Basic training provided": "Enhance data protection training program",
+        "Limited or no training": "Implement regular data protection training for all staff",
+        "Occasional audits": "Establish regular compliance audit schedule",
+        "Rarely or never audited": "Implement regular compliance audits"
+      }
+    }
+  }
