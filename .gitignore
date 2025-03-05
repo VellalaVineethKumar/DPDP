@@ -1,0 +1,25 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Log files
+logs/
+*.log
+
+# Environment files
+.env
+.venv
+env/
+venv/
+
+# IDE files
+.vscode/
+.idea/
+
+# Excel files
+*.xlsx
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
