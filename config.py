@@ -1,49 +1,99 @@
 """
-Configuration settings for the Compliance Assessment Application.
+Configuration settings for the Compliance Assessment Tool.
 
-This module contains centralized configuration constants used throughout the application.
-When adding new regulations or industries, update the relevant dictionaries in this file.
+This module contains constants and settings used throughout the application.
 """
 
 import os
-from datetime import datetime
+import logging
+from typing import Dict, List
+
+# Base directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Paths
+QUESTIONNAIRE_DIR = os.path.join(BASE_DIR, "Questionnaire")
+DATA_DIR = os.path.join(BASE_DIR, "data")
+LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo.png")
 
 # App settings
 APP_TITLE = "Compliance Assessment Tool"
-APP_ICON = "🔒"
+APP_ICON = "🔐"
 APP_LAYOUT = "wide"
 SIDEBAR_STATE = "expanded"
 
-# Image paths
-LOGO_PATH = "https://img.icons8.com/color/96/000000/data-protection.png"
-
-# Default values
-DEFAULT_DATE = datetime.now().strftime("%Y-%m-%d")
-
-# Available regulations
+# Available regulations and industries
 REGULATIONS = {
     "DPDP": "Digital Personal Data Protection Act (India)",
-    "GDPR": "General Data Protection Regulation (EU)",
-    "PDPL": "Personal Data Privacy Protection Law (Qatar)",
-    "CCPA": "California Consumer Privacy Act (USA)",
-    "LGPD": "Lei Geral de Proteção de Dados (Brazil)",
-    "POPIA": "Protection of Personal Information Act (South Africa)"
+    "GDPR": "General Data Protection Regulation (EU)"
 }
 
-# Available industries
-INDUSTRIES = {
-    "general": "General Business",
-    "healthcare": "Healthcare",
-    "finance": "Finance & Banking",
-    "ecommerce": "E-commerce & Retail",
-    "technology": "Technology & SaaS",
-    "education": "Education",
-    "telecom": "Telecommunications",
-    "hospitality": "Hospitality & Tourism",
-    "manufacturing": "Manufacturing",
-    "professional": "Professional Services"
+# Industry-to-filename mapping
+# This maps industry codes to their corresponding JSON filenames (without the .json extension)
+INDUSTRY_FILENAME_MAP = {
+    "DPDP": {
+        "general": "Banking and finance",
+        "banking": "Banking and finance",
+        "ecommerce": "E-commerce",
+        "e-commerce": "E-commerce",
+        "new": "Banking and finance",
+        "new banking fin": "Banking and finance"
+    }
 }
 
-# Future settings (for when you add these features)
-# DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///compliance_data.db")
-# SECRET_KEY = os.getenv("SECRET_KEY", "your-default-secret-key")
+# Display names for industries
+INDUSTRY_DISPLAY_NAMES = {
+    "Banking and finance": "Financial Services",
+    "E-commerce": "E-commerce & Retail",
+    "general": "General Industry"
+}
+
+def get_available_regulations() -> Dict[str, str]:
+    """Get available regulations"""
+    return REGULATIONS
+
+def get_available_industries(regulation_code: str) -> Dict[str, str]:
+    """Get available industries for a regulation"""
+    try:
+        regulation_dir = os.path.join(QUESTIONNAIRE_DIR, regulation_code)
+        if os.path.isdir(regulation_dir):
+            files = [f for f in os.listdir(regulation_dir) if f.endswith('.json')]
+            industries = {}
+            
+            # Add 'general' option that maps to a default questionnaire
+            industries["general"] = INDUSTRY_DISPLAY_NAMES.get("general", "General Industry")
+            
+            # Add all available industries from files
+            for file in files:
+                industry_code = os.path.splitext(file)[0].lower()
+                base_name = os.path.splitext(file)[0]
+                industry_name = INDUSTRY_DISPLAY_NAMES.get(base_name, base_name.replace('_', ' ').title())
+                industries[industry_code] = industry_name
+                
+            return industries
+        else:
+            logging.warning(f"Regulation directory not found: {regulation_dir}")
+            return {"general": "General Industry"}
+    except Exception as e:
+        logging.error(f"Error getting available industries: {str(e)}")
+        return {"general": "General Industry"}
+
+def map_industry_to_filename(regulation_code: str, industry_code: str) -> str:
+    """
+    Map an industry code to its corresponding filename
+    
+    Args:
+        regulation_code: The regulation code
+        industry_code: The industry code to map
+        
+    Returns:
+        The filename to use for this industry code (without .json extension)
+    """
+    industry_code = industry_code.lower()
+    
+    # Use mapping if available
+    if regulation_code in INDUSTRY_FILENAME_MAP and industry_code in INDUSTRY_FILENAME_MAP[regulation_code]:
+        return INDUSTRY_FILENAME_MAP[regulation_code][industry_code]
+    
+    # Otherwise, use industry code as filename
+    return industry_code

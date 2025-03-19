@@ -1,0 +1,25 @@
+{
+  "overall_score": 50.0,
+  "compliance_level": "Non-Compliant",
+  "section_scores": {
+    "Consent Management": null,
+    "Purpose Limitation": 0.5,
+    "Data Minimization": 0.5
+  },
+  "high_risk_areas": [
+    "Purpose Limitation",
+    "Data Minimization"
+  ],
+  "recommendations": {
+    "Purpose Limitation": [
+      "Establish clear purpose limitation policy and controls"
+    ],
+    "Data Minimization": [
+      "Establish a systematic process for identifying redundant data"
+    ]
+  },
+  "improvement_priorities": [
+    "Purpose Limitation",
+    "Data Minimization"
+  ]
+}

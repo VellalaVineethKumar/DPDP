@@ -1,0 +1,142 @@
+2025-03-17 12:58:49,208 - helpers - INFO - Admin token validated
+2025-03-17 15:19:47,088 - helpers - INFO - Admin token validated
+2025-03-17 15:19:49,081 - views - INFO - Starting new assessment for adwawd, regulation: DPDP, industry: New banking fin
+2025-03-17 15:19:49,082 - helpers - INFO - Navigating to page: assessment from welcome
+2025-03-17 15:19:49,164 - __main__ - INFO - Current responses count: 0
+2025-03-17 15:19:49,165 - assessment - INFO - Loading questionnaire for regulation: DPDP, industry: New banking fin
+2025-03-17 15:19:49,166 - assessment - INFO - Available questionnaire files for DPDP: ['New banking fin.json']
+2025-03-17 15:19:49,168 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\New banking fin.json
+2025-03-17 15:19:49,171 - assessment - INFO - Successfully loaded valid questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\New banking fin.json
+2025-03-17 15:19:49,172 - assessment - INFO - Section 1: 'Data Collection and Processing' with 5 questions
+2025-03-17 15:19:49,173 - assessment - INFO - Section 2: 'Data Principal Rights' with 5 questions
+2025-03-17 15:19:49,173 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-17 15:19:49,174 - __main__ - INFO - Question 1 response key s0_q0: missing
+2025-03-17 15:19:49,174 - __main__ - INFO - Question 2 response key s0_q1: missing
+2025-03-17 15:19:49,175 - __main__ - INFO - Question 3 response key s0_q2: missing
+2025-03-17 15:19:49,175 - __main__ - INFO - Question 4 response key s0_q3: missing
+2025-03-17 15:19:49,175 - __main__ - INFO - Question 5 response key s0_q4: missing
+2025-03-17 15:19:49,186 - assessment - INFO - Using cached questionnaire for DPDP/New banking fin
+2025-03-17 15:19:56,167 - __main__ - INFO - Current responses count: 0
+2025-03-17 15:19:56,169 - assessment - INFO - Loading questionnaire for regulation: DPDP, industry: general
+2025-03-17 15:19:56,170 - assessment - INFO - Available questionnaire files for DPDP: ['New banking fin.json']
+2025-03-17 15:19:56,170 - assessment - ERROR - Failed to find questionnaire file for DPDP/general
+2025-03-17 15:19:56,171 - assessment - INFO - Attempting to load banking questionnaire as last resort
+2025-03-17 15:19:56,172 - assessment - INFO - Using banking questionnaire as last resort
+2025-03-17 15:19:56,172 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-17 15:19:56,172 - __main__ - INFO - Question 1 response key s0_q0: missing
+2025-03-17 15:19:56,174 - __main__ - INFO - Question 2 response key s0_q1: missing
+2025-03-17 15:19:56,174 - __main__ - INFO - Question 3 response key s0_q2: missing
+2025-03-17 15:19:56,174 - __main__ - INFO - Question 4 response key s0_q3: missing
+2025-03-17 15:19:56,175 - __main__ - INFO - Question 5 response key s0_q4: missing
+2025-03-17 15:19:56,201 - helpers - INFO - EVENT: section_completed - {"section": "Data Collection and Processing"}
+2025-03-17 15:19:56,275 - __main__ - INFO - Current responses count: 5
+2025-03-17 15:19:56,275 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:19:56,275 - __main__ - INFO - Current section 1 has 5 questions
+2025-03-17 15:19:56,277 - __main__ - INFO - Question 1 response key s1_q0: missing
+2025-03-17 15:19:56,277 - __main__ - INFO - Question 2 response key s1_q1: missing
+2025-03-17 15:19:56,277 - __main__ - INFO - Question 3 response key s1_q2: missing
+2025-03-17 15:19:56,278 - __main__ - INFO - Question 4 response key s1_q3: missing
+2025-03-17 15:19:56,278 - __main__ - INFO - Question 5 response key s1_q4: missing
+2025-03-17 15:20:06,711 - __main__ - INFO - Current responses count: 5
+2025-03-17 15:20:06,712 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:06,712 - __main__ - INFO - Current section 1 has 5 questions
+2025-03-17 15:20:06,713 - __main__ - INFO - Question 1 response key s1_q0: missing
+2025-03-17 15:20:06,713 - __main__ - INFO - Question 2 response key s1_q1: missing
+2025-03-17 15:20:06,714 - __main__ - INFO - Question 3 response key s1_q2: missing
+2025-03-17 15:20:06,715 - __main__ - INFO - Question 4 response key s1_q3: missing
+2025-03-17 15:20:06,715 - __main__ - INFO - Question 5 response key s1_q4: missing
+2025-03-17 15:20:06,738 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:06,739 - assessment - INFO - Answer points dictionary has 38 entries
+2025-03-17 15:20:06,740 - assessment - INFO - ===== Calculating score for section: Data Collection and Processing =====
+2025-03-17 15:20:06,741 - assessment - INFO - Question 1: Response = 'Yes, Notices are provided in English and all 22 official Indian languages listed in the Eighth Schedule of the Constitution.'
+2025-03-17 15:20:06,741 - assessment - INFO - Question 1: Points = 1.0
+2025-03-17 15:20:06,742 - assessment - INFO - Question 1: Adding 1.0 points, running total = 1.0/1
+2025-03-17 15:20:06,742 - assessment - INFO - Question 2: Response = 'Yes, with detailed itemization: The notice provides a clear, detailed list of all personal data collected and specifies the exact purposes for their use.'
+2025-03-17 15:20:06,743 - assessment - INFO - Question 2: Points = 1.0
+2025-03-17 15:20:06,743 - assessment - INFO - Question 2: Adding 1.0 points, running total = 2.0/2
+2025-03-17 15:20:06,743 - assessment - INFO - Question 3: Response = 'Yes, with clear affirmative action required: Consent is obtained through explicit actions (e.g., ticking a box, clicking an 'I agree' button) that clearly indicate agreement to the specified purposes.'
+2025-03-17 15:20:06,745 - assessment - INFO - Question 3: Points = 1.0
+2025-03-17 15:20:06,745 - assessment - INFO - Question 3: Adding 1.0 points, running total = 3.0/3
+2025-03-17 15:20:06,746 - assessment - INFO - Question 4: Response = 'Yes, with strict adherence to purpose limitation: The organization ensures that personal data is processed only for the specific purposes outlined in the notice, aligning with the principle of purpose limitation.'
+2025-03-17 15:20:06,747 - assessment - INFO - Question 4: Points = 1.0
+2025-03-17 15:20:06,747 - assessment - INFO - Question 4: Adding 1.0 points, running total = 4.0/4
+2025-03-17 15:20:06,748 - assessment - INFO - Question 5: Response = 'Yes, with clear verification processes: The organization has established procedures to verify that data is provided voluntarily for specific purposes where consent exemptions apply, ensuring compliance with DPDP Act requirements.'
+2025-03-17 15:20:06,748 - assessment - INFO - Question 5: Points = 1.0
+2025-03-17 15:20:06,748 - assessment - INFO - Question 5: Adding 1.0 points, running total = 5.0/5
+2025-03-17 15:20:06,749 - assessment - INFO - Section Data Collection and Processing: total_points=5.0, max_points=5
+2025-03-17 15:20:06,749 - assessment - INFO - Section Data Collection and Processing score = 100.0%
+2025-03-17 15:20:06,751 - assessment - INFO - ===== Calculating score for section: Data Principal Rights =====
+2025-03-17 15:20:06,751 - assessment - INFO - Question 1: Response = 'Yes, with clear, accessible channels: The organization provides straightforward and user-friendly methods for data principals to request access, correction, or erasure of their personal data, aligning with DPDP Act requirements.'
+2025-03-17 15:20:06,752 - assessment - INFO - Question 1: Points = 1.0
+2025-03-17 15:20:06,753 - assessment - INFO - Question 1: Adding 1.0 points, running total = 1.0/1
+2025-03-17 15:20:06,753 - assessment - INFO - Question 2: Response = 'Yes, with a dedicated web form: The organization provides a specific web form or feature on its website/portal that allows customers to easily submit requests to exercise their rights (e.g., access, correction, erasure).'
+2025-03-17 15:20:06,753 - assessment - INFO - Question 2: Points = 1.0
+2025-03-17 15:20:06,754 - assessment - INFO - Question 2: Adding 1.0 points, running total = 2.0/2
+2025-03-17 15:20:06,754 - assessment - INFO - Question 3: Response = 'Yes, with established processes and timelines: The organization has developed internal mechanisms to ensure timely responses to data principal requests, typically within the specified timeframe (e.g., 30 days).'
+2025-03-17 15:20:06,756 - assessment - INFO - Question 3: Points = 1.0
+2025-03-17 15:20:06,756 - assessment - INFO - Question 3: Adding 1.0 points, running total = 3.0/3
+2025-03-17 15:20:06,757 - assessment - INFO - Question 4: Response = 'Yes, with clear timelines displayed: The organization clearly publishes the response timeframe for addressing grievances on its website or app, ensuring transparency and compliance with DPDP Act requirements.'
+2025-03-17 15:20:06,757 - assessment - INFO - Question 4: Points = 1.0
+2025-03-17 15:20:06,758 - assessment - INFO - Question 4: Adding 1.0 points, running total = 4.0/4
+2025-03-17 15:20:06,758 - assessment - INFO - Question 5: Response = 'Yes, with clear nomination procedures: The organization provides a straightforward process for data principals to nominate representatives to exercise their rights, especially in cases of incapacity or death.'
+2025-03-17 15:20:06,759 - assessment - INFO - Question 5: Points = 1.0
+2025-03-17 15:20:06,759 - assessment - INFO - Question 5: Adding 1.0 points, running total = 5.0/5
+2025-03-17 15:20:06,760 - assessment - INFO - Section Data Principal Rights: total_points=5.0, max_points=5
+2025-03-17 15:20:06,761 - assessment - INFO - Section Data Principal Rights score = 100.0%
+2025-03-17 15:20:06,761 - assessment - INFO - Calculated section scores: {'Data Collection and Processing': 1.0, 'Data Principal Rights': 1.0}
+2025-03-17 15:20:06,762 - assessment - INFO - ===== Calculating weighted overall score =====
+2025-03-17 15:20:06,762 - assessment - INFO - Section 'Data Collection and Processing' weight = 0.5
+2025-03-17 15:20:06,762 - assessment - INFO - Section 'Data Collection and Processing' contribution: 100.0% × 0.50 = 50.00%
+2025-03-17 15:20:06,763 - assessment - INFO - Section 'Data Principal Rights' weight = 0.5
+2025-03-17 15:20:06,763 - assessment - INFO - Section 'Data Principal Rights' contribution: 100.0% × 0.50 = 50.00%
+2025-03-17 15:20:06,764 - assessment - INFO - Total weighted score: 1.0, Total weight: 1.0
+2025-03-17 15:20:06,764 - assessment - INFO - Raw overall score calculation: (1.0 / 1.0) * 100 = 100.0
+2025-03-17 15:20:06,764 - assessment - INFO - All sections have perfect scores, setting overall score to 100
+2025-03-17 15:20:06,765 - helpers - INFO - EVENT: section_completed - {"section": "Data Principal Rights"}
+2025-03-17 15:20:06,854 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:06,874 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:06,948 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:06,950 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:06,955 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:06,956 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:10,885 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:10,899 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:10,903 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:10,906 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:10,910 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:10,911 - assessment - INFO - Using cached questionnaire for DPDP/general
+2025-03-17 15:20:11,030 - helpers - INFO - Navigating to page: recommendations from report
+2025-03-17 15:22:42,240 - helpers - INFO - Admin token validated
+2025-03-17 18:50:41,844 - helpers - INFO - Admin token validated
+2025-03-17 18:50:45,589 - views - INFO - Starting new assessment for awdaw, regulation: DPDP, industry: New banking fin
+2025-03-17 18:50:45,592 - helpers - INFO - Navigating to page: assessment from welcome
+2025-03-17 18:50:45,719 - __main__ - INFO - Current responses count: 0
+2025-03-17 18:50:45,721 - assessment - INFO - Using cached questionnaire for DPDP/New banking fin
+2025-03-17 18:50:45,722 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-17 18:50:45,723 - __main__ - INFO - Question 1 response key s0_q0: missing
+2025-03-17 18:50:45,725 - __main__ - INFO - Question 2 response key s0_q1: missing
+2025-03-17 18:50:45,725 - __main__ - INFO - Question 3 response key s0_q2: missing
+2025-03-17 18:50:45,726 - __main__ - INFO - Question 4 response key s0_q3: missing
+2025-03-17 18:50:45,727 - __main__ - INFO - Question 5 response key s0_q4: missing
+2025-03-17 18:50:45,737 - assessment - INFO - Using cached questionnaire for DPDP/New banking fin
+2025-03-17 19:09:35,849 - helpers - INFO - Admin token validated
+2025-03-17 19:09:46,052 - helpers - INFO - Navigating to page: admin from welcome
+2025-03-17 19:09:46,263 - views - INFO - CSV Header: token,created_at,expires_at,organization_name,generated_by
+2025-03-17 19:09:46,312 - views - INFO - CSV columns detected: ['token', 'created_at', 'expires_at', 'organization_name', 'generated_by']
+2025-03-17 19:09:47,567 - helpers - INFO - Navigating to page: welcome from admin
+2025-03-17 19:09:50,098 - views - INFO - Starting new assessment for awd, regulation: DPDP, industry: New banking fin
+2025-03-17 19:09:50,101 - helpers - INFO - Navigating to page: assessment from welcome
+2025-03-17 19:09:50,292 - __main__ - INFO - Current responses count: 0
+2025-03-17 19:09:50,293 - assessment - INFO - Loading questionnaire for regulation: DPDP, industry: New banking fin
+2025-03-17 19:09:50,295 - assessment - INFO - Available questionnaire files for DPDP: ['New banking fin.json']
+2025-03-17 19:09:50,297 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\New banking fin.json
+2025-03-17 19:09:50,299 - assessment - INFO - Successfully loaded valid questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\New banking fin.json
+2025-03-17 19:09:50,301 - assessment - INFO - Section 1: 'Data Collection and Processing' with 5 questions
+2025-03-17 19:09:50,301 - assessment - INFO - Section 2: 'Data Principal Rights' with 5 questions
+2025-03-17 19:09:50,301 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-17 19:09:50,303 - __main__ - INFO - Question 1 response key s0_q0: missing
+2025-03-17 19:09:50,303 - __main__ - INFO - Question 2 response key s0_q1: missing
+2025-03-17 19:09:50,303 - __main__ - INFO - Question 3 response key s0_q2: missing
+2025-03-17 19:09:50,305 - __main__ - INFO - Question 4 response key s0_q3: missing
+2025-03-17 19:09:50,305 - __main__ - INFO - Question 5 response key s0_q4: missing
+2025-03-17 19:09:50,321 - assessment - INFO - Using cached questionnaire for DPDP/New banking fin

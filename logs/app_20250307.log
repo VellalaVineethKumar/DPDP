@@ -1,0 +1,134 @@
+2025-03-07 10:49:05,210 - utils - INFO - Navigating to page: admin
+2025-03-07 10:49:05,211 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 10:49:24,456 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 10:49:27,920 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 10:53:08,494 - utils - INFO - Navigating to page: admin
+2025-03-07 10:53:08,495 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 10:53:11,665 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 10:53:14,941 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 10:56:26,750 - utils - INFO - Navigating to page: admin
+2025-03-07 10:56:26,751 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 10:56:32,188 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 10:58:13,361 - utils - INFO - Navigating to page: admin
+2025-03-07 10:58:13,362 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 10:58:16,278 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 10:58:19,759 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 11:00:54,073 - utils - INFO - Navigating to page: admin
+2025-03-07 11:00:54,073 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:00:57,563 - token_storage - ERROR - Unexpected error adding token: not readable
+2025-03-07 11:02:15,525 - utils - INFO - Navigating to page: admin
+2025-03-07 11:02:15,525 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:02:17,917 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:11:25,127 - utils - INFO - Navigating to page: admin
+2025-03-07 11:11:25,128 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:11:28,159 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:12:56,866 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:14:10,953 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:23:47,598 - utils - INFO - Navigating to page: admin
+2025-03-07 11:23:47,599 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:23:51,025 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:24:18,061 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:24:18,708 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:24:18,869 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:24:19,284 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:24:19,425 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:24:19,581 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:24:31,415 - utils - INFO - Navigating to page: admin
+2025-03-07 11:24:31,416 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:24:33,685 - token_storage - ERROR - Cannot write to token file: not readable
+2025-03-07 11:29:12,121 - utils - INFO - Navigating to page: admin
+2025-03-07 11:29:12,123 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:29:15,862 - token_storage - ERROR - Cannot write to token file: can't do nonzero end-relative seeks
+2025-03-07 11:37:42,728 - utils - INFO - Navigating to page: admin
+2025-03-07 11:37:42,729 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:37:47,554 - utils - INFO - Navigating to page: dashboard
+2025-03-07 11:37:47,554 - utils - INFO - Event: navigation, Properties: {"destination": "dashboard"}
+2025-03-07 11:42:37,423 - utils - INFO - Assessment reset
+2025-03-07 11:42:37,423 - utils - INFO - Event: questionnaire_changed, Properties: {"regulation": "DPDP", "industry": "finance"}
+2025-03-07 11:42:37,424 - utils - INFO - Changed questionnaire to DPDP/finance
+2025-03-07 11:42:52,736 - utils - INFO - Event: assessment_started, Properties: {"organization": "Amazon", "regulation": "DPDP", "industry": "finance", "date": "2025-03-07"}
+2025-03-07 11:42:52,738 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:52,740 - utils - INFO - Navigating to page: assessment
+2025-03-07 11:42:52,740 - utils - INFO - Navigating to section 1 of 3
+2025-03-07 11:42:52,835 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:52,837 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:55,213 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:55,220 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:55,765 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:55,770 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:56,838 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:56,843 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:56,857 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:56,858 - utils - INFO - Navigating to page: assessment
+2025-03-07 11:42:56,859 - utils - INFO - Navigating to section 2 of 3
+2025-03-07 11:42:56,973 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:56,980 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:58,138 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:58,143 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:58,884 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:58,889 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:59,939 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:59,944 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:59,967 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:42:59,970 - utils - INFO - Navigating to page: assessment
+2025-03-07 11:42:59,972 - utils - INFO - Navigating to section 3 of 3
+2025-03-07 11:43:00,113 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:00,117 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:01,563 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:01,568 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:02,348 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:02,351 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:03,265 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:03,270 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:03,284 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:03,286 - utils - INFO - Assessment completed, calculating results
+2025-03-07 11:43:03,287 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:43:03,572 - data_storage - INFO - Saved assessment report for Amazon
+2025-03-07 11:43:03,572 - data_storage - INFO - Saved assessment data for Amazon to assessment_data\organizations\Amazon\assessment_20250307_114303.json
+2025-03-07 11:43:03,573 - utils - INFO - Navigating to page: report
+2025-03-07 11:43:03,719 - questionnaire_structure - INFO - Loaded questionnaire from C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Questionnaire\DPDP\finance.json
+2025-03-07 11:48:29,940 - utils - INFO - Navigating to page: dashboard
+2025-03-07 11:48:29,941 - utils - INFO - Event: navigation, Properties: {"destination": "dashboard"}
+2025-03-07 11:48:31,870 - utils - INFO - Navigating to page: dashboard
+2025-03-07 11:48:31,873 - utils - INFO - Event: navigation, Properties: {"destination": "dashboard"}
+2025-03-07 11:49:03,696 - utils - INFO - Navigating to page: admin
+2025-03-07 11:49:03,697 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 11:49:11,121 - utils - INFO - Navigating to page: dashboard
+2025-03-07 11:49:11,123 - utils - INFO - Event: navigation, Properties: {"destination": "dashboard"}
+2025-03-07 12:04:47,917 - utils - INFO - Navigating to page: admin
+2025-03-07 12:04:47,918 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 12:07:20,388 - utils - INFO - Navigating to page: admin
+2025-03-07 12:07:20,388 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 16:25:58,579 - utils - INFO - Navigating to page: admin
+2025-03-07 16:25:58,580 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 16:31:53,951 - utils - INFO - Navigating to page: admin
+2025-03-07 16:31:53,951 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 16:31:56,226 - token_storage - DEBUG - CSV Write Data: Organization='aaa', Token='DATAINFA_AAA_fd6161b5', Created='2025-03-07 16:31:56', Expires='None'
+2025-03-07 16:31:56,231 - utils - INFO - Event: token_generated, Properties: {"organization": "aaa"}
+2025-03-07 16:44:30,685 - utils - INFO - Navigating to page: admin
+2025-03-07 16:44:30,685 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 16:44:30,689 - __main__ - ERROR - Error in main application: name 'timedelta' is not defined
+Traceback (most recent call last):
+  File "C:\Users\vella\Downloads\DPDPAssesment\Modular_code\app.py", line 101, in main
+    render_admin_page()
+  File "C:\Users\vella\Downloads\DPDPAssesment\Modular_code\ui.py", line 542, in render_admin_page
+    expiry_date = datetime.now().date() + timedelta(days=5)
+                                          ^^^^^^^^^
+NameError: name 'timedelta' is not defined
+2025-03-07 16:46:52,504 - utils - INFO - Navigating to page: admin
+2025-03-07 16:46:52,505 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 16:47:01,089 - token_storage - DEBUG - CSV Write Data: Organization='india', Token='DATAINFA_INDIA_75c5e3c8', Created='2025-03-07 16:47:01', Expires='2025-03-07 16:47:01'
+2025-03-07 16:47:01,093 - utils - INFO - Event: token_generated, Properties: {"organization": "india"}
+2025-03-07 16:48:23,695 - landing - WARNING - Invalid token attempt at 2025-03-07 16:48:23.695839
+2025-03-07 16:48:34,353 - token_storage - INFO - Token DATAINFA_INDIA_75c5e3c8 has expired
+2025-03-07 16:48:34,353 - landing - WARNING - Invalid token attempt at 2025-03-07 16:48:34.353436
+2025-03-07 16:48:35,838 - token_storage - INFO - Token DATAINFA_INDIA_75c5e3c8 has expired
+2025-03-07 16:48:35,840 - landing - WARNING - Invalid token attempt at 2025-03-07 16:48:35.840735
+2025-03-07 16:49:00,169 - token_storage - INFO - Token DATAINFA_INFA_60dbe30a has expired
+2025-03-07 16:49:00,171 - landing - WARNING - Invalid token attempt at 2025-03-07 16:49:00.171334
+2025-03-07 16:49:14,717 - utils - INFO - Navigating to page: admin
+2025-03-07 16:49:14,718 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 16:51:19,037 - utils - INFO - Navigating to page: admin
+2025-03-07 16:51:19,039 - utils - INFO - Event: navigation, Properties: {"destination": "admin"}
+2025-03-07 16:51:38,218 - token_storage - DEBUG - CSV Write Data: Organization='DINFA', Token='DATAINFA_DINFA_1051f9f0', Created='2025-03-07 16:51:38', Expires='2025-03-12 16:51:38'
+2025-03-07 16:51:38,223 - utils - INFO - Event: token_generated, Properties: {"organization": "DINFA"}

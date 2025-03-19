@@ -1,0 +1,19 @@
+{
+  "overall_score": 100.0,
+  "compliance_level": "Compliant",
+  "section_scores": {
+    "Consent Management": null,
+    "Purpose Limitation": 1.0,
+    "Data Minimization": 1.0
+  },
+  "high_risk_areas": [],
+  "recommendations": {
+    "Purpose Limitation": [
+      "Regularly audit compliance with purpose limitation principles"
+    ],
+    "Data Minimization": [
+      "Continue regular reviews of data collection practices"
+    ]
+  },
+  "improvement_priorities": []
+}

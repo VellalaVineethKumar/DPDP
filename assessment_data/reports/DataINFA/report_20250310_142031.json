@@ -1,0 +1,25 @@
+{
+  "overall_score": 61.940298507462686,
+  "compliance_level": "Partially Compliant",
+  "section_scores": {
+    "Consent Management": null,
+    "Purpose Limitation": 0.25,
+    "Data Minimization": 1.0
+  },
+  "high_risk_areas": [
+    "Purpose Limitation"
+  ],
+  "recommendations": {
+    "Purpose Limitation": [
+      "Document all purposes for which personal data is processed",
+      "Implement controls to prevent data use beyond stated purposes",
+      "Review and revise data processing activities to ensure alignment with stated purposes"
+    ],
+    "Data Minimization": [
+      "Continue regular reviews of data collection practices"
+    ]
+  },
+  "improvement_priorities": [
+    "Purpose Limitation"
+  ]
+}
