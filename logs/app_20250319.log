@@ -16561,3 +16561,187 @@ TypeError: unsupported operand type(s) for *: 'NoneType' and 'int'
 2025-03-19 11:34:58,386 - __main__ - INFO - APP MAIN: Current selected industry is general
 2025-03-19 11:34:58,398 - helpers - INFO - Navigating to page: recommendations from dashboard
 2025-03-19 11:34:58,512 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:10,753 - helpers - INFO - Admin token validated
+2025-03-19 13:16:10,847 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:14,759 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:14,870 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:14,884 - views - INFO - Starting new assessment for wad, regulation: DPDP, industry: general
+2025-03-19 13:16:14,885 - helpers - INFO - Navigating to page: assessment from welcome
+2025-03-19 13:16:14,994 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:14,995 - __main__ - INFO - Current responses count: 0
+2025-03-19 13:16:14,997 - assessment - WARNING - TRACE: get_questionnaire called with 'general' industry from:    File "C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\app.py", line 189, in <module>
+    main()
+
+    File "C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\app.py", line 111, in main
+    questionnaire = get_questionnaire(
+
+
+2025-03-19 13:16:14,999 - assessment - INFO - Loading questionnaire for regulation: DPDP, industry: general
+2025-03-19 13:16:15,000 - assessment - INFO - Available questionnaire files for DPDP: ['Banking and finance.json', 'E-commerce.json']
+2025-03-19 13:16:15,005 - __main__ - INFO - Questionnaire has 13 total sections
+2025-03-19 13:16:15,006 - __main__ - INFO - All section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:15,007 - __main__ - INFO - Complete questionnaire structure: 13 sections
+2025-03-19 13:16:15,007 - __main__ - INFO - Section 1: Data Collection and Processing with 5 questions
+2025-03-19 13:16:15,008 - __main__ - INFO - Section 2: Data Principal Rights with 5 questions
+2025-03-19 13:16:15,008 - __main__ - INFO - Section 3: Data Security Measures with 5 questions
+2025-03-19 13:16:15,009 - __main__ - INFO - Section 4: Data Breach Notification with 3 questions
+2025-03-19 13:16:15,009 - __main__ - INFO - Section 5: Data Retention and Erasure with 4 questions
+2025-03-19 13:16:15,009 - __main__ - INFO - Section 6: Data Accuracy and Completeness with 2 questions
+2025-03-19 13:16:15,010 - __main__ - INFO - Section 7: Children's Data Protection with 3 questions
+2025-03-19 13:16:15,010 - __main__ - INFO - Section 8: Third-Party Processing with 2 questions
+2025-03-19 13:16:15,011 - __main__ - INFO - Section 9: Cross-Border Data Transfers with 3 questions
+2025-03-19 13:16:15,011 - __main__ - INFO - Section 10: Significant Data Fiduciary Obligations with 3 questions
+2025-03-19 13:16:15,011 - __main__ - INFO - Section 11: Grievance Redressal with 3 questions
+2025-03-19 13:16:15,012 - __main__ - INFO - Section 12: Exemptions with 2 questions
+2025-03-19 13:16:15,012 - __main__ - INFO - Section 13: Documentation and Compliance with 5 questions
+2025-03-19 13:16:15,012 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-19 13:16:15,013 - __main__ - INFO - Question 1 response key s0_q0: missing
+2025-03-19 13:16:15,013 - __main__ - INFO - Question 2 response key s0_q1: missing
+2025-03-19 13:16:15,013 - __main__ - INFO - Question 3 response key s0_q2: missing
+2025-03-19 13:16:15,014 - __main__ - INFO - Question 4 response key s0_q3: missing
+2025-03-19 13:16:15,014 - __main__ - INFO - Question 5 response key s0_q4: missing
+2025-03-19 13:16:15,024 - views - INFO - ENTERING render_assessment: industry=general
+2025-03-19 13:16:15,025 - views - INFO - Session state keys: ['last_checked_industry', 'nav_admin', 'nav_home', 'current_section', 'current_page', 'organization_name', 'authenticated', 'check_for_nulls', 'selected_regulation', 'nav_assessment', 'assessment_started', 'responses', 'assessment_complete', 'current_questionnaire', 'selected_industry', 'org_name_input', 'assessment_date', 'results', 'is_admin', 'assessment_ready']
+2025-03-19 13:16:15,026 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-03-19 13:16:15,027 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:31,917 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:31,918 - __main__ - INFO - Current responses count: 0
+2025-03-19 13:16:31,918 - __main__ - INFO - Questionnaire has 13 total sections
+2025-03-19 13:16:31,919 - __main__ - INFO - All section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:31,919 - __main__ - INFO - Complete questionnaire structure: 13 sections
+2025-03-19 13:16:31,919 - __main__ - INFO - Section 1: Data Collection and Processing with 5 questions
+2025-03-19 13:16:31,919 - __main__ - INFO - Section 2: Data Principal Rights with 5 questions
+2025-03-19 13:16:31,920 - __main__ - INFO - Section 3: Data Security Measures with 5 questions
+2025-03-19 13:16:31,920 - __main__ - INFO - Section 4: Data Breach Notification with 3 questions
+2025-03-19 13:16:31,920 - __main__ - INFO - Section 5: Data Retention and Erasure with 4 questions
+2025-03-19 13:16:31,920 - __main__ - INFO - Section 6: Data Accuracy and Completeness with 2 questions
+2025-03-19 13:16:31,921 - __main__ - INFO - Section 7: Children's Data Protection with 3 questions
+2025-03-19 13:16:31,921 - __main__ - INFO - Section 8: Third-Party Processing with 2 questions
+2025-03-19 13:16:31,921 - __main__ - INFO - Section 9: Cross-Border Data Transfers with 3 questions
+2025-03-19 13:16:31,921 - __main__ - INFO - Section 10: Significant Data Fiduciary Obligations with 3 questions
+2025-03-19 13:16:31,922 - __main__ - INFO - Section 11: Grievance Redressal with 3 questions
+2025-03-19 13:16:31,922 - __main__ - INFO - Section 12: Exemptions with 2 questions
+2025-03-19 13:16:31,922 - __main__ - INFO - Section 13: Documentation and Compliance with 5 questions
+2025-03-19 13:16:31,923 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-19 13:16:31,923 - __main__ - INFO - Question 1 response key s0_q0: missing
+2025-03-19 13:16:31,923 - __main__ - INFO - Question 2 response key s0_q1: missing
+2025-03-19 13:16:31,924 - __main__ - INFO - Question 3 response key s0_q2: missing
+2025-03-19 13:16:31,924 - __main__ - INFO - Question 4 response key s0_q3: missing
+2025-03-19 13:16:31,924 - __main__ - INFO - Question 5 response key s0_q4: missing
+2025-03-19 13:16:31,933 - views - INFO - ENTERING render_assessment: industry=general
+2025-03-19 13:16:31,934 - views - INFO - Session state keys: ['q_0_3', 'last_checked_industry', 'nav_admin', 'q_0_1', 'nav_home', 'current_section', 'current_page', 'scroll_to_top_input', 'apply_auto_fill', 'organization_name', 'assessment_started', 'authenticated', 'check_for_nulls', 'auto_fill_option', 'nav_assessment', 'selected_regulation', 'FormSubmitter:section_form_0-Next Section', 'assessment_complete', 'current_questionnaire', 'FormSubmitter:section_form_0-Previous Section', 'q_0_0', 'selected_industry', 'responses', 'q_0_2', 'assessment_date', 'results', 'is_admin', 'q_0_4', 'assessment_ready']
+2025-03-19 13:16:31,935 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-03-19 13:16:31,936 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:32,431 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:32,432 - __main__ - INFO - Current responses count: 0
+2025-03-19 13:16:32,432 - __main__ - INFO - Questionnaire has 13 total sections
+2025-03-19 13:16:32,433 - __main__ - INFO - All section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:32,433 - __main__ - INFO - Complete questionnaire structure: 13 sections
+2025-03-19 13:16:32,433 - __main__ - INFO - Section 1: Data Collection and Processing with 5 questions
+2025-03-19 13:16:32,433 - __main__ - INFO - Section 2: Data Principal Rights with 5 questions
+2025-03-19 13:16:32,434 - __main__ - INFO - Section 3: Data Security Measures with 5 questions
+2025-03-19 13:16:32,434 - __main__ - INFO - Section 4: Data Breach Notification with 3 questions
+2025-03-19 13:16:32,434 - __main__ - INFO - Section 5: Data Retention and Erasure with 4 questions
+2025-03-19 13:16:32,434 - __main__ - INFO - Section 6: Data Accuracy and Completeness with 2 questions
+2025-03-19 13:16:32,434 - __main__ - INFO - Section 7: Children's Data Protection with 3 questions
+2025-03-19 13:16:32,434 - __main__ - INFO - Section 8: Third-Party Processing with 2 questions
+2025-03-19 13:16:32,435 - __main__ - INFO - Section 9: Cross-Border Data Transfers with 3 questions
+2025-03-19 13:16:32,435 - __main__ - INFO - Section 10: Significant Data Fiduciary Obligations with 3 questions
+2025-03-19 13:16:32,435 - __main__ - INFO - Section 11: Grievance Redressal with 3 questions
+2025-03-19 13:16:32,435 - __main__ - INFO - Section 12: Exemptions with 2 questions
+2025-03-19 13:16:32,435 - __main__ - INFO - Section 13: Documentation and Compliance with 5 questions
+2025-03-19 13:16:32,435 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-19 13:16:32,436 - __main__ - INFO - Question 1 response key s0_q0: missing
+2025-03-19 13:16:32,436 - __main__ - INFO - Question 2 response key s0_q1: missing
+2025-03-19 13:16:32,436 - __main__ - INFO - Question 3 response key s0_q2: missing
+2025-03-19 13:16:32,437 - __main__ - INFO - Question 4 response key s0_q3: missing
+2025-03-19 13:16:32,437 - __main__ - INFO - Question 5 response key s0_q4: missing
+2025-03-19 13:16:32,445 - views - INFO - ENTERING render_assessment: industry=general
+2025-03-19 13:16:32,447 - views - INFO - Session state keys: ['q_0_3', 'last_checked_industry', 'nav_admin', 'q_0_1', 'nav_home', 'current_section', 'current_page', 'scroll_to_top_input', 'apply_auto_fill', 'organization_name', 'assessment_started', 'authenticated', 'check_for_nulls', 'auto_fill_option', 'nav_assessment', 'selected_regulation', 'FormSubmitter:section_form_0-Next Section', 'assessment_complete', 'current_questionnaire', 'FormSubmitter:section_form_0-Previous Section', 'q_0_0', 'selected_industry', 'responses', 'q_0_2', 'assessment_date', 'results', 'is_admin', 'q_0_4', 'assessment_ready']
+2025-03-19 13:16:32,447 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-03-19 13:16:32,448 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:32,566 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:32,567 - __main__ - INFO - Current responses count: 5
+2025-03-19 13:16:32,568 - __main__ - INFO - Questionnaire has 13 total sections
+2025-03-19 13:16:32,568 - __main__ - INFO - All section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:32,568 - __main__ - INFO - Complete questionnaire structure: 13 sections
+2025-03-19 13:16:32,568 - __main__ - INFO - Section 1: Data Collection and Processing with 5 questions
+2025-03-19 13:16:32,570 - __main__ - INFO - Section 2: Data Principal Rights with 5 questions
+2025-03-19 13:16:32,570 - __main__ - INFO - Section 3: Data Security Measures with 5 questions
+2025-03-19 13:16:32,570 - __main__ - INFO - Section 4: Data Breach Notification with 3 questions
+2025-03-19 13:16:32,571 - __main__ - INFO - Section 5: Data Retention and Erasure with 4 questions
+2025-03-19 13:16:32,571 - __main__ - INFO - Section 6: Data Accuracy and Completeness with 2 questions
+2025-03-19 13:16:32,571 - __main__ - INFO - Section 7: Children's Data Protection with 3 questions
+2025-03-19 13:16:32,571 - __main__ - INFO - Section 8: Third-Party Processing with 2 questions
+2025-03-19 13:16:32,572 - __main__ - INFO - Section 9: Cross-Border Data Transfers with 3 questions
+2025-03-19 13:16:32,572 - __main__ - INFO - Section 10: Significant Data Fiduciary Obligations with 3 questions
+2025-03-19 13:16:32,573 - __main__ - INFO - Section 11: Grievance Redressal with 3 questions
+2025-03-19 13:16:32,574 - __main__ - INFO - Section 12: Exemptions with 2 questions
+2025-03-19 13:16:32,574 - __main__ - INFO - Section 13: Documentation and Compliance with 5 questions
+2025-03-19 13:16:32,574 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-19 13:16:32,574 - __main__ - INFO - Question 1 response key s0_q0: exists
+2025-03-19 13:16:32,575 - __main__ - INFO - Question 2 response key s0_q1: exists
+2025-03-19 13:16:32,576 - __main__ - INFO - Question 3 response key s0_q2: exists
+2025-03-19 13:16:32,576 - __main__ - INFO - Question 4 response key s0_q3: exists
+2025-03-19 13:16:32,577 - __main__ - INFO - Question 5 response key s0_q4: exists
+2025-03-19 13:16:32,585 - views - INFO - ENTERING render_assessment: industry=general
+2025-03-19 13:16:32,587 - views - INFO - Session state keys: ['last_checked_industry', 'nav_admin', 'nav_home', 'current_section', 'current_page', 'scroll_to_top_input', 'apply_auto_fill', 'organization_name', 'assessment_started', 'authenticated', 'check_for_nulls', 'auto_fill_option', 'nav_assessment', 'selected_regulation', 'responses', 'assessment_complete', 'current_questionnaire', 'selected_industry', 'assessment_date', 'results', 'is_admin', 'assessment_ready']
+2025-03-19 13:16:32,588 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-03-19 13:16:32,588 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:34,518 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:34,519 - __main__ - INFO - Current responses count: 5
+2025-03-19 13:16:34,520 - __main__ - INFO - Questionnaire has 13 total sections
+2025-03-19 13:16:34,520 - __main__ - INFO - All section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:34,520 - __main__ - INFO - Complete questionnaire structure: 13 sections
+2025-03-19 13:16:34,520 - __main__ - INFO - Section 1: Data Collection and Processing with 5 questions
+2025-03-19 13:16:34,522 - __main__ - INFO - Section 2: Data Principal Rights with 5 questions
+2025-03-19 13:16:34,522 - __main__ - INFO - Section 3: Data Security Measures with 5 questions
+2025-03-19 13:16:34,522 - __main__ - INFO - Section 4: Data Breach Notification with 3 questions
+2025-03-19 13:16:34,523 - __main__ - INFO - Section 5: Data Retention and Erasure with 4 questions
+2025-03-19 13:16:34,523 - __main__ - INFO - Section 6: Data Accuracy and Completeness with 2 questions
+2025-03-19 13:16:34,523 - __main__ - INFO - Section 7: Children's Data Protection with 3 questions
+2025-03-19 13:16:34,524 - __main__ - INFO - Section 8: Third-Party Processing with 2 questions
+2025-03-19 13:16:34,524 - __main__ - INFO - Section 9: Cross-Border Data Transfers with 3 questions
+2025-03-19 13:16:34,524 - __main__ - INFO - Section 10: Significant Data Fiduciary Obligations with 3 questions
+2025-03-19 13:16:34,525 - __main__ - INFO - Section 11: Grievance Redressal with 3 questions
+2025-03-19 13:16:34,525 - __main__ - INFO - Section 12: Exemptions with 2 questions
+2025-03-19 13:16:34,526 - __main__ - INFO - Section 13: Documentation and Compliance with 5 questions
+2025-03-19 13:16:34,534 - __main__ - INFO - Current section 0 has 5 questions
+2025-03-19 13:16:34,534 - __main__ - INFO - Question 1 response key s0_q0: exists
+2025-03-19 13:16:34,535 - __main__ - INFO - Question 2 response key s0_q1: exists
+2025-03-19 13:16:34,535 - __main__ - INFO - Question 3 response key s0_q2: exists
+2025-03-19 13:16:34,535 - __main__ - INFO - Question 4 response key s0_q3: exists
+2025-03-19 13:16:34,536 - __main__ - INFO - Question 5 response key s0_q4: exists
+2025-03-19 13:16:34,545 - views - INFO - ENTERING render_assessment: industry=general
+2025-03-19 13:16:34,545 - views - INFO - Session state keys: ['q_0_4', 'last_checked_industry', 'nav_admin', 'nav_home', 'current_section', 'current_page', 'scroll_to_top_input', 'apply_auto_fill', 'organization_name', 'assessment_started', 'authenticated', 'check_for_nulls', 'auto_fill_option', 'nav_assessment', 'q_0_2', 'FormSubmitter:section_form_0-Next Section', 'assessment_complete', 'current_questionnaire', 'selected_regulation', 'FormSubmitter:section_form_0-Previous Section', 'selected_industry', 'responses', 'q_0_3', 'assessment_date', 'assessment_ready', 'results', 'is_admin', 'q_0_0', 'q_0_1']
+2025-03-19 13:16:34,546 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-03-19 13:16:34,546 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:34,587 - helpers - INFO - EVENT: section_completed - {"section": "Data Collection and Processing"}
+2025-03-19 13:16:34,683 - __main__ - INFO - APP MAIN: Current selected industry is general
+2025-03-19 13:16:34,683 - __main__ - INFO - Current responses count: 5
+2025-03-19 13:16:34,685 - __main__ - INFO - Questionnaire has 13 total sections
+2025-03-19 13:16:34,686 - __main__ - INFO - All section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-03-19 13:16:34,686 - __main__ - INFO - Complete questionnaire structure: 13 sections
+2025-03-19 13:16:34,687 - __main__ - INFO - Section 1: Data Collection and Processing with 5 questions
+2025-03-19 13:16:34,687 - __main__ - INFO - Section 2: Data Principal Rights with 5 questions
+2025-03-19 13:16:34,687 - __main__ - INFO - Section 3: Data Security Measures with 5 questions
+2025-03-19 13:16:34,688 - __main__ - INFO - Section 4: Data Breach Notification with 3 questions
+2025-03-19 13:16:34,688 - __main__ - INFO - Section 5: Data Retention and Erasure with 4 questions
+2025-03-19 13:16:34,689 - __main__ - INFO - Section 6: Data Accuracy and Completeness with 2 questions
+2025-03-19 13:16:34,689 - __main__ - INFO - Section 7: Children's Data Protection with 3 questions
+2025-03-19 13:16:34,690 - __main__ - INFO - Section 8: Third-Party Processing with 2 questions
+2025-03-19 13:16:34,690 - __main__ - INFO - Section 9: Cross-Border Data Transfers with 3 questions
+2025-03-19 13:16:34,691 - __main__ - INFO - Section 10: Significant Data Fiduciary Obligations with 3 questions
+2025-03-19 13:16:34,691 - __main__ - INFO - Section 11: Grievance Redressal with 3 questions
+2025-03-19 13:16:34,691 - __main__ - INFO - Section 12: Exemptions with 2 questions
+2025-03-19 13:16:34,692 - __main__ - INFO - Section 13: Documentation and Compliance with 5 questions
+2025-03-19 13:16:34,692 - __main__ - INFO - Current section 1 has 5 questions
+2025-03-19 13:16:34,693 - __main__ - INFO - Question 1 response key s1_q0: missing
+2025-03-19 13:16:34,694 - __main__ - INFO - Question 2 response key s1_q1: missing
+2025-03-19 13:16:34,694 - __main__ - INFO - Question 3 response key s1_q2: missing
+2025-03-19 13:16:34,695 - __main__ - INFO - Question 4 response key s1_q3: missing
+2025-03-19 13:16:34,695 - __main__ - INFO - Question 5 response key s1_q4: missing
+2025-03-19 13:16:34,704 - views - INFO - ENTERING render_assessment: industry=general
+2025-03-19 13:16:34,705 - views - INFO - Session state keys: ['q_0_4', 'form_validation_attempted', 'scroll_to_top', 'last_checked_industry', 'nav_admin', 'nav_home', 'current_section', 'current_page', 'scroll_to_top_input', 'apply_auto_fill', 'organization_name', 'assessment_started', 'authenticated', 'check_for_nulls', 'auto_fill_option', 'nav_assessment', 'q_0_2', 'FormSubmitter:section_form_0-Next Section', 'assessment_complete', 'current_questionnaire', 'selected_regulation', 'FormSubmitter:section_form_0-Previous Section', 'selected_industry', 'responses', 'q_0_3', 'assessment_date', 'assessment_ready', 'results', 'is_admin', 'q_0_0', 'q_0_1']
+2025-03-19 13:16:34,706 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-03-19 13:16:34,707 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
