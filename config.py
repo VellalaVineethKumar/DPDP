@@ -6,8 +6,8 @@ This module contains constants and settings used throughout the application.
 
 import os
 import logging
-from typing import Dict, List
-
+from typing import Dict, List, Optional
+logger = logging.getLogger(__name__)
 # Base directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -97,3 +97,24 @@ def map_industry_to_filename(regulation_code: str, industry_code: str) -> str:
     
     # Otherwise, use industry code as filename
     return industry_code
+
+# AI Report Generation settings
+# Replace functions with direct variables
+AI_ENABLED = True  # Enable AI report generation by default
+
+# Set the OpenRouter API key directly
+AI_API_KEY = "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"
+AI_PROVIDER = "openrouter"  # Changed to indicate we're using OpenRouter
+
+# Keep the getter functions for backward compatibility but implement them as simple accessors
+def get_ai_enabled():
+    """Get whether AI report generation is enabled"""
+    return AI_ENABLED
+
+def get_ai_api_key():
+    """Get the API key for AI services"""
+    return AI_API_KEY
+
+def get_ai_provider():
+    """Get the AI provider to use"""
+    return AI_PROVIDER

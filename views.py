@@ -9,10 +9,12 @@ import plotly.express as px
 from datetime import datetime, timedelta
 import logging
 import os
-import secrets
+import time
 import base64
 import json
 import traceback  # Add this import at the top
+from typing import Dict, List, Any, Optional, Tuple  # Add typing imports
+import markdown  # Add this import at the top with other imports
 
 import config
 # Update import: get reg/ind functions from config instead of assessment
@@ -159,9 +161,15 @@ def render_assessment():
     st.markdown('<div id="top-of-form"></div>', unsafe_allow_html=True)
     
     # Add a hidden control at the top with autoFocus to ensure page scrolls up
-    st.text_input("", value="", key="scroll_to_top_input", label_visibility="hidden", 
-                 help="This hidden element helps to scroll to the top of the page automatically", 
-                 autocomplete="off", disabled=True)
+    st.text_input(
+        label="Scroll to top",  # Add non-empty label
+        value="", 
+        key="scroll_to_top_input", 
+        label_visibility="hidden",
+        help="This hidden element helps to scroll to the top of the page automatically", 
+        autocomplete="off", 
+        disabled=True
+    )
     
     # Add JavaScript to scroll to top of page when loading a new section
     st.markdown("""
@@ -528,6 +536,34 @@ def render_assessment():
                 st.rerun()
 
 
+from nlg_report import generate_report
+
+def generate_natural_language_report(results: Dict[str, Any]) -> str:
+    """
+    Generate human-readable report using AI
+    
+    Args:
+        results: Assessment results dictionary containing scores and recommendations
+        
+    Returns:
+        A natural language summary of the assessment results
+    """
+    # Use the nlg_report module to generate the report
+    logger.info("Requesting AI report generation with the following configuration:")
+    logger.info(f"AI enabled: {config.get_ai_enabled()}")
+    logger.info(f"API key available: {'Yes' if config.get_ai_api_key() else 'No'}")
+    logger.info(f"API provider: {config.get_ai_provider()}")
+    
+    # Record timing information
+    start_time = time.time()
+    report = generate_report(results, use_external_api=config.get_ai_enabled())
+    duration = time.time() - start_time
+    
+    logger.info(f"Report generation completed in {duration:.2f} seconds")
+    logger.info(f"Report length: {len(report)} characters")
+    
+    return report
+
 def render_report():
     """Render the compliance report"""
     if not st.session_state.assessment_complete:
@@ -815,15 +851,15 @@ def render_report():
         )
         st.markdown(excel_link, unsafe_allow_html=True)
     
-    # High risk areas
-    if results["high_risk_areas"]:
-        st.subheader("High Risk Areas")
-        for area in results["high_risk_areas"]:
-            score = results["section_scores"][area] * 100
-            st.error(f"{area} ({score:.1f}%)", icon="🚨")
-    else:
-        st.subheader("No High Risk Areas")
-        st.success("All sections have acceptable compliance levels", icon="✅")
+    # # High risk areas
+    # if results["high_risk_areas"]:
+    #     st.subheader("High Risk Areas")
+    #     for area in results["high_risk_areas"]:
+    #         score = results["section_scores"][area] * 100
+    #         st.error(f"{area} ({score:.1f}%)", icon="🚨")
+    # else:
+    #     st.subheader("No High Risk Areas")
+    #     st.success("All sections have acceptable compliance levels", icon="✅")
     
     # Section scores - SECOND INSTANCE (change the title to be more descriptive)
     st.subheader("Section Scores Visualization")  # Changed from "Section Compliance Scores"
@@ -892,6 +928,51 @@ def render_report():
     if st.button("View All Recommendations", type="primary"):
         go_to_page('recommendations')
         track_event("navigation", {"destination": "recommendations"})
+
+    # Add tabs before accessing tab1
+    tabs = st.tabs(["AI Summary", "Detailed Scores", "Recommendations"])
+    
+    with tabs[0]:  # AI Summary tab
+        # Show AI loading indicator
+        with st.spinner("Generating detailed analysis..."):
+            # Get organization name and date
+            org_name = st.session_state.get("organization_name", "Your Organization")
+            assessment_date = st.session_state.get("assessment_date", datetime.now().strftime("%Y-%m-%d"))
+            
+            # Generate report - now returns plain text
+            ai_report = generate_natural_language_report(st.session_state.results)
+            
+            # Replace placeholders
+            ai_report = ai_report.replace("[Insert Date]", assessment_date)
+            ai_report = ai_report.replace("[Insert Organization Name]", org_name)
+            
+            # Display the report using Streamlit's native markdown
+            st.markdown(ai_report)
+
+            # Add download button for the report
+            if ai_report:
+                col1, col2 = st.columns([3, 1])
+                with col1:
+                    st.download_button(
+                        label="📥 Download Report",
+                        data=ai_report,
+                        file_name=f"compliance_report_{datetime.now().strftime('%Y%m%d')}.txt",
+                        mime="text/plain",
+                        help="Download the report as a text file"
+                    )
+                with col2:
+                    if st.button("🔄 Regenerate Analysis"):
+                        st.session_state.ai_report_generated = False
+                        st.rerun()
+
+    # Add content for other tabs
+    with tabs[1]:
+        st.write("Detailed scores will be shown here")
+        # Add detailed scores visualization
+
+    with tabs[2]:
+        st.write("Recommendations will be shown here")
+        # Add recommendations content
 
 def render_recommendations():
     """Render the detailed recommendations page"""
@@ -962,7 +1043,7 @@ def render_recommendations():
             priority_emoji = "🔴" if priority == "high" else ("🟠" if priority == "medium" else "🟢")
             
             with st.expander(f"{priority_emoji} {section} - {len(contexts)} recommendations"):
-                for context in contexts:
+                for context in contexts:  # Fixed missing 'in contexts'
                     st.markdown(f"##### Question {context['question_id']}")
                     st.write(f"**Q:** {context['question_text']}")
                     st.write(f"**Your Response:** {context['response']}")

@@ -881,18 +881,17 @@
     "Not applicable: This option might apply if your organization does not handle personal data or if such training is not relevant to your operations.": null,
     "Not applicable: This option might apply if your organization does not handle personal data or if staying updated on data protection regulations is not relevant to your operations.": null,
     
-    "The Processes are in place, but they are not strictly time-bound: The organization has procedures for notifying the Data Protection Board, but they do not strictly adhere to the 72-hour deadline.":null,
+    "The Processes are in place, but they are not strictly time-bound: The organization has procedures for notifying the Data Protection Board, but they do not strictly adhere to the 72-hour deadline.":0,
 
-    "Manual processes are in place, but they are effective: The organization uses manual processes for erasing personal data, which are effective but may not be as efficient as automated systems.":null,
+    "Manual processes are in place, but they are effective: The organization uses manual processes for erasing personal data, which are effective but may not be as efficient as automated systems.":0,
 
-    "The Manual processes are in place, but they are effective: The organization uses manual processes for erasing personal data, which are effective but may not be as efficient as automated systems.":null,
+    "The Manual processes are in place, but they are effective: The organization uses manual processes for erasing personal data, which are effective but may not be as efficient as automated systems.":0,
 
-    "Manual processes are in place, but they are effective: The organization uses manual processes to notify customers, which are effective but may not always ensure timely notice.":null,
+    "Manual processes are in place, but they are effective: The organization uses manual processes to notify customers, which are effective but may not always ensure timely notice.":0,
 
-    "Manual processes are in place, but they are effective: The organization uses manual processes for data erasure, which are effective but may not be as efficient or compliant with recognized standards as automated solutions.":null,
+    "Manual processes are in place, but they are effective: The organization uses manual processes for data erasure, which are effective but may not be as efficient or compliant with recognized standards as automated solutions.":0,
 
-    "Manual tracking is used instead of automated logs: The organization relies on manual methods or basic tracking systems for monitoring database changes, which may not be as efficient or reliable as automated audit logs.":null
-  
+    "Manual tracking is used instead of automated logs: The organization relies on manual methods or basic tracking systems for monitoring database changes, which may not be as efficient or reliable as automated audit logs.":0
   }
 }
 

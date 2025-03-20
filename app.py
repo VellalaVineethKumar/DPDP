@@ -11,7 +11,23 @@ import streamlit as st
 import logging
 import os
 from datetime import datetime
+import sys
+from dotenv import load_dotenv  # Make sure python-dotenv is installed
 
+# Load environment variables from .env file if it exists
+env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+if os.path.exists(env_path):
+    load_dotenv(env_path)
+    logging.info(f"Loaded environment variables from {env_path}")
+
+# Check for API key and log its availability (without revealing the key)
+api_key = os.environ.get("COMPLIANCE_AI_API_KEY")
+if api_key:
+    logging.info(f"OpenAI API key found in environment variables: {api_key[:4]}...")
+else:
+    logging.info("OpenAI API key not found in environment variables, will check for file storage")
+
+# Continue with the rest of the imports and application setup
 import config
 from helpers import initialize_session_state, validate_token
 from views import (
@@ -81,6 +97,20 @@ else:
     def main():
         """Main application function that renders the appropriate page"""
         try:
+            # Add detailed logging for industry changes
+            if 'selected_industry' in st.session_state:
+                current_industry = st.session_state.selected_industry
+                previous_industry = getattr(st.session_state, 'last_checked_industry', None)
+                
+                if previous_industry and current_industry != previous_industry:
+                    logger.info(f"Industry changed from '{previous_industry}' to '{current_industry}'")
+                    # Force questionnaire reload on industry change
+                    if 'current_questionnaire' in st.session_state:
+                        del st.session_state.current_questionnaire
+                        logger.info("Cleared questionnaire cache due to industry change")
+                
+                st.session_state.last_checked_industry = current_industry
+
             # DEBUGGING: Add questionnaire verification on every page load
             if 'selected_industry' in st.session_state:
                 logger.info(f"APP MAIN: Current selected industry is {st.session_state.selected_industry}")
