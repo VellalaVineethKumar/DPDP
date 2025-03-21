@@ -6,7 +6,6 @@ This module contains constants and settings used throughout the application.
 
 import os
 import sys
-import streamlit as st
 import logging
 from typing import Dict, List, Optional
 
@@ -23,6 +22,7 @@ else:
 # Use absolute paths for questionnaires directory
 QUESTIONNAIRE_DIR = os.path.join(BASE_DIR, "Questionnaire")
 DATA_DIR = os.path.join(BASE_DIR, "data")
+LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo.png")
 
 # Ensure critical directories exist
 for directory in [QUESTIONNAIRE_DIR, os.path.join(BASE_DIR, "data"), os.path.join(BASE_DIR, "secure")]:
@@ -151,40 +151,11 @@ AI_PROVIDER = "openrouter"
 # OpenRouter API key with bearer prefix
 AI_API_KEY = "Bearer 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"
 
-# Update logo path handling with debug logs
-def get_logo_path():
-    """Get absolute path to logo file with debug logging"""
-    logo_paths = [
-        os.path.join(BASE_DIR, "assets", "logo.png"),
-        os.path.join(BASE_DIR, "logo.png"),
-        os.path.join(os.path.dirname(BASE_DIR), "assets", "logo.png")
-    ]
-    
-    for path in logo_paths:
-        logger.info(f"Checking logo path: {path}")
-        if os.path.exists(path):
-            logger.info(f"Found logo at: {path}")
-            return path
-            
-    logger.warning("Logo file not found in any location")
-    return None
-
-LOGO_PATH = get_logo_path()
-
-# Update API configuration to use Streamlit secrets
 def get_ai_api_key():
-    """Get API key from Streamlit secrets or environment"""
-    try:
-        # Try Streamlit secrets first
-        api_key = st.secrets["openrouter_api_key"]
-        logger.info("Using API key from Streamlit secrets")
-    except Exception:
-        # Fall back to environment variable
-        api_key = os.environ.get("OPENROUTER_API_KEY", AI_API_KEY)
-        logger.info("Using API key from environment/config")
-    
-    return api_key.replace("Bearer ", "") if api_key and api_key.startswith("Bearer ") else api_key
+    """Get the API key for AI services"""
+    return AI_API_KEY.replace("Bearer ", "") if AI_API_KEY and AI_API_KEY.startswith("Bearer ") else AI_API_KEY
 
+# Update the getter function to handle missing keys better
 def get_ai_enabled():
     """Get whether AI report generation is enabled"""
     return AI_ENABLED

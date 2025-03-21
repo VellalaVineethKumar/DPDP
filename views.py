@@ -50,23 +50,12 @@ logger = logging.getLogger(__name__)
 
 # Base64 logo function (moved from landing.py)
 def get_base64_logo():
-    """Get base64 encoded logo with better error handling"""
-    try:
-        if not config.LOGO_PATH:
-            logger.warning("No logo path configured")
-            return ""
-            
-        if not os.path.exists(config.LOGO_PATH):
-            logger.error(f"Logo file not found at: {config.LOGO_PATH}")
-            return ""
-            
-        with open(config.LOGO_PATH, "rb") as img_file:
-            encoded = base64.b64encode(img_file.read()).decode()
-            logger.info("Successfully loaded and encoded logo")
-            return encoded
-    except Exception as e:
-        logger.error(f"Error loading logo: {str(e)}")
-        return ""
+    """Get base64 encoded logo"""
+    logo_path = config.LOGO_PATH
+    if os.path.exists(logo_path):
+        with open(logo_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    return ""
 
 def render_header():
     """Render the application header"""
@@ -1510,18 +1499,14 @@ def render_admin_page():
 def render_sidebar():
     """Render the application sidebar"""
     with st.sidebar:
-        # Logo with debug info
+        # Logo container
         logo_base64 = get_base64_logo()
         if logo_base64:
             st.markdown(f"""
                 <div class='logo-container'>
-                    <img src="data:image/png;base64,{logo_base64}" 
-                         style='width: 200px; display: block; margin: 0 auto;'>
+                    <img src="data:image/jpeg;base64,{logo_base64}" style='width: 200px; display: block; margin: 0 auto;'>
                 </div>
             """, unsafe_allow_html=True)
-        else:
-            st.warning("Logo not available")
-            logger.warning("Logo not rendered in sidebar")
         
         # Apply custom CSS for navigation menu
         st.markdown(get_sidebar_css(), unsafe_allow_html=True)
