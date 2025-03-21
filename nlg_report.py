@@ -7,7 +7,6 @@ Returns properly formatted reports with headings, bullet points, sections, and p
 import logging
 from typing import Dict, Any, List, Optional
 import time
-import html2text
 
 import config
 
