@@ -5,12 +5,8 @@ Returns properly formatted reports with headings, bullet points, sections, and p
 """
 
 import logging
-import os
-import json
-import requests
 from typing import Dict, Any, List, Optional
 import time
-import markdown
 import html2text
 
 import config

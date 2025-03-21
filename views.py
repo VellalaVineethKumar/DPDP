@@ -14,7 +14,6 @@ import base64
 import json
 import traceback  # Add this import at the top
 from typing import Dict, List, Any, Optional, Tuple  # Add typing imports
-import markdown  # Add this import at the top with other imports
 
 import config
 # Update import: get reg/ind functions from config instead of assessment
