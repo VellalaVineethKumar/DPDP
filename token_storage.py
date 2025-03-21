@@ -23,6 +23,9 @@ TOKEN_EXPIRY_DAYS = 30
 SECURE_DIR = os.path.join(BASE_DIR, "secure")
 TOKENS_FILE = os.path.join(SECURE_DIR, "tokens.csv")
 
+# Also expose TOKEN_PATH for backwards compatibility
+TOKEN_PATH = TOKENS_FILE
+
 # Ensure secure directory exists
 os.makedirs(SECURE_DIR, exist_ok=True)
 

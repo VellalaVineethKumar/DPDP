@@ -21,8 +21,7 @@ from token_storage import (
     ensure_token_storage,
     validate_token as ts_validate_token,
     get_organization_for_token,
-    TOKEN_PATH,
-    TOKEN_DIR,
+    TOKENS_FILE as TOKEN_PATH,  # Use TOKENS_FILE instead of TOKEN_PATH
     generate_token as ts_generate_token,  # Changed from add_token to generate_token
     cleanup_expired_tokens as ts_cleanup_expired_tokens
 )
