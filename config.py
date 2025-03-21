@@ -5,22 +5,28 @@ This module contains constants and settings used throughout the application.
 """
 
 import os
+import sys
+import streamlit as st
 import logging
 from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
-# Get absolute path of this file's directory, regardless of where it's run from
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Get absolute path of the application root
+if getattr(sys, 'frozen', False):
+    # Running as bundled executable
+    BASE_DIR = os.path.dirname(sys.executable)
+else:
+    # Running from source
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Use relative paths from BASE_DIR
+# Use absolute paths for questionnaires directory
 QUESTIONNAIRE_DIR = os.path.join(BASE_DIR, "Questionnaire")
 DATA_DIR = os.path.join(BASE_DIR, "data")
-LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo.png")
 
-# Ensure required directories exist
-os.makedirs(DATA_DIR, exist_ok=True)
-os.makedirs(os.path.join(BASE_DIR, "secure"), exist_ok=True)
+# Ensure critical directories exist
+for directory in [QUESTIONNAIRE_DIR, os.path.join(BASE_DIR, "data"), os.path.join(BASE_DIR, "secure")]:
+    os.makedirs(directory, exist_ok=True)
 os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
 
 # App settings
@@ -37,12 +43,14 @@ REGULATIONS = {
 
 # Industry-to-filename mapping
 # This maps industry codes to their corresponding JSON filenames (without the .json extension)
+# Case-insensitive industry mapping
 INDUSTRY_FILENAME_MAP = {
     "DPDP": {
         "general": "Banking and finance",
         "banking": "Banking and finance",
-        "ecommerce": "E-commerce",
+        "banking and finance": "Banking and finance",
         "e-commerce": "E-commerce",
+        "ecommerce": "E-commerce",
         "new": "Banking and finance",
         "new banking fin": "Banking and finance"
     }
@@ -105,6 +113,37 @@ def map_industry_to_filename(regulation_code: str, industry_code: str) -> str:
     # Otherwise, use industry code as filename
     return industry_code
 
+def get_questionnaire_path(regulation: str, industry: str) -> str:
+    """Get full path to questionnaire file with fallback options"""
+    try:
+        regulation = regulation.strip().upper()
+        industry = industry.strip().lower()
+        
+        # Get mapped filename
+        filename = INDUSTRY_FILENAME_MAP.get(regulation, {}).get(industry)
+        if not filename:
+            filename = f"{industry}.json"
+            
+        file_path = os.path.join(QUESTIONNAIRE_DIR, regulation, filename)
+        
+        # Check for case-insensitive match if file doesn't exist
+        if not os.path.exists(file_path):
+            dir_path = os.path.join(QUESTIONNAIRE_DIR, regulation)
+            if os.path.exists(dir_path):
+                files = os.listdir(dir_path)
+                for f in files:
+                    if f.lower() == filename.lower():
+                        return os.path.join(dir_path, f)
+                        
+            # Fall back to default questionnaire
+            return os.path.join(QUESTIONNAIRE_DIR, regulation, "Banking and finance.json")
+            
+        return file_path
+        
+    except Exception as e:
+        logger.error(f"Error getting questionnaire path: {str(e)}")
+        return os.path.join(QUESTIONNAIRE_DIR, regulation, "Banking and finance.json")
+
 # AI Report Generation settings
 AI_ENABLED = True
 AI_PROVIDER = "openrouter"
@@ -112,11 +151,40 @@ AI_PROVIDER = "openrouter"
 # OpenRouter API key with bearer prefix
 AI_API_KEY = "Bearer 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"
 
-def get_ai_api_key():
-    """Get the API key for AI services"""
-    return AI_API_KEY.replace("Bearer ", "") if AI_API_KEY and AI_API_KEY.startswith("Bearer ") else AI_API_KEY
+# Update logo path handling with debug logs
+def get_logo_path():
+    """Get absolute path to logo file with debug logging"""
+    logo_paths = [
+        os.path.join(BASE_DIR, "assets", "logo.png"),
+        os.path.join(BASE_DIR, "logo.png"),
+        os.path.join(os.path.dirname(BASE_DIR), "assets", "logo.png")
+    ]
+    
+    for path in logo_paths:
+        logger.info(f"Checking logo path: {path}")
+        if os.path.exists(path):
+            logger.info(f"Found logo at: {path}")
+            return path
+            
+    logger.warning("Logo file not found in any location")
+    return None
 
-# Update the getter function to handle missing keys better
+LOGO_PATH = get_logo_path()
+
+# Update API configuration to use Streamlit secrets
+def get_ai_api_key():
+    """Get API key from Streamlit secrets or environment"""
+    try:
+        # Try Streamlit secrets first
+        api_key = st.secrets["openrouter_api_key"]
+        logger.info("Using API key from Streamlit secrets")
+    except Exception:
+        # Fall back to environment variable
+        api_key = os.environ.get("OPENROUTER_API_KEY", AI_API_KEY)
+        logger.info("Using API key from environment/config")
+    
+    return api_key.replace("Bearer ", "") if api_key and api_key.startswith("Bearer ") else api_key
+
 def get_ai_enabled():
     """Get whether AI report generation is enabled"""
     return AI_ENABLED

@@ -44,99 +44,51 @@ logger = logging.getLogger(__name__)
 # Add a cache for questionnaires to avoid repeated loading
 _questionnaire_cache = {}
 
-def get_questionnaire(regulation_code: str, industry_code: str) -> Dict[str, Any]:
-    """
-    Get the questionnaire for a specific regulation and industry
-    
-    Args:
-        regulation_code: Code for the regulation (e.g., DPDP, GDPR)
-        industry_code: Code for the industry (e.g., banking, healthcare)
-        
-    Returns:
-        Dictionary containing the questionnaire
-    """
-    # Check if there's a stored questionnaire in the session state - important for consistency
-    if hasattr(st.session_state, 'current_questionnaire') and not hasattr(st.session_state, 'clear_questionnaire_cache'):
-        return st.session_state.current_questionnaire
-        
-    # Record where this is being called from for debugging
-    stack_info = ''.join([f"  {x}\n" for x in traceback.format_stack()[-3:-1]])
-    logger.warning(f"TRACE: get_questionnaire called with '{industry_code}' industry from:{stack_info}")
-    
-    # Check if we need to map industry_code to a different filename (from config.py)
-    industry_filename = config.map_industry_to_filename(regulation_code, industry_code)
-    
-    # Prepare file path 
-    file_path = os.path.join(config.QUESTIONNAIRE_DIR, regulation_code, f"{industry_filename}.json")
-    logger.info(f"Loading questionnaire for regulation: {regulation_code}, industry: {industry_code}")
-    
-    # List available questionnaire files for this regulation
-    regulation_dir = os.path.join(config.QUESTIONNAIRE_DIR, regulation_code)
-    if os.path.isdir(regulation_dir):
-        available_files = [f for f in os.listdir(regulation_dir) if f.endswith('.json')]
-        logger.info(f"Available questionnaire files for {regulation_code}: {available_files}")
-    else:
-        available_files = []
-        logger.warning(f"Regulation directory not found: {regulation_dir}")
-    
-    # If file doesn't exist, try default questionnaire instead of creating fallback
-    if not os.path.exists(file_path):
-        logger.error(f"Failed to find questionnaire file for {regulation_code}/{industry_code}")
-        logger.error(f"Questionnaire file not found at {file_path}")
-        
-        # Try to use Banking and finance as default for DPDP
-        if regulation_code == "DPDP" and available_files:
-            default_file = "Banking and finance.json"
-            if default_file in available_files:
-                logger.warning(f"Using '{default_file}' instead of creating fallback questionnaire")
-                file_path = os.path.join(regulation_dir, default_file)
-            else:
-                # Use the first available file if Banking and finance doesn't exist
-                logger.warning(f"Using '{available_files[0]}' instead of creating fallback questionnaire")
-                file_path = os.path.join(regulation_dir, available_files[0])
-                
-            # If we're using a different file, update the industry code in session state
-            actual_industry = os.path.splitext(os.path.basename(file_path))[0]
-            if hasattr(st.session_state, 'selected_industry') and st.session_state.selected_industry != actual_industry:
-                logger.warning(f"Updating session state industry from '{industry_code}' to '{actual_industry}'")
-                st.session_state.selected_industry = actual_industry
-                
-            # Try to load the file
-            try:
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    questionnaire = json.load(file)
-                logger.info(f"Successfully loaded alternative questionnaire: {file_path}")
-                
-                # Store in session state
-                st.session_state.current_questionnaire = questionnaire
-                if hasattr(st.session_state, 'clear_questionnaire_cache'):
-                    delattr(st.session_state, 'clear_questionnaire_cache')
-                
-                return questionnaire
-            except Exception as e:
-                logger.error(f"Error loading alternative questionnaire: {e}")
-        
-        # If we can't find a suitable alternative, create fallback
-        logger.warning(f"Creating minimal fallback questionnaire for {regulation_code}/{industry_code}")
-        logger.warning(f"Fallback triggered from: {traceback.format_stack()[-3:-1]}")
-        return create_fallback_questionnaire(regulation_code, industry_code)
-
-    # Load questionnaire from file
+def get_questionnaire(regulation: str, industry: str) -> dict:
+    """Load questionnaire from file with robust error handling"""
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            questionnaire = json.load(file)
+        # Convert inputs to lowercase for consistent handling
+        regulation = regulation.strip().upper()
+        industry = industry.strip().lower()
         
-        # Store in session state for reuse
-        st.session_state.current_questionnaire = questionnaire
-        if hasattr(st.session_state, 'clear_questionnaire_cache'):
-            delattr(st.session_state, 'clear_questionnaire_cache')
+        # Get list of available questionnaire files
+        reg_dir = os.path.join(config.QUESTIONNAIRE_DIR, regulation)
+        if not os.path.exists(reg_dir):
+            logger.error(f"Regulation directory not found: {reg_dir}")
+            raise FileNotFoundError(f"Regulation {regulation} not found")
             
-        return questionnaire
+        json_files = [f.lower() for f in os.listdir(reg_dir) if f.endswith('.json')]
+        
+        # Try different filename variations
+        possible_filenames = [
+            f"{industry}.json",
+            f"{industry.replace(' ', '_')}.json",
+            f"{industry.replace('_', ' ')}.json",
+            "banking and finance.json",  # Default fallback
+        ]
+        
+        found_file = None
+        for filename in possible_filenames:
+            if filename.lower() in json_files:
+                found_file = next(f for f in os.listdir(reg_dir) if f.lower() == filename.lower())
+                break
+                
+        if not found_file:
+            logger.error(f"Could not find questionnaire file for {industry} industry")
+            # Fall back to default questionnaire
+            found_file = "Banking and finance.json"
+            
+        file_path = os.path.join(reg_dir, found_file)
+        logger.info(f"Loading questionnaire from: {file_path}")
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            questionnaire = json.load(f)
+            return questionnaire
+            
     except Exception as e:
-        logger.error(f"Failed to load questionnaire: {str(e)}", exc_info=True)
-        logger.warning(f"Creating fallback questionnaire for {regulation_code}/{industry_code}")
-        logger.warning(f"Fallback triggered from: {traceback.format_stack()[-3:-1]}")
-        return create_fallback_questionnaire(regulation_code, industry_code)
+        logger.error(f"Error loading questionnaire: {str(e)}", exc_info=True)
+        # Return empty questionnaire structure as fallback
+        return {"sections": []}
 
 def create_fallback_questionnaire(regulation_code: str, industry_code: str) -> Dict[str, Any]:
     """Create a fallback questionnaire when the requested one cannot be loaded"""
