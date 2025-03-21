@@ -11,22 +11,25 @@ import json
 import os
 import logging
 from typing import Dict, List, Any, Optional
+from config import BASE_DIR, QUESTIONNAIRE_DIR
 
 # Setup logging
 logger = logging.getLogger(__name__)
 
-def load_questionnaire(regulation_code: str, industry_code: str) -> Dict[str, Any]:
-    """Load a questionnaire file for a specific regulation and industry"""
-    try:
-        base_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "Questionnaire",
-            regulation_code
-        )
-        
-        # Try industry-specific questionnaire first
-        file_path = os.path.join(base_path, f"{industry_code}.json")
+def load_questionnaire(regulation: str, industry: str) -> dict:
+    """Load questionnaire from file with more robust path handling"""
+    # Clean input to prevent path traversal
+    regulation = ''.join(c for c in regulation if c.isalnum())
+    industry = ''.join(c for c in industry if c.isalnum())
+    
+    # Construct path relative to questionnaire directory
+    file_path = os.path.join(QUESTIONNAIRE_DIR, regulation, f"{industry}.json")
+    
+    # Verify the path is still within QUESTIONNAIRE_DIR
+    if not os.path.abspath(file_path).startswith(os.path.abspath(QUESTIONNAIRE_DIR)):
+        raise ValueError("Invalid questionnaire path")
 
+    try:
         # Use less verbose logging
         logger.debug(f"Attempting to load questionnaire from {file_path}")
         

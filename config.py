@@ -7,14 +7,21 @@ This module contains constants and settings used throughout the application.
 import os
 import logging
 from typing import Dict, List, Optional
+
 logger = logging.getLogger(__name__)
-# Base directory
+
+# Get absolute path of this file's directory, regardless of where it's run from
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Paths
+# Use relative paths from BASE_DIR
 QUESTIONNAIRE_DIR = os.path.join(BASE_DIR, "Questionnaire")
 DATA_DIR = os.path.join(BASE_DIR, "data")
 LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo.png")
+
+# Ensure required directories exist
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(os.path.join(BASE_DIR, "secure"), exist_ok=True)
+os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
 
 # App settings
 APP_TITLE = "Compliance Assessment Tool"

@@ -13,12 +13,13 @@ from datetime import datetime
 import logging
 import pandas as pd
 from typing import Dict, Any, Optional
+from config import BASE_DIR
 
 # Setup logging
 logger = logging.getLogger(__name__)
 
 # Constants
-DATA_DIR = 'assessment_data'
+DATA_DIR = os.path.join(BASE_DIR, "data")
 ORG_DATA_DIR = os.path.join(DATA_DIR, 'organizations')
 REPORTS_DIR = os.path.join(DATA_DIR, 'reports')
 
@@ -32,7 +33,9 @@ def get_org_directory(org_name: str) -> str:
     """Get the directory path for an organization's data"""
     # Sanitize organization name for filesystem
     safe_name = ''.join(c for c in org_name if c.isalnum() or c in (' ', '-', '_')).strip()
-    return os.path.join(ORG_DATA_DIR, safe_name)
+    org_dir = os.path.join(ORG_DATA_DIR, safe_name)
+    os.makedirs(org_dir, exist_ok=True)
+    return org_dir
 
 def save_assessment_data(data: Dict[str, Any]) -> bool:
     """Save assessment data for an organization

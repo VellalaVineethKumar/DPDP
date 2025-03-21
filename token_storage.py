@@ -12,6 +12,7 @@ import secrets
 import logging
 from datetime import datetime, timedelta
 from typing import Optional, Tuple
+from config import BASE_DIR
 
 # Setup logging
 logger = logging.getLogger(__name__)
@@ -19,9 +20,11 @@ logger = logging.getLogger(__name__)
 # Constants
 TOKEN_LENGTH = 32
 TOKEN_EXPIRY_DAYS = 30
-TOKEN_FILE = 'tokens.csv'
-TOKEN_DIR = 'secure'
-TOKEN_PATH = os.path.join(TOKEN_DIR, TOKEN_FILE)
+SECURE_DIR = os.path.join(BASE_DIR, "secure")
+TOKENS_FILE = os.path.join(SECURE_DIR, "tokens.csv")
+
+# Ensure secure directory exists
+os.makedirs(SECURE_DIR, exist_ok=True)
 
 # Define standard column order as a constant
 TOKEN_CSV_COLUMNS = ['token', 'created_at', 'expires_at', 'organization_name', 'generated_by']
@@ -29,15 +32,15 @@ TOKEN_CSV_COLUMNS = ['token', 'created_at', 'expires_at', 'organization_name', '
 def ensure_token_storage():
     """Ensure token storage directory and file exist"""
     try:
-        os.makedirs(TOKEN_DIR, exist_ok=True)
-        if not os.path.exists(TOKEN_PATH):
-            with open(TOKEN_PATH, 'w', newline='') as f:
+        os.makedirs(SECURE_DIR, exist_ok=True)
+        if not os.path.exists(TOKENS_FILE):
+            with open(TOKENS_FILE, 'w', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow(TOKEN_CSV_COLUMNS)
-            logger.info(f"Created new token storage file at {TOKEN_PATH}")
+            logger.info(f"Created new token storage file at {TOKENS_FILE}")
         else:
             # Check existing columns to ensure compatibility
-            with open(TOKEN_PATH, 'r', newline='') as f:
+            with open(TOKENS_FILE, 'r', newline='') as f:
                 reader = csv.reader(f)
                 try:
                     header = next(reader, None)
@@ -48,11 +51,11 @@ def ensure_token_storage():
                     logger.error(f"Error reading token file headers: {e}")
         
         # Verify the file is writable
-        if not os.access(TOKEN_PATH, os.W_OK):
-            logger.warning(f"Token file exists but may not be writable: {TOKEN_PATH}")
+        if not os.access(TOKENS_FILE, os.W_OK):
+            logger.warning(f"Token file exists but may not be writable: {TOKENS_FILE}")
             try:
                 # Try to make it writable
-                os.chmod(TOKEN_PATH, 0o666)
+                os.chmod(TOKENS_FILE, 0o666)
                 logger.info(f"Updated permissions on token file")
             except Exception as perm_e:
                 logger.error(f"Could not update permissions: {perm_e}")
@@ -80,7 +83,7 @@ def generate_token(organization: str, generated_by: str = "Admin") -> Optional[s
         expires_at = created_at + timedelta(days=TOKEN_EXPIRY_DAYS)
         
         # Save token - match the exact column order of the CSV
-        with open(TOKEN_PATH, 'a', newline='') as f:
+        with open(TOKENS_FILE, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([
                 token,
@@ -107,11 +110,11 @@ def validate_token(token: str) -> bool:
         return True
         
     try:
-        if not os.path.exists(TOKEN_PATH):
-            logger.error(f"Token file not found at {TOKEN_PATH}")
+        if not os.path.exists(TOKENS_FILE):
+            logger.error(f"Token file not found at {TOKENS_FILE}")
             return False
         
-        with open(TOKEN_PATH, 'r') as f:
+        with open(TOKENS_FILE, 'r') as f:
             reader = csv.DictReader(f)
             # Check if all required columns exist
             fieldnames = reader.fieldnames
@@ -168,10 +171,10 @@ def validate_token(token: str) -> bool:
 def get_organization_for_token(token: str) -> Optional[str]:
     """Get the organization associated with a token"""
     try:
-        if not os.path.exists(TOKEN_PATH):
+        if not os.path.exists(TOKENS_FILE):
             return None
             
-        with open(TOKEN_PATH, 'r') as f:
+        with open(TOKENS_FILE, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 if row['token'] == token:
@@ -186,13 +189,13 @@ def get_organization_for_token(token: str) -> Optional[str]:
 def revoke_token(token: str) -> bool:
     """Revoke an access token"""
     try:
-        if not os.path.exists(TOKEN_PATH):
+        if not os.path.exists(TOKENS_FILE):
             return False
             
         rows = []
         token_found = False
         
-        with open(TOKEN_PATH, 'r') as f:
+        with open(TOKENS_FILE, 'r') as f:
             reader = csv.DictReader(f)
             rows.append(next(reader))  # Header row
             for row in reader:
@@ -202,7 +205,7 @@ def revoke_token(token: str) -> bool:
                     token_found = True
         
         if token_found:
-            with open(TOKEN_PATH, 'w', newline='') as f:
+            with open(TOKENS_FILE, 'w', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerows(rows)
             logger.info(f"Revoked token: {token}")
@@ -217,14 +220,14 @@ def revoke_token(token: str) -> bool:
 def cleanup_expired_tokens() -> int:
     """Remove expired tokens from storage"""
     try:
-        if not os.path.exists(TOKEN_PATH):
+        if not os.path.exists(TOKENS_FILE):
             return 0
         
         current_time = datetime.now()
         rows = []
         expired_count = 0
         
-        with open(TOKEN_PATH, 'r') as f:
+        with open(TOKENS_FILE, 'r') as f:
             reader = csv.DictReader(f)
             rows.append(next(reader))  # Header row
             for row in reader:
@@ -235,7 +238,7 @@ def cleanup_expired_tokens() -> int:
                     expired_count += 1
         
         if expired_count > 0:
-            with open(TOKEN_PATH, 'w', newline='') as f:
+            with open(TOKENS_FILE, 'w', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerows(rows)
             logger.info(f"Removed {expired_count} expired tokens")
