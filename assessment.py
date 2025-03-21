@@ -235,36 +235,53 @@ COMPLIANCE_LEVELS = {
     0.00: "Non-Compliant"
 }
 
-def calculate_section_score(responses: Dict[str, str], section_idx: int, section_questions: List[str], 
-                           section_options: List[List[str]], answer_points: Dict[str, float]) -> float:
+def calculate_section_score(section: Dict[str, Any], responses: Dict[str, str], answer_points: Dict[str, float]) -> Optional[float]:
     """Calculate compliance score for a section"""
-    try:
-        if not responses or not section_questions or not section_options:
-            return 0.0
+    questions = section.get("questions", [])
+    if not questions:
+        return None
+
+    total_score = 0
+    applicable_questions = 0
+    
+    for q_idx, _ in enumerate(questions):
+        response_key = f"s{section_idx}_q{q_idx}"
+        response = responses.get(response_key)
+        
+        if response:
+            # Convert response to lowercase for case-insensitive comparison
+            response_lower = response.lower()
             
-        total_score = 0.0
-        question_count = 0
+            # First try exact match
+            if response in answer_points:
+                point = answer_points[response]
+            else:
+                # Try case-insensitive match
+                point = None
+                for answer, points in answer_points.items():
+                    if answer.lower() == response_lower:
+                        point = points
+                        break
+                
+                # If still no match, try partial matches for Yes/No responses
+                if point is None:
+                    if "yes" in response_lower or "with" in response_lower:
+                        point = 1.0
+                    elif "no" in response_lower or "lack" in response_lower:
+                        point = 0.0
+                    elif "partial" in response_lower or "need improvement" in response_lower:
+                        point = 0.5
+                    elif "not applicable" in response_lower:
+                        point = None  # Skip not applicable responses
+            
+            if point is not None:
+                total_score += point
+                applicable_questions += 1
+
+    if applicable_questions == 0:
+        return None  # Return None if no applicable questions
         
-        for q_idx, question in enumerate(section_questions):
-            response_key = f"s{section_idx}_q{q_idx}"
-            if response_key in responses:
-                response = responses[response_key]
-                if response in answer_points:
-                    total_score += answer_points[response]
-                    question_count += 1
-                elif response != "Not applicable":
-                    # Default scoring for responses without explicit points
-                    if "Yes" in response:
-                        total_score += 1.0
-                    elif "Partially" in response or "Basic" in response:
-                        total_score += 0.5
-                    question_count += 1
-        
-        return total_score / question_count if question_count > 0 else 0.0
-        
-    except Exception as e:
-        logger.error(f"Error calculating section score: {e}")
-        return 0.0
+    return total_score / applicable_questions
 
 def get_compliance_level(score: float) -> str:
     """Determine compliance level based on score"""

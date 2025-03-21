@@ -13,8 +13,8 @@
             "No, Work is in progress to implement this requirement."
           ],
           "recommendations": {
-            "Yes, Notices are not provided in all required languages.": "Ensure that customer notices are available in English and all 22 official Indian languages, as required by the DPDP Act.\n\n**Informatica Solution:** Use Informatica MDM - Customer 360 with multilingual support to manage and distribute compliant notices across all required languages.",
-            "No, Work is in progress to implement this requirement.": "Accelerate the implementation of multilingual notices to meet compliance standards.\n\n**Informatica Solution:** Deploy Informatica Customer 360 Insights to efficiently generate and manage notices in all official Indian languages."
+            "Yes, Notices are not provided in all required languages.": "Ensure that customer notices are available in English and all 22 official Indian languages, as required by the DPDP Act.\n\n**Informatica Solution:** Informatica Data Governance & Compliance helps manage data in line with regulatory requirements, ensuring data is processed for specified purposes.\n\n**Informatica Solution:** Informatica Data Privacy Management provides tools to classify and monitor sensitive data, supporting compliance with privacy regulations that require purpose limitation.",
+            "No, Work is in progress to implement this requirement.": "Accelerate the implementation of multilingual notices to meet compliance standards.\n\n**Informatica Solution:** Informatica Data Governance & Compliance helps manage data in line with regulatory requirements, ensuring data is processed for specified purposes.\n\n**Informatica Solution:** Informatica Data Privacy Management provides tools to classify and monitor sensitive data, supporting compliance with privacy regulations that require purpose limitation."
           }
           
         },
@@ -28,8 +28,8 @@
             "Not applicable: This option might apply if your organization does not collect personal data or if the notice is not required due to exemptions."
           ],
           "recommendations": {
-            "Partially, but needs more detail: The notice includes some itemization and purpose descriptions, but lacks clarity or completeness.": "Enhance the notice by providing a fully itemized list of personal data collected and explicitly stating the purposes for which each data type will be used.\n\n**Informatica Solution:** Implement Informatica Axon Data Governance to catalog personal data elements and document their intended purposes in compliance with DPDP requirements.",
-            "No, the notice lacks itemization and purpose details: The notice does not provide an itemized list or specify the purposes for data use.": "Revise the notice to include a clear, structured breakdown of personal data collected and its specific purposes, ensuring compliance with DPDP Section 3(b)(i) and (ii).\n\n**Informatica Solution:** Deploy Informatica Enterprise Data Catalog to automatically discover and classify personal data, facilitating complete and accurate notices."
+            "Partially, but needs more detail: The notice includes some itemization and purpose descriptions, but lacks clarity or completeness.": "Enhance the notice by providing a fully itemized list of personal data collected and explicitly stating the purposes for which each data type will be used.\n\n**Informatica Solution:** Informatica Data Privacy Management provides tools to classify and monitor sensitive data, supporting compliance with privacy regulations that require purpose limitation.",
+            "No, the notice lacks itemization and purpose details: The notice does not provide an itemized list or specify the purposes for data use.": "Revise the notice to include a clear, structured breakdown of personal data collected and its specific purposes, ensuring compliance with DPDP Section 3(b)(i) and (ii).\n\n**Informatica Solution:** Informatica Data Privacy Management provides tools to classify and monitor sensitive data, supporting compliance with privacy regulations that require purpose limitation."
           }
         },
         {
@@ -647,8 +647,8 @@
             "Not applicable: This option might apply if your organization does not handle personal data or if such documentation requirements do not apply to your operations."
           ],
           "recommendations": {
-            "Partially, but documentation needs improvement: While some documentation exists, it may not fully cover all necessary processes or may lack clarity, requiring further enhancements to meet regulatory standards.": "Expand documentation to include all data protection processes, risk assessments, and compliance measures, ensuring alignment with Section 6 requirements.\n\n**Informatica Solution:** Implement Informatica Axon Data Governance to create comprehensive documentation of all data protection processes with full auditability.",
-            "No, we lack comprehensive documentation: The organization does not have adequate documentation of its personal data protection processes, which could lead to compliance issues and difficulties in demonstrating accountability.": "Develop a structured documentation framework covering all data processing activities, security measures, and compliance policies.\n\n**Informatica Solution:** Deploy Informatica Enterprise Data Catalog integrated with Axon Data Governance to automate documentation of data flows, processing activities, and protection measures."
+            "Partially, but documentation needs improvement: While some documentation exists, it may not fully cover all necessary processes or may lack clarity, requiring further enhancements to meet regulatory standards.": "Expand documentation to include all data protection processes, risk assessments, and compliance measures, ensuring alignment with Section 6 requirements.\n\n**Informatica Solution:** Implement Informatica Cloud Data Governence to create comprehensive documentation of all data protection processes with full auditability.",
+            "No, we lack comprehensive documentation: The organization does not have adequate documentation of its personal data protection processes, which could lead to compliance issues and difficulties in demonstrating accountability.": "Develop a structured documentation framework covering all data processing activities, security measures, and compliance policies.\n\n**Informatica Solution:** Deploy Informatica Enterprise Data Catalog integrated with Cloud Data Governence to automate documentation of data flows, processing activities, and protection measures."
           }
         },
         {
@@ -759,7 +759,7 @@
     "Yes, with comprehensive training programs: The organization conducts regular and comprehensive training sessions for all staff on DPDP compliance requirements. These sessions cover key aspects such as data protection principles, consent management, data security, and handling personal data breaches, ensuring that employees are well-informed and compliant.": 1.0,
     "Yes, with a structured process: The organization has a well-defined process to monitor and stay updated on changes to data protection regulations. This includes engaging legal counsel, participating in industry groups, subscribing to regulatory updates, and regularly reviewing global and local data protection laws.": 1.0,
  
-	"Work is in progress to implement this requirement.": 0.5,
+	"No, Work is in progress to implement this requirement.": 0.5,
 	"Partially, but needs more detail: The notice includes some itemization and purpose descriptions, but lacks clarity or completeness.": 0.5,
     "Partially, but consent mechanisms need improvement: Consent is obtained, but the process could be clearer or more explicit.": 0.5,
     "Partially, but some processing may exceed specified purposes: While efforts are made to limit processing to specified purposes, there may be instances where data is used beyond those purposes.": 0.5,
@@ -805,7 +805,8 @@
  
 	"Notices are not provided in all required languages.": 0.0,
 	"No, the notice lacks itemization and purpose details: The notice does not provide an itemized list or specify the purposes for data use.": 0.0,
-    "No, we rely on implicit consent or lack clear affirmative action: Consent is assumed without explicit action or is not clearly tied to specific purposes.": 0.0,
+  "No, processing often exceeds specified purposes: The organization frequently processes personal data for purposes not specified in the notice.":0.0,
+  "No, we rely on implicit consent or lack clear affirmative action: Consent is assumed without explicit action or is not clearly tied to specific purposes.": 0.0,
     "No, we lack procedures for verifying voluntary data provision: The organization does not have specific procedures in place to verify voluntary data provision under consent exemptions.": 0.0,
     "No, we lack a dedicated feature for submitting requests: The organization does not have a specific feature or web form for customers to submit requests related to their data rights.": 0.0,
     "No, we lack adequate internal capacity for timely responses: The organization does not have sufficient resources or processes in place to respond to data principal requests within the specified time limits.": 0.0,
@@ -891,7 +892,17 @@
 
     "Manual processes are in place, but they are effective: The organization uses manual processes for data erasure, which are effective but may not be as efficient or compliant with recognized standards as automated solutions.":0,
 
-    "Manual tracking is used instead of automated logs: The organization relies on manual methods or basic tracking systems for monitoring database changes, which may not be as efficient or reliable as automated audit logs.":0
+    "Manual tracking is used instead of automated logs: The organization relies on manual methods or basic tracking systems for monitoring database changes, which may not be as efficient or reliable as automated audit logs.":0,
+
+    "Yes, Notices are provided in English and all 22 official Indian languages listed in the Eighth Schedule of the Constitution.": 1.0,
+    "Not Applicable: Our organization does not handle personal data or process customer decisions based on such data.": null,
+
+    "Notices are provided in English and all 22 official Indian languages listed in the Eighth Schedule of the Constitution.": 1.0,
+    "Not Applicable: Our organization does not handle personal data or process customer decisions based on such data": null,
+    
+    "Yes, notices are provided in English and all 22 official Indian languages listed in the Eighth Schedule of the Constitution.": 1.0,
+    "N/A: Our organization does not handle personal data or process customer decisions based on such data.": null,
+    "N/A - Our organization does not handle personal data or process customer decisions based on such data": null
   }
 }
 

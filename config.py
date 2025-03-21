@@ -99,21 +99,20 @@ def map_industry_to_filename(regulation_code: str, industry_code: str) -> str:
     return industry_code
 
 # AI Report Generation settings
-# Replace functions with direct variables
-AI_ENABLED = True  # Enable AI report generation by default
+AI_ENABLED = True
+AI_PROVIDER = "openrouter"
 
-# Set the OpenRouter API key directly
-AI_API_KEY = "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"
-AI_PROVIDER = "openrouter"  # Changed to indicate we're using OpenRouter
-
-# Keep the getter functions for backward compatibility but implement them as simple accessors
-def get_ai_enabled():
-    """Get whether AI report generation is enabled"""
-    return AI_ENABLED
+# OpenRouter API key with bearer prefix
+AI_API_KEY = "Bearer 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"
 
 def get_ai_api_key():
     """Get the API key for AI services"""
-    return AI_API_KEY
+    return AI_API_KEY.replace("Bearer ", "") if AI_API_KEY and AI_API_KEY.startswith("Bearer ") else AI_API_KEY
+
+# Update the getter function to handle missing keys better
+def get_ai_enabled():
+    """Get whether AI report generation is enabled"""
+    return AI_ENABLED
 
 def get_ai_provider():
     """Get the AI provider to use"""

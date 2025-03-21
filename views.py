@@ -127,6 +127,27 @@ def render_landing_page():
 
 def render_assessment():
     """Render the assessment questionnaire"""
+    # Create a top anchor to scroll to
+    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
+    
+    # Add JavaScript to scroll to top automatically
+    st.markdown("""
+        <script>
+            // Function to scroll to top
+            function scrollToTop() {
+                window.scrollTo(0, 0);
+            }
+            
+            // Call scroll function after component loads
+            window.addEventListener('load', function() {
+                scrollToTop();
+            });
+            
+            // Additional fallback for Streamlit
+            setTimeout(scrollToTop, 100);
+        </script>
+    """, unsafe_allow_html=True)
+
     # DEBUGGING: Log entry to assessment page with full context
     logger.info(f"ENTERING render_assessment: industry={st.session_state.get('selected_industry', 'UNKNOWN')}")
     logger.info(f"Session state keys: {list(st.session_state.keys())}")
@@ -308,41 +329,7 @@ def render_assessment():
     # Add debug info to see which questionnaire we're using
     if fixed_questionnaire:
         st.info("Questionnaire selection has been fixed. Please review your responses.")
-    
-    # Show questionnaire debug info in sidebar with more details
-    with st.sidebar.expander("Questionnaire Debug", expanded=False):
-        st.write(f"Regulation: {st.session_state.selected_regulation}")
-        st.write(f"Industry: {st.session_state.selected_industry}")
-        if "sections" in questionnaire:
-            sections_count = len(questionnaire["sections"])
-            st.write(f"Sections: {sections_count}")
-            
-            # Check if section count is correct for the industry
-            if st.session_state.selected_industry.lower() == "e-commerce" and sections_count < 4:
-                st.error(f"⚠️ WARNING: E-commerce questionnaire should have 4 sections, but only has {sections_count}.")
-                if st.button("Reload Correct Questionnaire"):
-                    # Clear the cache to force reload
-                    if 'current_questionnaire' in st.session_state:
-                        del st.session_state.current_questionnaire
-                    st.session_state.clear_questionnaire_cache = True
-                    st.rerun()
-            
-            # For DPDP + "new banking fin", we expect a full questionnaire
-            expected_section_count = 13 if st.session_state.selected_industry.lower() in ['new', 'new banking fin'] else 1
-            
-            if sections_count < expected_section_count:
-                st.warning(f"⚠️ This questionnaire only contains {sections_count} section(s). Expected {expected_section_count} for {st.session_state.selected_industry}.")
-                if st.button("Reload Complete Questionnaire"):
-                    clear_questionnaire_cache()
-                    # If this is the "new banking fin" questionnaire, ensure we use the right version
-                    if st.session_state.selected_industry.lower() in ['new', 'new banking fin']:
-                        st.session_state.selected_industry = "new banking fin"
-                    st.rerun()
-            
-            st.write("Section names:")
-            for i, section in enumerate(questionnaire["sections"]):
-                st.write(f"{i+1}. {section['name']}")
-        
+       
     sections = questionnaire["sections"]
     
     # Check if questionnaire has any sections
@@ -375,11 +362,24 @@ def render_assessment():
     section_name = current_section["name"]
     questions = current_section["questions"]
     
-    # Show section header with progress  # Use the imported function instead
+    # Calculate overall progress across all sections
+    total_questions = sum(len(section["questions"]) for section in sections)
+    answered_questions = sum(1 for key in st.session_state.responses.keys() if key.startswith('s'))
+    overall_progress = (answered_questions / total_questions) * 100 if total_questions > 0 else 0
+    
+    # Show section header with both section and overall progress
     st.header(f"Section {st.session_state.current_section + 1}: {section_name}")
-    progress = get_section_progress_percentage()
-    st.progress(progress / 100)
-    st.markdown(f"Section progress: {progress:.1f}%")
+    
+    # Show current section progress
+    section_progress = get_section_progress_percentage()
+    st.progress(section_progress / 100)
+    
+    # Show both progress metrics
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(f"Section progress: {section_progress:.1f}%")
+    with col2:
+        st.markdown(f"Overall progress: {overall_progress:.1f}% ({answered_questions}/{total_questions} questions)")
     
     # Apply radio button styling
     st.markdown(get_radio_button_css(), unsafe_allow_html=True)
@@ -456,6 +456,8 @@ def render_assessment():
         with col1:
             prev_disabled = st.session_state.current_section <= 0
             if st.form_submit_button("Previous Section", disabled=prev_disabled, use_container_width=True):
+                # Force scroll to top
+                st.markdown('<script>window.scrollTo(0, 0);</script>', unsafe_allow_html=True)
                 # Turn off validation flag when going backwards
                 st.session_state.form_validation_attempted = False
                 
@@ -479,6 +481,8 @@ def render_assessment():
             next_button_label = "Next Section" if st.session_state.current_section < len(sections) - 1 else "Complete Assessment"
             
             if st.form_submit_button(next_button_label, type="primary", use_container_width=True):
+                # Force scroll to top
+                st.markdown('<script>window.scrollTo(0, 0);</script>', unsafe_allow_html=True)
                 # Set flag to ensure we focus on the top element in the next render
                 st.session_state.scroll_to_top = True
                 
