@@ -1,0 +1,16 @@
+{
+  "organization_name": "adw",
+  "assessment_date": "2025-03-24",
+  "selected_regulation": "DPDP",
+  "selected_industry": "general",
+  "responses": {
+    "s0_q0": "Partially, Notices are not provided in all required languages.",
+    "s0_q1": "No, the notice lacks itemization and purpose details: The notice does not provide an itemized list or specify the purposes for data use.",
+    "s0_q2": "Not applicable: This option might apply if consent is not required due to exemptions (e.g., legal obligations).",
+    "s0_q4": "Not applicable: This option might apply if your organization does not handle data under consent exemptions or if such exemptions are not relevant to your operations.",
+    "s0_q3": "No, processing often exceeds specified purposes: The organization frequently processes personal data for purposes not specified in the notice."
+  },
+  "current_section": 1,
+  "saved_at": "2025-03-24T18:07:37.142852",
+  "draft": true
+}

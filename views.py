@@ -42,8 +42,13 @@ from styles import (
     get_radio_button_css,
     get_print_export_css,
     get_print_button_html,
-    get_expiry_box_css
+    get_expiry_box_css,
+    get_section_navigation_css,  # Importing the dark theme navigation CSS
+    get_common_button_css  # Importing common button CSS
 )
+
+# Add import at the top with other imports
+from countdown_utils import create_countdown_timer
 
 # Setup logging
 logger = logging.getLogger(__name__)
@@ -64,15 +69,29 @@ def render_header():
     
     if org_name:
         st.markdown(f"""
-            <div style='text-align: center; margin-bottom: 2rem;'>
-                <h1>{config.APP_TITLE}</h1>
-                <p style='font-size: 1.2em; font-weight: 500;'>Organization: {org_name}</p>
+            <style>
+            .app-header {{
+                margin-bottom: 1rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(49, 51, 63, 0.2);
+            }}
+            </style>
+            <div class="app-header" style='text-align: center;'>
+                <h1 style='margin: 0 0 0.5rem 0;'>{config.APP_TITLE}</h1>
+                <p style='font-size: 1.2em; font-weight: 500; margin: 0;'>Organization: {org_name}</p>
             </div>
         """, unsafe_allow_html=True)
     else:
         st.markdown(f"""
-            <div style='text-align: center; margin-bottom: 2rem;'>
-                <h1>{config.APP_TITLE}</h1>
+            <style>
+            .app-header {{
+                margin-bottom: 1rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(49, 51, 63, 0.2);
+            }}
+            </style>
+            <div class="app-header" style='text-align: center;'>
+                <h1 style='margin: 0;'>{config.APP_TITLE}</h1>
             </div>
         """, unsafe_allow_html=True)
 
@@ -106,21 +125,22 @@ def render_landing_page():
         </div>
     """, unsafe_allow_html=True)
     
-    # Token input
-    token = st.text_input("Access Token", type="password")
-    
-    if st.button("Access Assessment", type="primary"):
-        if validate_token(token):
-            st.session_state.authenticated = True
-            st.session_state.current_page = 'welcome'
-            st.rerun()
-        else:
-            st.error("Invalid token. Please try again or contact support.")
+    # Token input with centered container
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        token = st.text_input("Access Token", type="password")
+        if st.button("Access Assessment", type="primary", use_container_width=True):
+            if validate_token(token):
+                st.session_state.authenticated = True
+                st.session_state.current_page = 'welcome'
+                st.rerun()
+            else:
+                st.error("Invalid token. Please try again or contact support.")
     
     # Footer
     st.markdown("""
         <div class="footer">
-            &copy; 2025 Compliance Assessment Tool | All Rights Reserved
+            &copy; 2023 Compliance Assessment Tool | All Rights Reserved
         </div>
     """, unsafe_allow_html=True)
 
@@ -128,24 +148,7 @@ def render_assessment():
     """Render the assessment questionnaire"""
     # Create a top anchor to scroll to
     st.markdown('<div id="top"></div>', unsafe_allow_html=True)
-    
-    # Add JavaScript to scroll to top automatically
-    st.markdown("""
-        <script>
-            // Function to scroll to top
-            function scrollToTop() {
-                window.scrollTo(0, 0);
-            }
-            
-            // Call scroll function after component loads
-            window.addEventListener('load', function() {
-                scrollToTop();
-            });
-            
-            // Additional fallback for Streamlit
-            setTimeout(scrollToTop, 100);
-        </script>
-    """, unsafe_allow_html=True)
+
 
     # DEBUGGING: Log entry to assessment page with full context
     logger.info(f"ENTERING render_assessment: industry={st.session_state.get('selected_industry', 'UNKNOWN')}")
@@ -180,17 +183,6 @@ def render_assessment():
     # Create a top anchor to scroll to
     st.markdown('<div id="top-of-form"></div>', unsafe_allow_html=True)
     
-    # Add a hidden control at the top with autoFocus to ensure page scrolls up
-    st.text_input(
-        label="Scroll to top",  # Add non-empty label
-        value="", 
-        key="scroll_to_top_input", 
-        label_visibility="hidden",
-        help="This hidden element helps to scroll to the top of the page automatically", 
-        autocomplete="off", 
-        disabled=True
-    )
-    
     # Add JavaScript to scroll to top of page when loading a new section
     st.markdown("""
     <script>
@@ -207,13 +199,7 @@ def render_assessment():
     """, unsafe_allow_html=True)
     
     # Cache the questionnaire in session state, with preservation of "new banking fin"
-    if 'current_questionnaire' not in st.session_state:
-        # Check if we're trying to use "new" or "new banking fin"
-        if st.session_state.selected_industry.lower() in ['new', 'new banking fin']:
-            logger.info("Detected 'new' industry selection, ensuring we use the complete questionnaire")
-            # Force the industry to be consistently named
-            st.session_state.selected_industry = "new banking fin"
-            
+    if 'current_questionnaire' not in st.session_state:    
         st.session_state.current_questionnaire = get_questionnaire(
             st.session_state.selected_regulation,
             st.session_state.selected_industry
@@ -223,33 +209,69 @@ def render_assessment():
     questionnaire = st.session_state.current_questionnaire
     
     # Show questionnaire debug info in sidebar with more details
-    with st.sidebar.expander("Questionnaire Debug", expanded=False):
+    with st.sidebar.expander("Navigation panel", expanded=False):
+        st.markdown("""
+            <style>
+            div.stExpander {
+                background-color: #0e1117;
+                border: 1px solid rgba(49, 51, 63, 0.2);
+            }
+            /* Dark theme buttons */
+            div.stButton > button {
+                width: 100%;
+                padding: 0.5rem;
+                margin: 0.25rem 0;
+                background-color: #1e1e1e !important;
+                color: #fafafa;
+                border: 1px solid #333333 !important;
+                border-radius: 0.3rem;
+                transition: all 0.2s;
+            }
+            /* Hover effect */
+            div.stButton > button:hover:not(:disabled) {
+                background-color: #2d2d2d !important;
+                border-color: #404040 !important;
+            }
+            /* Disabled button */
+            div.stButton > button:disabled {
+                background-color: #161616 !important;
+                color: #666666;
+                border-color: #292929 !important;
+            }
+            /* Current section highlight */
+            div.stButton > button.current {
+                border-left: 3px solid #666666 !important;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+        
         st.write(f"Regulation: {st.session_state.selected_regulation}")
         st.write(f"Industry: {st.session_state.selected_industry}")
+        
         if "sections" in questionnaire:
-            sections_count = len(questionnaire["sections"])
-            st.write(f"Sections: {sections_count}")
+            st.write("Jump to section:")
             
-            # For DPDP + "new banking fin", we expect a full questionnaire
-            expected_section_count = 13 if st.session_state.selected_industry.lower() in ['new', 'new banking fin'] else 1
-            
-            if sections_count < expected_section_count:
-                st.warning(f"⚠️ This questionnaire only contains {sections_count} section(s). Expected {expected_section_count} for {st.session_state.selected_industry}.")
-                if st.button("Reload Complete Questionnaire"):
-                    clear_questionnaire_cache()
-                    # If this is the "new banking fin" questionnaire, ensure we use the right version
-                    if st.session_state.selected_industry.lower() in ['new', 'new banking fin']:
-                        st.session_state.selected_industry = "new banking fin"
-                    st.rerun()
-            
-            st.write("Section names:")
+            # Create list of sections with completion status
             for i, section in enumerate(questionnaire["sections"]):
-                st.write(f"{i+1}. {section['name']}")
+                section_name = section.get("name", f"Section {i+1}")
+                
+                # Calculate if section is complete
+                questions = section.get("questions", [])
+                answered = sum(1 for q_idx in range(len(questions)) 
+                             if f"s{i}_q{q_idx}" in st.session_state.responses)
+                complete = answered == len(questions)
+                
+                # Create button with status indicator
+                button_label = f"{i+1}. {section_name} [{answered}/{len(questions)}]"
+                if st.button(button_label, key=f"nav_section_{i}", 
+                           disabled=i == st.session_state.current_section,
+                           use_container_width=True):
+                    st.session_state.current_section = i
+                    st.rerun()
     
     # TESTING ONLY - TO BE REMOVED BEFORE PRODUCTION
     # Add quick-fill testing option in sidebar for faster testing
-    with st.sidebar.expander("⚠️ TESTING TOOLS - REMOVE BEFORE PRODUCTION", expanded=False):
-        st.warning("This section is for testing only and should be removed before production deployment.")
+    with st.sidebar.expander("TESTING TOOLS - REMOVE BEFORE PRODUCTION", expanded=False):
         
         auto_fill_option = st.radio(
             "Auto-fill responses with:",
@@ -367,18 +389,45 @@ def render_assessment():
     overall_progress = (answered_questions / total_questions) * 100 if total_questions > 0 else 0
     
     # Show section header with both section and overall progress
-    st.header(f"Section {st.session_state.current_section + 1}: {section_name}")
+    st.markdown(f"""
+        <style>
+        /* Remove excessive top margin to fix the large gap */
+        .main .block-container {{
+            padding-top: 1rem !important;
+            margin-top: 0 !important;
+        }}
+        /* Minimize space between elements */
+        .element-container {{
+            margin-bottom: 0.5rem !important;
+        }}
+        /* Adjust section header to be more compact */
+        .section-header {{
+            margin: 0 0 0.5rem 0 !important;
+            padding: 0.5rem 0.75rem !important;
+            background: rgba(49, 51, 63, 0.1);
+            border-radius: 0.5rem;
+        }}
+        .section-title {{
+            margin: 0 !important;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }}
+        </style>
+        <div class="section-header">
+            <h2 class="section-title">Part {st.session_state.current_section + 1}: {section_name}</h2>
+        </div>
+    """, unsafe_allow_html=True)
     
     # Show current section progress
     section_progress = get_section_progress_percentage()
     st.progress(section_progress / 100)
     
-    # Show both progress metrics
+    # Show both progress metrics with consistent spacing
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f"Section progress: {section_progress:.1f}%")
+        st.markdown(f"<p style='margin: 0.5rem 0;'>Part progress: {section_progress:.1f}%</p>", unsafe_allow_html=True)
     with col2:
-        st.markdown(f"Overall progress: {overall_progress:.1f}% ({answered_questions}/{total_questions} questions)")
+        st.markdown(f"<p style='margin: 0.5rem 0;'>Overall progress: {overall_progress:.1f}% ({answered_questions}/{total_questions} questions)</p>", unsafe_allow_html=True)
     
     # Apply radio button styling
     st.markdown(get_radio_button_css(), unsafe_allow_html=True)
@@ -449,12 +498,17 @@ def render_assessment():
         # Add some space before buttons
         st.write("")
         
-        # Navigation buttons
+        # Navigation buttons with consistent styling
         col1, col2, col3 = st.columns([1, 1, 1])
         
         with col1:
             prev_disabled = st.session_state.current_section <= 0
-            if st.form_submit_button("Previous Section", disabled=prev_disabled, use_container_width=True):
+            if st.form_submit_button(
+                "Previous Section", 
+                disabled=prev_disabled, 
+                use_container_width=True,
+                type="secondary"
+            ):
                 # Force scroll to top
                 st.markdown('<script>window.scrollTo(0, 0);</script>', unsafe_allow_html=True)
                 # Turn off validation flag when going backwards
@@ -479,7 +533,11 @@ def render_assessment():
         with col3:
             next_button_label = "Next Section" if st.session_state.current_section < len(sections) - 1 else "Complete Assessment"
             
-            if st.form_submit_button(next_button_label, type="primary", use_container_width=True):
+            if st.form_submit_button(
+                next_button_label, 
+                type="primary", 
+                use_container_width=True
+            ):
                 # Force scroll to top
                 st.markdown('<script>window.scrollTo(0, 0);</script>', unsafe_allow_html=True)
                 # Set flag to ensure we focus on the top element in the next render
@@ -544,14 +602,7 @@ from nlg_report import generate_report
 def generate_natural_language_report(results: Dict[str, Any]) -> str:
     """
     Generate human-readable report using AI
-    
-    Args:
-        results: Assessment results dictionary containing scores and recommendations
-        
-    Returns:
-        A natural language summary of the assessment results
     """
-    # Use the nlg_report module to generate the report
     logger.info("Requesting AI report generation with the following configuration:")
     logger.info(f"AI enabled: {config.get_ai_enabled()}")
     logger.info(f"API key available: {'Yes' if config.get_ai_api_key() else 'No'}")
@@ -559,9 +610,16 @@ def generate_natural_language_report(results: Dict[str, Any]) -> str:
     
     # Record timing information
     start_time = time.time()
-    report = generate_report(results, use_external_api=config.get_ai_enabled())
+    try:
+        report = generate_report(results, use_external_api=config.get_ai_enabled())
+        if not report:
+            logger.error("Report generation failed - no content returned")
+            return "Error: Failed to generate report. Please try again or contact support."
+    except Exception as e:
+        logger.error(f"Error in report generation: {e}")
+        return "Error: Failed to generate report. Please try again or contact support."
+        
     duration = time.time() - start_time
-    
     logger.info(f"Report generation completed in {duration:.2f} seconds")
     logger.info(f"Report length: {len(report)} characters")
     
@@ -575,6 +633,7 @@ def render_report():
             st.session_state.current_page = 'assessment'
             st.rerun()
         return
+
     
     results = st.session_state.results
     
@@ -628,161 +687,58 @@ def render_report():
         due to weighting factors or rounding. Your organization has effectively achieved full compliance.
         """)
     
-    # Add debug expander to display actual weight values from the questionnaire
-    with st.expander("Debug Weight Values", expanded=False):
-        st.write("Section weights from questionnaire:")
-        questionnaire = get_questionnaire(
-            st.session_state.selected_regulation,
-            st.session_state.selected_industry
-        )
-        weight_data = []
-        for section in questionnaire["sections"]:
-            weight = section.get("weight", 1.0 / len(questionnaire["sections"]))
-            weight_data.append({
-                "Section": section["name"],
-                "Weight": f"{weight:.2f}",
-                "Questions": len(section["questions"])
-            })
-        
-        weight_df = pd.DataFrame(weight_data)
-        st.dataframe(weight_df)
-        
-        st.write("Total weight sum:", sum(float(w["Weight"]) for w in weight_data))
-        
-        # Recalculate scores manually with equal weights for verification
-        if all_section_scores:
-            manual_score = sum(all_section_scores) / len(all_section_scores) * 100
-            st.write(f"Score with equal weights (ignoring section weights): {manual_score:.1f}%")
-            
-            if abs(manual_score - results["overall_score"]) > 1.0:
-                st.error(f"Large discrepancy between weighted score ({results['overall_score']:.1f}%) and equal-weight score ({manual_score:.1f}%)")
-        
-        # Add new section to debug scoring discrepancies
-        st.write("Detailed score diagnostics:")
-        for section_name, score in results["section_scores"].items():
-            # Get all responses for this section
-            section_responses = []
-            section_idx = None
-            
-            # Find the section index
-            questionnaire = get_questionnaire(
-                st.session_state.selected_regulation,
-                st.session_state.selected_industry
-            )
-            for idx, section in enumerate(questionnaire["sections"]):
-                if section["name"] == section_name:
-                    section_idx = idx
-                    break
-                    
-            if section_idx is not None:
-                # Get all responses for this section
-                section_responses = [
-                    st.session_state.responses.get(f"s{section_idx}_q{q_idx}")
-                    for q_idx in range(len(questionnaire["sections"][section_idx]["questions"]))
-                ]
-                
-                # Create a mini scoring calculator directly in the debug view
-                perfect_answers = sum(1 for r in section_responses if r is not None and "yes" in r.lower())
-                total_answers = sum(1 for r in section_responses if r is not None)
-                
-                if total_answers > 0:
-                    expected_score = perfect_answers / total_answers
-                    st.write(f"Section: {section_name}")
-                    
-                    # Fix: Check if score is None before multiplying by 100
-                    if score is not None:
-                        st.write(f"- Official score: {score * 100:.1f}%")
-                    else:
-                        st.write(f"- Official score: None (N/A)")
-                        
-                    st.write(f"- Perfect answers: {perfect_answers} of {total_answers}")
-                    st.write(f"- Expected score: {expected_score * 100:.1f}%")
-                    
-                    # Only compare if score is not None
-                    if score is not None and abs(expected_score - score) > 0.01:
-                        st.error(f"Scoring discrepancy detected! Difference: {abs(expected_score - score) * 100:.1f}%")
-                        
-                        # Add explanation for perfect scores
-                        if score == 1.0 and expected_score < 1.0:
-                            st.info("""
-                            **Note about perfect score:** While not all answers are perfect, the system has applied 
-                            score adjustment rules that can result in a perfect score when certain criteria are met. 
-                            This may include:
-                            - Having high-quality responses in critical questions
-                            - Meeting minimum threshold requirements for the section
-                            - Automatic corrections for known scoring issues
-                            
-                            You can see the actual response quality in the 'Perfect answers' metric above.
-                            """)
-                    
-                    # Add validation that should fix most scoring issues
-                    if score is not None and score < 1.0 and all("yes" in r.lower() for r in section_responses if r is not None):
-                        st.warning(f"All answers are 'yes' but score is not 100%. This is a known issue that will be fixed.")
-                        # Provide button to fix this specific section score
-                        if st.button(f"Fix '{section_name}' score to 100%", key=f"fix_{section_name}"):
-                            # Directly update the result in session state
-                            results["section_scores"][section_name] = 1.0
-                            # Recalculate overall score
-                            weighted_scores = [
-                                s * w for s, w in zip(
-                                    [score for score in results["section_scores"].values() if score is not None],
-                                    [section.get("weight", 1.0/len(questionnaire["sections"])) 
-                                    for section in questionnaire["sections"] 
-                                    if section["name"] in results["section_scores"] 
-                                    and results["section_scores"][section["name"]] is not None]
-                                )
-                            ]
-                            total_weight = sum(section.get("weight", 1.0/len(questionnaire["sections"])) 
-                                            for section in questionnaire["sections"] 
-                                            if section["name"] in results["section_scores"] 
-                                            and results["section_scores"][section["name"]] is not None)
-                            if total_weight > 0:
-                                results["overall_score"] = sum(weighted_scores) / total_weight * 100
-                            st.success(f"Fixed score! Please refresh the report to see updated values.")
-                            st.session_state.results = results  # Update session state
-                            st.rerun()  # Force refresh
-        
-        # Add a more comprehensive debug expander
-        st.write("### Questionnaire Structure Check")
-        st.write(f"Questionnaire has {len(questionnaire.get('sections', []))} sections defined:")
-        for i, section in enumerate(questionnaire.get("sections", [])):
-            section_name = section.get("name", f"Section {i+1}")
-            question_count = len(section.get("questions", []))
-            # Highlight if this section doesn't have a score
-            has_score = section_name in results.get("section_scores", {})
-            if has_score:
-                st.write(f"{i+1}. {section_name}: {question_count} questions")
-            else:
-                st.write(f"{i+1}. 🚫 {section_name}: {question_count} questions (No score calculated)")
-        
-        # Check for sections in the questionnaire that don't have scores
-        missing_sections = []
-        for section in questionnaire.get("sections", []):
-            section_name = section.get("name", "")
-            if section_name and section_name not in results.get("section_scores", {}):
-                missing_sections.append(section_name)
-        
-        if missing_sections:
-            st.error(f"Missing sections in results: {', '.join(missing_sections)}")
-            st.write("This indicates that the assessment didn't process these sections properly.")
-            
-            # Add a button to force recalculation that processes all sections
-            if st.button("Force Process All Sections", key="force_process_all"):
-                # Force recreation of the results with a special flag
-                st.session_state.process_all_sections = True
-                st.session_state.results = calculate_compliance_score(
-                    st.session_state.selected_regulation,
-                    st.session_state.selected_industry
-                )
-                st.success("All sections processed. Refreshing the report to show updated results.")
-                st.rerun()
-        else:
-            st.success("All sections from the questionnaire have scores calculated.")
+    # Section scores - FIRST INSTANCE (visualization)
+    st.subheader("Section Scores Visualization")
     
-    # Section scores table
+    # Create dataframe for section scores visualization
+    section_data = []
+    
+    for section, score in results["section_scores"].items():
+        if score is not None:
+            status = "High Risk" if score < 0.6 else ("Moderate Risk" if score < 0.75 else "Compliant")
+            section_data.append({
+                "Section": section,
+                "Score": score * 100,
+                "Status": status
+            })
+    
+    df = pd.DataFrame(section_data)
+    if not df.empty:
+        df = df.sort_values("Score")
+        
+        # Create horizontal bar chart
+        try:
+            fig = px.bar(
+                df, 
+                x="Score", 
+                y="Section", 
+                orientation='h',
+                color="Status",
+                color_discrete_map={
+                    "High Risk": "#FF4B4B",
+                    "Moderate Risk": "#FFA500",
+                    "Compliant": "#00CC96"
+                },
+                labels={"Score": "Compliance Score (%)"}
+            )
+            fig.update_layout(height=400)
+            st.plotly_chart(fig, use_container_width=True)
+        except Exception as e:
+            st.error(f"Error generating chart: {e}")
+            # Fallback to show scores as text
+            st.write("Section Scores:")
+            for _, row in df.iterrows():
+                color = "#FF4B4B" if row["Status"] == "High Risk" else "#FFA500" if row["Status"] == "Moderate Risk" else "#00CC96"
+                st.markdown(f"<div style='color:{color};'>• {row['Section']}: {row['Score']:.1f}%</div>", unsafe_allow_html=True)
+    else:
+        st.info("No section scores available to display.")
+    
+
+    
+    # Section scores table - SECOND INSTANCE (detailed table)
     st.subheader("Section Compliance Scores")
     
-    # Create dataframe for section scores
+    # Create dataframe for section scores table
     section_data = []
     none_score_sections = []
     
@@ -834,7 +790,182 @@ def render_report():
                 with st.expander("Key recommendation"):
                     st.write(results["recommendations"][area][0])
     
-    # Export options
+    # Add Not Applicable answers section before Export Report
+    st.subheader("Answers Marked as \"Not Applicable\"")
+    
+    # Get questionnaire for reference
+    questionnaire = get_questionnaire(
+        st.session_state.selected_regulation,
+        st.session_state.selected_industry
+    )
+    
+    # Find all "Not applicable" responses
+    na_responses = []
+    for section_idx, section in enumerate(questionnaire["sections"]):
+        for q_idx, question in enumerate(section["questions"]):
+            response_key = f"s{section_idx}_q{q_idx}"
+            response = st.session_state.responses.get(response_key)
+            
+            if isinstance(response, str) and "not applicable" in response.lower():
+                # Get question text
+                q_text = question.get("text", question) if isinstance(question, dict) else question
+                na_responses.append({
+                    "section": section["name"],
+                    "question": q_text,
+                    "question_number": f"Q{q_idx + 1}"
+                })
+    
+    if na_responses:
+        with st.expander("View Not Applicable Responses", expanded=False):
+            for item in na_responses:
+                st.markdown(f"""
+                **{item['section']} - {item['question_number']}**  
+                {item['question']}
+                """)
+                st.markdown("---")
+    else:
+        with st.expander("View Not Applicable Responses", expanded=False):
+            st.info("No questions were marked as Not Applicable.")
+    
+    # After the Not Applicable section and before Export Report
+    st.markdown("""
+        <div style='background-color: #1E1E1E; padding: 20px; border-radius: 10px; margin: 20px 0;'>
+            <h4 style='color: #FF4B4B; margin-bottom: 10px; font-size: 1.5em;'>🚨 Potential Penalties Under DPDP</h4>
+            <p style='color: #FFF; margin-bottom: 20px; font-size: 1.1em;'>
+                The Digital Personal Data Protection Act, 2023 prescribes significant penalties for non-compliance:
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Create the penalties data with enhanced styling
+    penalties_data = {
+        "Nature of violation/breach": [
+            "Failure to implement security safeguards",
+            "Failure to notify a breach to the board",
+            "Non-compliance with the special provisions regarding children",
+            "Non-compliance with the obligations of SDF",
+            "Non-compliance of obligations by the data principals",
+            "Violation of any voluntary undertaking if any",
+            "Violation of all other provisions than mentioned"
+        ],
+        "Penalty": [
+            "Up to INR 250 crores (~ $30.213 million)",
+            "Up to INR 200 crores (~ $24.17 million)",
+            "Up to INR 200 crores (~ $24.17 million)",
+            "Up to INR 150 crores (~ $18.127 million)",
+            "Up to INR 10,000 (~ $120)",
+            "Up to the extent applicable to that breach",
+            "Up to INR 50 crore (~ $6 million)"
+        ]
+    }
+    
+    # Create DataFrame
+    penalties_df = pd.DataFrame(penalties_data)
+    
+    # Apply custom styling with improved aesthetics
+    st.markdown("""
+    <style>
+        .penalties-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.95em;
+            margin: 1em 0;
+            background: #1E1E1E;
+        }
+        .penalties-table th:first-child,
+        .penalties-table td:first-child {
+            width: 25%; /* Adjust the width as needed */
+            min-width: 180px;
+        }
+        .penalties-table th:nth-child(2),
+        .penalties-table td:nth-child(2) {
+            width: 25%; /* Adjust the width for the second column */
+            min-width: 180px;
+        }
+        .penalties-table th {
+            background: linear-gradient(90deg, #FF4B4B 0%, #FF8F8F 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            border-top: 1px solid #FF4B4B;
+        }
+        .penalties-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s;
+        }
+        .penalties-table tr:hover td {
+            background-color: rgba(255, 75, 75, 0.1);
+        }
+        .penalties-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        .penalties-note {
+            background-color: rgba(255, 75, 75, 0.1);
+            border-left: 4px solid #FF4B4B;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.9em;
+            color: #FFF;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Display the table with custom formatting
+    st.markdown(penalties_df.to_html(classes='penalties-table', escape=False, index=False), unsafe_allow_html=True)
+    
+    # Add enhanced note about penalties and FAQ section
+    st.markdown("""
+        <div class='penalties-note'>
+            <strong>⚠️ Important Note:</strong><br>
+            These penalties are prescribed under the Digital Personal Data Protection Act, 2025. 
+        </div>
+
+        <div style='background-color: #1E1E1E; padding: 20px; border-radius: 10px; margin: 20px 0;'>
+            <h3 style='color: #4B4BFF; margin-bottom: 15px; font-size: 1.8em;'>❓ FAQ on the Digital Personal Data Protection Act</h3>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    
+    # Use Streamlit's native components for FAQ
+    with st.expander("Is the DPDP Act applicable my Organization?", expanded=False):
+        st.write("The Digital Personal Data Protection (DPDP) Act, 2023 applies to the processing of digital personal data within India, including data collected offline but later digitized. It also applies to processing outside India if it involves offering goods or services to individuals in India.")
+    
+    with st.expander("Does India have a privacy law?", expanded=False):
+        st.write("Yes. Digital Personal Data Protection Act, 2023 is the data privacy law of India. The law aims to bring a balance between the rights of the users and the need for the processing of personal data.")
+    
+    with st.expander("What is personal data under the DPDP Act?", expanded=False):
+        st.write("The Digital Personal Data Protection (DPDP) Act, 2023, defines personal data as any data about an individual who is identifiable by or in relation to such data.")
+    
+    with st.expander("What is a personal data breach under the DPDP Act?", expanded=False):
+        st.write("The Digital Personal Data Protection (DPDP) Act, 2023 defines a personal data breach as any unauthorized or accidental disclosure, alteration, loss, or access that compromises the confidentiality, integrity, or availability of personal data.")
+    
+    with st.expander("Should I report all breaches under the DPDP Act?", expanded=False):
+        st.write("Yes. You must report all personal data breaches irrespective of their gravity or damage caused to the Data Protection Board.")
+    
+    with st.expander("What is the penalty under the DPDP Act?", expanded=False):
+        st.write("Penalties can extend up to Rs 250 crores/- and it depends upon several factors like gravity, repetitive nature, etc.")
+    
+    with st.expander("Has the DPDP Act been passed?", expanded=False):
+        st.write("Yes. The DPDP Act was passed in early August 2023. The act will be enforced when the central government issues a notification for the same.")
+    
+    # Add the countdown timer with reloader
+    st.markdown("""
+        <div style='background-color: #1E1E1E; padding: 20px; border-radius: 10px; margin: 20px 0;'>
+            <h3 style='color: #FF4B4B; margin-bottom: 15px; font-size: 1.8em;'>⏰ Time Left to Achieve DPDP Compliance</h3>
+            <p style='color: #FFF; margin-bottom: 20px; font-size: 1.1em;'>
+                Your organization must achieve compliance before the deadline: December 31, 2025
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Add the auto-updating countdown timer
+    create_countdown_timer()
+    
+    # Export Report section continues...
     st.subheader("Export Report")
     col1, col2, col3 = st.columns(3)
     
@@ -853,129 +984,6 @@ def render_report():
             st.session_state.selected_industry
         )
         st.markdown(excel_link, unsafe_allow_html=True)
-    
-    # # High risk areas
-    # if results["high_risk_areas"]:
-    #     st.subheader("High Risk Areas")
-    #     for area in results["high_risk_areas"]:
-    #         score = results["section_scores"][area] * 100
-    #         st.error(f"{area} ({score:.1f}%)", icon="🚨")
-    # else:
-    #     st.subheader("No High Risk Areas")
-    #     st.success("All sections have acceptable compliance levels", icon="✅")
-    
-    # Section scores - SECOND INSTANCE (change the title to be more descriptive)
-    st.subheader("Section Scores Visualization")  # Changed from "Section Compliance Scores"
-    
-    # Create dataframe for section scores
-    section_data = []
-    
-    for section, score in results["section_scores"].items():
-        if score is not None:
-            status = "High Risk" if score < 0.6 else ("Moderate Risk" if score < 0.75 else "Compliant")
-            section_data.append({
-                "Section": section,
-                "Score": score * 100,
-                "Status": status
-            })
-    
-    df = pd.DataFrame(section_data)
-    if not df.empty:
-        df = df.sort_values("Score")
-        
-        # Create horizontal bar chart - Fix for the error
-        try:
-            fig = px.bar(
-                df, 
-                x="Score", 
-                y="Section", 
-                orientation='h',
-                color="Status",
-                color_discrete_map={
-                    "High Risk": "#FF4B4B",
-                    "Moderate Risk": "#FFA500",
-                    "Compliant": "#00CC96"
-                },
-                labels={"Score": "Compliance Score (%)"}
-            )
-            fig.update_layout(height=400)
-            st.plotly_chart(fig, use_container_width=True)
-        except Exception as e:
-            st.error(f"Error generating chart: {e}")
-            # Fallback to show scores as text
-            st.write("Section Scores:")
-            for _, row in df.iterrows():
-                color = "#FF4B4B" if row["Status"] == "High Risk" else "#FFA500" if row["Status"] == "Moderate Risk" else "#00CC96"
-                st.markdown(f"<div style='color:{color};'>• {row['Section']}: {row['Score']:.1f}%</div>", unsafe_allow_html=True)
-    else:
-        st.info("No section scores available to display.")
-    
-    # Recommendations summary
-    st.subheader("Key Recommendations")
-    if results["improvement_priorities"]:
-        for i, area in enumerate(results["improvement_priorities"][:3]):
-            with st.expander(f"Priority {i+1}: {area}"):
-                if area in results["recommendations"] and results["recommendations"][area]:
-                    for rec in results["recommendations"][area]:
-                        # Highlight critical recommendations with icons
-                        if any(keyword in rec.lower() for keyword in ["critical", "immediate", "urgent", "required", "necessary"]):
-                            st.error(f"• {rec} ⚠️")
-                        else:
-                            st.write(f"• {rec}")
-                else:
-                    st.write("No specific recommendations available for this area.")
-    else:
-        st.info("No priority recommendations identified.")
-    
-    # Button to view detailed recommendations
-    if st.button("View All Recommendations", type="primary"):
-        go_to_page('recommendations')
-        track_event("navigation", {"destination": "recommendations"})
-
-    # Add tabs before accessing tab1
-    tabs = st.tabs(["AI Summary", "Detailed Scores", "Recommendations"])
-    
-    with tabs[0]:  # AI Summary tab
-        # Show AI loading indicator
-        with st.spinner("Generating detailed analysis..."):
-            # Get organization name and date
-            org_name = st.session_state.get("organization_name", "Your Organization")
-            assessment_date = st.session_state.get("assessment_date", datetime.now().strftime("%Y-%m-%d"))
-            
-            # Generate report - now returns plain text
-            ai_report = generate_natural_language_report(st.session_state.results)
-            
-            # Replace placeholders
-            ai_report = ai_report.replace("[Insert Date]", assessment_date)
-            ai_report = ai_report.replace("[Insert Organization Name]", org_name)
-            
-            # Display the report using Streamlit's native markdown
-            st.markdown(ai_report)
-
-            # Add download button for the report
-            if ai_report:
-                col1, col2 = st.columns([3, 1])
-                with col1:
-                    st.download_button(
-                        label="📥 Download Report",
-                        data=ai_report,
-                        file_name=f"compliance_report_{datetime.now().strftime('%Y%m%d')}.txt",
-                        mime="text/plain",
-                        help="Download the report as a text file"
-                    )
-                with col2:
-                    if st.button("🔄 Regenerate Analysis"):
-                        st.session_state.ai_report_generated = False
-                        st.rerun()
-
-    # Add content for other tabs
-    with tabs[1]:
-        st.write("Detailed scores will be shown here")
-        # Add detailed scores visualization
-
-    with tabs[2]:
-        st.write("Recommendations will be shown here")
-        # Add recommendations content
 
 def render_recommendations():
     """Render the detailed recommendations page"""
@@ -1052,8 +1060,85 @@ def render_recommendations():
                     st.write(f"**Your Response:** {context['response']}")
                     st.markdown(f"**Recommendation:** {context['recommendation']}")
                     st.markdown("---")
+    
+    # Add AI Analysis section after recommendation context
+    st.markdown("""
+        <div style='background-color: rgba(75, 75, 255, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0;'>
+            <h3 style='color: #4B4BFF; margin-bottom: 15px; font-size: 1.8em;'>🤖 AI Analysis Summary</h3>
+            <p style='color: #FFF; margin-bottom: 20px; font-size: 1.1em;'>
+                AI-powered analysis of your compliance assessment:
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Initialize cached report key if not exists
+    if 'cached_ai_report' not in st.session_state:
+        st.session_state.cached_ai_report = None
+    
+    # Check if we should regenerate the report
+    should_regenerate = (
+        st.session_state.cached_ai_report is None or 
+        st.session_state.get('ai_report_generated') is False
+    )
+    
+    # Show AI loading indicator with enhanced styling
+    with st.spinner("🔄 Generating detailed AI analysis...") if should_regenerate else st.container():
+        try:
+            if should_regenerate:
+                ai_report = generate_natural_language_report(st.session_state.results)
+                if ai_report and not ai_report.startswith("Error:"):
+                    # Clean up the report text
+                    ai_report = ai_report.strip()
+                    ai_report = ai_report.replace("```markdown", "").replace("```", "")
+                    ai_report = ai_report.replace("<div>", "").replace("</div>", "")
+                    
+                    # Replace placeholders
+                    ai_report = ai_report.replace("[Insert Date]", st.session_state.get('assessment_date', 'Unknown Date'))
+                    ai_report = ai_report.replace("[Insert Organization Name]", st.session_state.get('organization_name', 'Unknown Organization'))
+                    
+                    # Cache the processed report
+                    st.session_state.cached_ai_report = ai_report
+                    st.session_state.ai_report_generated = True
+                else:
+                    st.error("Failed to generate AI analysis. Please try again.")
+                    st.session_state.cached_ai_report = None
+                    if st.button("🔄 Retry Analysis Generation"):
+                        st.session_state.ai_report_generated = False
+                        st.rerun()
+                    return
+            
+            # Use cached report
+            ai_report = st.session_state.cached_ai_report
+            
+            # Display the AI report with enhanced styling
+            st.markdown(f"""
+                <div style='background-color: rgba(75, 75, 255, 0.1); padding: 20px; border-radius: 5px; border-left: 4px solid #4B4BFF; font-size: 1.1em; line-height: 1.3; white-space: normal;'>
+                    {ai_report}
+                </div>
+            """, unsafe_allow_html=True)
+            
+            # Add download button for the report with better layout
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                st.download_button(
+                    label="📥 Download Detailed Analysis",
+                    data=ai_report,
+                    file_name=f"ai_analysis_report_{datetime.now().strftime('%Y%m%d')}.txt",
+                    mime="text/plain",
+                    help="Download the AI-generated analysis as a text file"
+                )
+            with col2:
+                if st.button("🔄 Regenerate", help="Generate a new AI analysis"):
+                    st.session_state.ai_report_generated = False
+                    st.rerun()
 
-# This Admin page section duplicates functionality in debug_response_viewer.py
+        except Exception as e:
+            logger.error(f"Error rendering AI report: {e}")
+            st.error("An error occurred while generating the analysis. Please try again.")
+            if st.button("🔄 Retry"):
+                st.session_state.ai_report_generated = False
+                st.rerun()
+
 def render_admin_page():
     """Render the admin page"""
     st.title("Admin Dashboard")
@@ -1509,7 +1594,10 @@ def render_sidebar():
             """, unsafe_allow_html=True)
         
         # Apply custom CSS for navigation menu
-        st.markdown(get_sidebar_css(), unsafe_allow_html=True)
+        st.markdown(get_section_navigation_css(), unsafe_allow_html=True)
+        
+        # Make sure we apply common button CSS
+        st.markdown(get_common_button_css(), unsafe_allow_html=True)
         
         # Navigation section title
         st.markdown("<div class='nav-title'>Navigation</div>", unsafe_allow_html=True)
@@ -1522,14 +1610,17 @@ def render_sidebar():
             st.session_state.selected_industry and
             st.session_state.get('assessment_started', False)  # New condition
         )
-        
+
+
+
         # Define navigation items with conditional display
         nav_items = [
             {"label": "Home", "key": "nav_home", "page": "welcome", "always_show": True},
             {"label": "Assessment", "key": "nav_assessment", "page": "assessment", "show_if_ready": assessment_ready},
             {"label": "Dashboard", "key": "nav_dashboard", "page": "dashboard", "show_if": "assessment_complete"},
             {"label": "Report", "key": "nav_report", "page": "report", "show_if": "assessment_complete"},
-            {"label": "Recommendations", "key": "nav_recommendations", "page": "recommendations", "show_if": "assessment_complete"},
+            {"label": "AI Recommendations ✨", "key": "nav_recommendations", "page": "recommendations", "show_if": "assessment_complete"},
+            {"label": "AI Data Discovery 🪄", "key": "nav_discovery", "page": "discovery", "show_if": "assessment_complete"},  # Added this line
             {"label": "Admin", "key": "nav_admin", "page": "admin", "show_if": "is_admin"}
         ]
         
@@ -1541,63 +1632,98 @@ def render_sidebar():
                 (item.get("show_if_ready") and item.get("show_if_ready"))
             )
             if should_show:
-                button_class = "secondary" if st.session_state.current_page == item["page"] else "primary"
-                if st.button(item["label"], key=item["key"], type=button_class, use_container_width=True):
+                button_type = "secondary" if st.session_state.current_page == item["page"] else "primary"
+                if st.button(
+                    item["label"], 
+                    key=item["key"], 
+                    type=button_type, 
+                    use_container_width=True
+                ):
                     go_to_page(item["page"])
 
 def render_welcome_page():
     """Render the welcome page"""
-    st.title("Welcome to the Compliance Assessment Tool")
-    st.write("This tool helps you assess your organization's compliance with data protection regulations.")
+    # Center all content
+    _, center_col, _ = st.columns([1, 2, 1])
     
-    # Organization name input with required flag
-    org_name = st.text_input(
-        "Organization Name *", 
-        value=st.session_state.organization_name,
-        key="org_name_input",
-        help="This field is required to start the assessment"
-    )
-    
-    # Update session state when changed
-    if org_name != st.session_state.organization_name:
-        st.session_state.organization_name = org_name
-    
-    # Regulation selection
-    regulations = config.REGULATIONS
-    selected_regulation = st.selectbox(
-        "Select Regulation",
-        options=list(regulations.keys()),
-    )
-    
-    # Get industries specific to the selected regulation
-    # This will dynamically update when regulation changes
-    industries = config.get_available_industries(selected_regulation)
-    
-    # Industry selection - FIX: Add missing label and options parameters
-    selected_industry = st.selectbox(
-        label="Select Industry",
-        options=list(industries.keys()),
-        format_func=lambda x: industries[x],
-        key="selected_industry"
-    )
-    
-    # Always enable the button, but validate on click
-    if st.button("Start Assessment", type="primary"):
-        if not org_name.strip():
-            st.error("Please enter your organization name before starting the assessment.")
-            return
-        
-        # Reset responses and assessment completion status
-        st.session_state.responses = {}
-        st.session_state.assessment_complete = False
-        st.session_state.results = None
-        st.session_state.current_section = 0
-        st.session_state.assessment_started = True  # Set flag when assessment starts
-        # Log the transition
-        logger.info(f"Starting new assessment for {st.session_state.organization_name}, regulation: {st.session_state.selected_regulation}, industry: {st.session_state.selected_industry}")
-        # Use go_to_page instead of manually setting the page
-        go_to_page('assessment')
-        st.rerun()
+    with center_col:
+        # Create container for form elements
+        with st.container():
+            st.markdown("""
+                <style>
+                .input-label {
+                    font-size: 0.8rem;
+                    color: #666;
+                    margin-bottom: 0.2rem;
+                }
+                </style>
+            """, unsafe_allow_html=True)
+            
+            # Organization name with smaller label
+            st.markdown('<p class="input-label">Organization Name *</p>', unsafe_allow_html=True)
+            org_name = st.text_input(
+                "",  # Empty label since we're using custom label above
+                value=st.session_state.organization_name,
+                key="org_name_input",
+                placeholder="Enter organization name",
+                label_visibility="collapsed"
+            )
+            
+            # Update session state when changed
+            if org_name != st.session_state.organization_name:
+                st.session_state.organization_name = org_name
+            
+            # Add some spacing
+            st.write("")
+            
+            # Regulation selection with smaller label
+            st.markdown('<p class="input-label">Select Regulation *</p>', unsafe_allow_html=True)
+            regulations = config.REGULATIONS
+            selected_regulation = st.selectbox(
+                "",  # Empty label
+                options=list(regulations.keys()),
+                label_visibility="collapsed"
+            )
+            
+            # Add some spacing
+            st.write("")
+            
+            # Industry selection with smaller label
+            st.markdown('<p class="input-label">Select Industry *</p>', unsafe_allow_html=True)
+            industries = config.get_available_industries(selected_regulation)
+            selected_industry = st.selectbox(
+                "",  # Empty label
+                options=list(industries.keys()),
+                format_func=lambda x: industries[x],
+                key="selected_industry",
+                label_visibility="collapsed"
+            )
+            
+            # Add spacing before button
+            st.write("")
+            st.write("")
+            
+            # Centered button with fixed width
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                if st.button(
+                    "Start Assessment",
+                    type="primary",
+                    use_container_width=True,
+                ):
+                    if not org_name.strip():
+                        st.error("Please enter your organization name before starting the assessment.")
+                        return
+                    
+                    # Reset responses and assessment completion status
+                    st.session_state.responses = {}
+                    st.session_state.assessment_complete = False
+                    st.session_state.results = None
+                    st.session_state.current_section = 0
+                    st.session_state.assessment_started = True
+                    logger.info(f"Starting assessment for {org_name}")
+                    go_to_page('assessment')
+                    st.rerun()
 
 def render_dashboard():
     """Render the dashboard view"""
@@ -1651,7 +1777,7 @@ def render_dashboard():
             for area in results["high_risk_areas"]:
                 score = results["section_scores"][area] * 100
                 st.error(f"• {area} ({score:.1f}%)")
-    
+
     with col2:
         # Section scores
         st.subheader("Section Compliance Scores")
@@ -1700,3 +1826,150 @@ def export_pdf_button():
     
     # Add print button HTML
     st.markdown(get_print_button_html(), unsafe_allow_html=True)
+
+from data_discovery import analyze_ddl_script, get_recommendations, render_findings_section
+
+def render_data_discovery():
+    """Render the data discovery page"""
+    try:
+        # Add custom CSS for better layout
+        st.markdown("""
+            <style>
+            .discovery-header {
+                background: linear-gradient(90deg, #1E1E1E, #2D2D2D);
+                padding: 2rem;
+                border-radius: 10px;
+                margin-bottom: 2rem;
+                border: 1px solid #333;
+            }
+            .input-section {
+                background: #1E1E1E;
+                padding: 2rem;
+                border-radius: 10px;
+                border: 1px solid #333;
+                margin-bottom: 2rem;
+            }
+            .results-section {
+                background: #1E1E1E;
+                padding: 2rem;
+                border-radius: 10px;
+                border: 1px solid #333;
+            }
+            </style>
+            
+            <div class="discovery-header">
+                <h1>🔍 AI Data Discovery Tool</h1>
+                <p style="font-size: 1.2em; color: #CCC;">
+                    Analyze your database schema for potential DPDP-sensitive data fields and get compliance recommendations.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+
+        # Input section
+        with st.container():
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("### Upload DDL Script")
+                uploaded_file = st.file_uploader("Upload SQL/DDL file", type=['sql', 'txt'])
+
+            with col2:
+                st.markdown("### Or Paste DDL Script")
+                ddl_text = st.text_area(
+                    "Paste your CREATE TABLE statements here",
+                    height=200,
+                    help="Enter your database schema definition"
+                )
+
+            analyze_clicked = st.button("🔍 Analyze Schema", type="primary", use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        # Process analysis
+        if analyze_clicked:
+            ddl_content = uploaded_file.getvalue().decode() if uploaded_file else ddl_text
+            
+            if ddl_content:
+                with st.spinner("🔄 Analyzing schema for sensitive data..."):
+                    from data_discovery import analyze_ddl_script
+                    
+                    analysis_results = analyze_ddl_script(ddl_content)
+                    if "error" in analysis_results:
+                        st.error(analysis_results["error"])
+                        return
+
+                    # Display raw output only - remove redundant display
+                    if "raw_analysis" in analysis_results:
+                        st.markdown("### Analysis Results")
+                        st.markdown(analysis_results["raw_analysis"])
+
+                    # Get recommendations
+                    recommendations = get_recommendations(analysis_results)
+                    
+                    # Display recommendations after raw analysis
+                    st.subheader("📋 Recommendations")
+                    for rec in recommendations:
+                        st.markdown(f"- {rec}")
+                    
+                    
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        # Export as JSON
+                        export_data = {
+                            "timestamp": analysis_results.get("timestamp", datetime.now().isoformat()),
+                            "findings": analysis_results.get("findings", {}),
+                            "recommendations": recommendations,
+                            "raw_analysis": analysis_results.get("raw_analysis", ""),
+                            "metadata": {
+                                "organization": st.session_state.get("organization_name", "Unknown"),
+                                "analysis_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                            }
+                        }
+                        
+                        st.download_button(
+                            "📥 Download JSON Report",
+                            data=json.dumps(export_data, indent=2),
+                            file_name=f"data_discovery_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                            mime="application/json",
+                            help="Download the complete analysis results in JSON format"
+                        )
+                    
+                    with col2:
+                        # Export as CSV
+                        if "findings" in analysis_results:
+                            csv_data = []
+                            for table, fields in analysis_results["findings"].items():
+                                for field in fields:
+                                    csv_data.append({
+                                        "Table": table,
+                                        "Field": field["name"],
+                                        "Data Type": field.get("data_type", ""),
+                                        "Sensitivity": field.get("sensitivity", "Unknown"),
+                                        "Notes": field.get("notes", "")
+                                    })
+                            
+                            if csv_data:
+                                df = pd.DataFrame(csv_data)
+                                csv = df.to_csv(index=False)
+                                st.download_button(
+                                    "📥 Download CSV Report",
+                                    data=csv,
+                                    file_name=f"data_discovery_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                                    mime="text/csv",
+                                    help="Download the findings in CSV format"
+                                )
+                    
+                    # Track the analysis event
+                    track_event("data_discovery_analysis", {
+                        "tables_analyzed": len(analysis_results.get("findings", {})),
+                        "sensitive_fields_found": sum(len(fields) for fields in analysis_results.get("findings", {}).values())
+                    })
+            else:
+                st.warning("Please provide a DDL script to analyze.")
+                
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
+        logger.error(f"Error in data discovery: {str(e)}", exc_info=True)
+
+# ...existing code...
+

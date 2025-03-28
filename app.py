@@ -10,26 +10,47 @@ Main entry point that initializes the application and handles page routing.
 import streamlit as st
 import logging
 import os
-from datetime import datetime
 import sys
-from dotenv import load_dotenv  # Make sure python-dotenv is installed
+from datetime import datetime
+from dotenv import load_dotenv  
 
-# Load environment variables from .env file if it exists
+# Reduce logging frequency for timer updates
+logging.getLogger('__main__').setLevel(logging.WARNING)
+logging.getLogger('assessment').setLevel(logging.WARNING)
+logging.getLogger('root').setLevel(logging.WARNING)  # Added to suppress root logger
+
+# Setup logging configuration before any other imports
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+
+# Configure root logger
+logging.basicConfig(
+    level=logging.WARNING,  # Changed from INFO to WARNING
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(f"logs/app_{datetime.now().strftime('%Y%m%d')}.log"),
+        logging.StreamHandler(sys.stdout)  # Add StreamHandler for terminal output
+    ]
+)
+
+# Get logger for this module
+logger = logging.getLogger(__name__)
+
+# Add test log message to verify logging is working
+logger.info("Application started - Logging initialized")
+
+# Load environment variables silently
 env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
 if os.path.exists(env_path):
     load_dotenv(env_path)
-    logging.info(f"Loaded environment variables from {env_path}")
 
-# Check for API key and log its availability (without revealing the key)
+# Check for API key without logging
 api_key = os.environ.get("COMPLIANCE_AI_API_KEY")
-if api_key:
-    logging.info(f"OpenAI API key found in environment variables: {api_key[:4]}...")
-else:
-    logging.info("OpenAI API key not found in environment variables, will check for file storage")
 
 # Continue with the rest of the imports and application setup
 import config
-from helpers import initialize_session_state, validate_token
+from helpers import initialize_session_state
+from assessment import get_questionnaire
 from views import (
     render_landing_page,
     render_header, 
@@ -39,9 +60,10 @@ from views import (
     render_assessment, 
     render_report, 
     render_recommendations,
+    render_data_discovery,  # Add this import
     render_admin_page
 )
-from assessment import get_questionnaire
+
 
 # Set page configuration with custom icon
 st.set_page_config(
@@ -50,21 +72,6 @@ st.set_page_config(
     layout=config.APP_LAYOUT,
     initial_sidebar_state=config.SIDEBAR_STATE
 )
-
-# Setup logging
-if not os.path.exists('logs'):
-    os.makedirs('logs')
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(f"logs/app_{datetime.now().strftime('%Y%m%d')}.log"),
-        logging.StreamHandler()
-    ]
-)
-
-logger = logging.getLogger(__name__)
 
 # Initialize session state
 initialize_session_state()
@@ -195,8 +202,6 @@ else:
             # Render current page
             if st.session_state.current_page == 'welcome':
                 render_welcome_page()
-            elif st.session_state.current_page == 'regulation_selection':
-                render_regulation_selection()
             elif st.session_state.current_page == 'assessment' and assessment_ready:
                 render_assessment()
             elif st.session_state.current_page == 'dashboard' and st.session_state.get('assessment_complete', False):
@@ -205,6 +210,8 @@ else:
                 render_report()
             elif st.session_state.current_page == 'recommendations' and st.session_state.get('assessment_complete', False):
                 render_recommendations()
+            elif st.session_state.current_page == 'discovery' and st.session_state.get('assessment_complete', False):
+                render_data_discovery()
             elif st.session_state.current_page == 'admin' and st.session_state.get('is_admin', False):
                 render_admin_page()
             else:

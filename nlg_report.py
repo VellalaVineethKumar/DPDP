@@ -4,6 +4,7 @@ Supports template-based reports and optional integration with external AI APIs.
 Returns properly formatted reports with headings, bullet points, sections, and paragraphs.
 """
 
+from datetime import datetime
 import logging
 from typing import Dict, Any, List, Optional
 import time
@@ -65,119 +66,121 @@ def generate_report(results: Dict[str, Any], use_external_api: bool = True, form
     logger.info(f"Generating template-based report in {format} format")
     start_time = time.time()
     report = _generate_template_report(results, format)
+    
+    if not report:
+        error_msg = "Error generating report. Please try again or contact support."
+        logger.error("Template report generation failed")
+        return error_msg
+        
     duration = time.time() - start_time
     logger.info(f"Generated template-based report in {duration:.2f} seconds")
     return report
 
 def _generate_template_report(results: Dict[str, Any], format: str = FORMAT_MARKDOWN) -> str:
     """Generate formatted report using templates and rules"""
-    # Extract key information from the results
-    overall_score = results.get("overall_score", 0)
-    section_scores = results.get("section_scores", {})
-    compliance_level = results.get("compliance_level", "Unknown")
-    recommendations = results.get("recommendations", {})
-    
-    # Determine overall tone based on score
-    if overall_score >= 80:
-        tone = TONE_POSITIVE
-        overall_assessment = "Your organization demonstrates strong compliance with the data protection requirements."
-    elif overall_score >= 60:
-        tone = TONE_NEUTRAL
-        overall_assessment = "Your organization shows moderate compliance with data protection requirements, but there are areas that need improvement."
-    else:
-        tone = TONE_CONCERNED
-        overall_assessment = "Your organization has significant compliance gaps that should be addressed urgently."
-
-    # Generate markdown report
-    md_report = []
-    
-    # Report header with markdown formatting
-    md_report.extend([
-        "# DATA PROTECTION COMPLIANCE REPORT",
-        "",
-        "## EXECUTIVE SUMMARY",
-        "",
-        f"Based on the assessment, your organization's overall compliance score is **{overall_score:.1f}%**, "
-        f"which indicates a **{compliance_level}** level of compliance.",
-        "",
-        f"{overall_assessment}",
-        "",
-        "## DETAILED FINDINGS",
-        ""
-    ])
-    
-
-    # Sort sections by their scores (ascending) to highlight most critical areas first
-    sorted_sections = sorted(section_scores.items(), key=lambda x: x[1] if x[1] is not None else 1.0)
-    
-    for section, score in sorted_sections:
-        if score is None:
-            continue
+    try:
+        # Extract key information from the results
+        overall_score = results.get("overall_score", 0)
+        section_scores = results.get("section_scores", {})
+        compliance_level = results.get("compliance_level", "Unknown")
+        recommendations = results.get("recommendations", {})
         
-        score_percentage = score * 100
-        section_recommendations = recommendations.get(section, [])
-        
-        if score_percentage < 60:
-            risk_level = "HIGH RISK"
-            action_urgency = "urgent attention"
-        elif score_percentage < 75:
-            risk_level = "MODERATE RISK"
-            action_urgency = "attention"
+        # Determine overall tone based on score
+        if overall_score >= 80:
+            tone = TONE_POSITIVE
+            overall_assessment = "Your organization demonstrates strong compliance with the data protection requirements."
+        elif overall_score >= 60:
+            tone = TONE_NEUTRAL
+            overall_assessment = "Your organization shows moderate compliance with data protection requirements, but there are areas that need improvement."
         else:
-            risk_level = "LOW RISK"
-            action_urgency = "continued monitoring"
+            tone = TONE_CONCERNED
+            overall_assessment = "Your organization has significant compliance gaps that should be addressed urgently."
+
+        # Generate markdown report
+        md_report = []
         
-        md_report.append(f"### {section} - {score_percentage:.1f}%")
-        md_report.append(f"**Risk Level: {risk_level}**")
-        md_report.append(f"This area requires {action_urgency}.")
+        # Report header with markdown formatting
+        md_report.extend([
+            "# DATA PROTECTION COMPLIANCE REPORT",
+            "",
+            "## EXECUTIVE SUMMARY",
+            "",
+            f"Based on the assessment, your organization's overall compliance score is **{overall_score:.1f}%**, "
+            f"which indicates a **{compliance_level}** level of compliance.",
+            "",
+            f"{overall_assessment}",
+            "",
+            "## DETAILED FINDINGS",
+            ""
+        ])
         
-        if section_recommendations:
-            md_report.append("#### Key recommendations:")
-            for rec in section_recommendations[:3]:  # Show at most 3 recommendations
-                md_report.append(f"* {rec}")
+
+        # Sort sections by their scores (ascending) to highlight most critical areas first
+        sorted_sections = sorted(section_scores.items(), key=lambda x: x[1] if x[1] is not None else 1.0)
+        
+        for section, score in sorted_sections:
+            if score is None:
+                continue
             
-            if len(section_recommendations) > 3:
-                md_report.append(f"* *And {len(section_recommendations) - 3} more recommendation(s).*")
+            score_percentage = score * 100
+            section_recommendations = recommendations.get(section, [])
+            
+            if score_percentage < 60:
+                risk_level = "HIGH RISK"
+                action_urgency = "urgent attention"
+            elif score_percentage < 75:
+                risk_level = "MODERATE RISK"
+                action_urgency = "attention"
+            else:
+                risk_level = "LOW RISK"
+                action_urgency = "continued monitoring"
+            
+            md_report.append(f"### {section} - {score_percentage:.1f}%")
+            md_report.append(f"**Risk Level: {risk_level}**")
+            md_report.append(f"This area requires {action_urgency}.")
+            
+            if section_recommendations:
+                md_report.append("#### Key recommendations:")
+                for rec in section_recommendations[:3]:  # Show at most 3 recommendations
+                    md_report.append(f"* {rec}")
+                
+                if len(section_recommendations) > 3:
+                    md_report.append(f"* *And {len(section_recommendations) - 3} more recommendation(s).*")
+            
+            md_report.append("")
+        
+        md_report.append("## ACTION PLAN")
+        md_report.append("")
+
+        if overall_score < 60:
+            md_report.append("**Given the high-risk areas identified, we recommend the following priority actions:**")
+        elif overall_score < 75:
+            md_report.append("**To improve your compliance posture, consider the following actions:**")
+        else:
+            md_report.append("**To maintain your strong compliance posture, consider the following actions:**")
         
         md_report.append("")
-    
-    md_report.append("## ACTION PLAN")
-    md_report.append("")
+        
+        # Identify top priority areas (lowest scores)
+        priority_sections = sorted(
+            [(section, score) for section, score in section_scores.items() if score is not None], 
+            key=lambda x: x[1]
+        )[:3]
+        
+        for i, (section, _) in enumerate(priority_sections, 1):
+            section_recommendations = recommendations.get(section, [])
+            if section_recommendations and len(section_recommendations) > 0:
+                md_report.append(f"{i}. **Focus on improving {section}** by implementing these actions:")
+                for j, rec in enumerate(section_recommendations[:2], 1):
+                    md_report.append(f"   {j}. {rec}")
+                md_report.append("")
 
-    if overall_score < 60:
-        md_report.append("**Given the high-risk areas identified, we recommend the following priority actions:**")
-    elif overall_score < 75:
-        md_report.append("**To improve your compliance posture, consider the following actions:**")
-    else:
-        md_report.append("**To maintain your strong compliance posture, consider the following actions:**")
-    
-    md_report.append("")
-    
-    # Identify top priority areas (lowest scores)
-    priority_sections = sorted(
-        [(section, score) for section, score in section_scores.items() if score is not None], 
-        key=lambda x: x[1]
-    )[:3]
-    
-    for i, (section, _) in enumerate(priority_sections, 1):
-        section_recommendations = recommendations.get(section, [])
-        if section_recommendations and len(section_recommendations) > 0:
-            md_report.append(f"{i}. **Focus on improving {section}** by implementing these actions:")
-            for j, rec in enumerate(section_recommendations[:2], 1):
-                md_report.append(f"   {j}. {rec}")
-            md_report.append("")
-    
-    # Convert to requested format
-    markdown_text = "\n".join(md_report)
-    
-    if format == FORMAT_MARKDOWN:
-        return markdown_text
-    elif format == FORMAT_HTML:
-        return markdown.markdown(markdown_text)
-    else:  # FORMAT_PLAIN
-        h = html2text.HTML2Text()
-        h.ignore_links = False
-        return h.handle(markdown.markdown(markdown_text))
+        # Join the report lines with newlines
+        return "\n".join(md_report)
+        
+    except Exception as e:
+        logger.error(f"Template report generation failed: {e}")
+        return "Error: Unable to generate compliance report. Please try again or contact support."
 
 def _generate_report_with_api(results: Dict[str, Any], format: str = FORMAT_MARKDOWN) -> str:
     """Generate a formatted report using external AI API"""
@@ -252,7 +255,7 @@ def _generate_with_openai(context: Dict[str, Any], api_key: str, format: str = F
                     "X-Title": "Compliance Assessment Tool"
                 }
             )
-            model = "deepseek/deepseek-r1:free"
+            model = "deepseek/deepseek-chat-v3-0324:free"
             logger.info(f"OpenRouter client configured with model: {model}")
             
         else:
@@ -323,39 +326,42 @@ def _generate_with_openai(context: Dict[str, Any], api_key: str, format: str = F
                 logger.info(f"Sending request to {'OpenRouter' if use_openrouter else 'OpenAI'} API")
                 response = client.chat.completions.create(**request_params)
                 
-                # Calculate and log API call duration
                 duration = time.time() - start_time
                 logger.info(f"API call completed successfully in {duration:.2f} seconds")
                 
-                # Access response properties as object attributes
-                report_content = response.choices[0].message.content
-                logger.info(f"Received response with content length: {len(report_content)} characters")
+                # Check for rate limit error in response
+                if hasattr(response, 'error'):
+                    error_data = getattr(response, 'error', {})
+                    if isinstance(error_data, dict):
+                        error_code = error_data.get('code')
+                        error_msg = error_data.get('message', '')
+                        
+                        if error_code == 429 or 'rate limit' in error_msg.lower():
+                            # Try rotating API key before falling back to template
+                            new_api_key = config.rotate_api_key()
+                            if new_api_key != api_key:
+                                logger.info("Rate limit hit, rotating to next API key")
+                                # Recursively try with new key without incrementing retry count
+                                return _generate_with_openai(context, new_api_key, format, use_openrouter)
+                            else:
+                                # If we've tried all keys, fall back to template
+                                logger.warning("All API keys have hit rate limits")
+                                return _generate_template_report(context, format)
+
+                # Handle successful response
+                if hasattr(response, 'choices') and response.choices:
+                    report_content = response.choices[0].message.content
+                    if report_content:
+                        logger.info(f"Received valid response with content length: {len(report_content)} characters")
+                        return report_content
                 
-                # Log usage statistics if available
-                try:
-                    usage = dict(response).get('usage', {})
-                    logger.info(f"API usage statistics: {usage}")
-                except Exception as e:
-                    logger.warning(f"Could not extract usage statistics: {str(e)}")
-                    
-                # Process content if needed for format conversion
-                if format == FORMAT_HTML and not report_content.strip().startswith("<"):
-                    # Convert markdown to HTML if AI didn't return HTML
-                    logger.info("Converting markdown response to HTML")
-                    report_content = markdown.markdown(report_content)
-                
-                return report_content
+                # If we get here, response format was invalid
+                raise ValueError(f"Invalid response format: {response}")
                 
             except Exception as e:
                 retry_count += 1
                 logger.error(f"API request failed (attempt {retry_count}/{max_retries}): {str(e)}")
                 logger.error(f"Error type: {type(e).__name__}")
-                
-                # Add more detailed error logging for specific error types
-                if "rate_limit" in str(e).lower():
-                    logger.error("Rate limit exceeded. Consider increasing backoff or reducing request frequency.")
-                elif "auth" in str(e).lower() or "api key" in str(e).lower():
-                    logger.error("Authentication error. Please check your API key.")
                 
                 if retry_count == max_retries:
                     logger.error(f"Failed to generate report with API after {max_retries} attempts. Falling back to template.")
@@ -372,6 +378,9 @@ def _generate_with_openai(context: Dict[str, Any], api_key: str, format: str = F
     except Exception as e:
         logger.error(f"Failed to initialize AI client: {str(e)}", exc_info=True)
         return _generate_template_report(context, format)
+
+    # Add explicit return at the end
+    return _generate_template_report(context, format)
 
 def _generate_with_azure(context: Dict[str, Any], api_key: str, format: str = FORMAT_MARKDOWN) -> str:
     """Generate a formatted report using Azure OpenAI API"""
@@ -454,6 +463,7 @@ Your report should include:
 
 Ensure the tone is professional but accessible, avoiding overly technical language.
 Use data-driven insights to provide specific, actionable recommendations.
+Include at the end -> Partner with Informatica experts to close gaps efficiently.*Contact info@datainfa.com for futher understaing and DPDP implementation*
 """
     
     return prompt

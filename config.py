@@ -38,7 +38,6 @@ SIDEBAR_STATE = "expanded"
 # Available regulations and industries
 REGULATIONS = {
     "DPDP": "Digital Personal Data Protection Act (India)",
-    "GDPR": "General Data Protection Regulation (EU)"
 }
 
 # Industry-to-filename mapping
@@ -84,7 +83,6 @@ def get_available_industries(regulation_code: str) -> Dict[str, str]:
                 base_name = os.path.splitext(file)[0]
                 industry_name = INDUSTRY_DISPLAY_NAMES.get(base_name, base_name.replace('_', ' ').title())
                 industries[industry_code] = industry_name
-                
             return industries
         else:
             logging.warning(f"Regulation directory not found: {regulation_dir}")
@@ -93,67 +91,33 @@ def get_available_industries(regulation_code: str) -> Dict[str, str]:
         logging.error(f"Error getting available industries: {str(e)}")
         return {"general": "General Industry"}
 
-def map_industry_to_filename(regulation_code: str, industry_code: str) -> str:
-    """
-    Map an industry code to its corresponding filename
-    
-    Args:
-        regulation_code: The regulation code
-        industry_code: The industry code to map
-        
-    Returns:
-        The filename to use for this industry code (without .json extension)
-    """
-    industry_code = industry_code.lower()
-    
-    # Use mapping if available
-    if regulation_code in INDUSTRY_FILENAME_MAP and industry_code in INDUSTRY_FILENAME_MAP[regulation_code]:
-        return INDUSTRY_FILENAME_MAP[regulation_code][industry_code]
-    
-    # Otherwise, use industry code as filename
-    return industry_code
 
-def get_questionnaire_path(regulation: str, industry: str) -> str:
-    """Get full path to questionnaire file with fallback options"""
-    try:
-        regulation = regulation.strip().upper()
-        industry = industry.strip().lower()
-        
-        # Get mapped filename
-        filename = INDUSTRY_FILENAME_MAP.get(regulation, {}).get(industry)
-        if not filename:
-            filename = f"{industry}.json"
-            
-        file_path = os.path.join(QUESTIONNAIRE_DIR, regulation, filename)
-        
-        # Check for case-insensitive match if file doesn't exist
-        if not os.path.exists(file_path):
-            dir_path = os.path.join(QUESTIONNAIRE_DIR, regulation)
-            if os.path.exists(dir_path):
-                files = os.listdir(dir_path)
-                for f in files:
-                    if f.lower() == filename.lower():
-                        return os.path.join(dir_path, f)
-                        
-            # Fall back to default questionnaire
-            return os.path.join(QUESTIONNAIRE_DIR, regulation, "Banking and finance.json")
-            
-        return file_path
-        
-    except Exception as e:
-        logger.error(f"Error getting questionnaire path: {str(e)}")
-        return os.path.join(QUESTIONNAIRE_DIR, regulation, "Banking and finance.json")
 
 # AI Report Generation settings
 AI_ENABLED = True
 AI_PROVIDER = "openrouter"
 
 # OpenRouter API key with bearer prefix
-AI_API_KEY = "Bearer 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"
+AI_API_KEY_1 = "Bearer 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"
+AI_API_KEY_2 = "Bearer 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"
+AI_API_KEY_3 = "Bearer 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"
+
+# API key rotation settings
+_current_api_key_index = 0
+API_KEYS = [AI_API_KEY_1, AI_API_KEY_2, AI_API_KEY_3]
 
 def get_ai_api_key():
-    """Get the API key for AI services"""
-    return AI_API_KEY.replace("Bearer ", "") if AI_API_KEY and AI_API_KEY.startswith("Bearer ") else AI_API_KEY
+    """Get the API key for AI services with rotation support"""
+    global _current_api_key_index
+    key = API_KEYS[_current_api_key_index]
+    return key.replace("Bearer ", "") if key and key.startswith("Bearer ") else key
+
+def rotate_api_key():
+    """Rotate to the next available API key"""
+    global _current_api_key_index
+    _current_api_key_index = (_current_api_key_index + 1) % len(API_KEYS)
+    logger.info(f"Rotating to API key {_current_api_key_index + 1}")
+    return get_ai_api_key()
 
 # Update the getter function to handle missing keys better
 def get_ai_enabled():

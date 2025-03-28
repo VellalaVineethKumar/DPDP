@@ -15,6 +15,7 @@ import pandas as pd
 import streamlit as st
 from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
+import functools
 
 # Local modules
 import config
@@ -44,8 +45,10 @@ logger = logging.getLogger(__name__)
 # Add a cache for questionnaires to avoid repeated loading
 _questionnaire_cache = {}
 
+# Add caching to questionnaire loading
+@functools.lru_cache(maxsize=32)
 def get_questionnaire(regulation: str, industry: str) -> dict:
-    """Load questionnaire from file with robust error handling"""
+    """Cached version of questionnaire loading to prevent repeated disk access"""
     try:
         # Convert inputs to lowercase for consistent handling
         regulation = regulation.strip().upper()
@@ -196,6 +199,7 @@ def calculate_section_score(section: Dict[str, Any], responses: Dict[str, str], 
     total_score = 0
     applicable_questions = 0
     
+    section_idx = section.get("index", 0)  # Assuming section has an "index" key
     for q_idx, _ in enumerate(questions):
         response_key = f"s{section_idx}_q{q_idx}"
         response = responses.get(response_key)
