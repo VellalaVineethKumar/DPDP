@@ -107,22 +107,14 @@ def render_landing_page():
     st.markdown(get_landing_page_css(), unsafe_allow_html=True)
     st.markdown(get_contact_link_css(), unsafe_allow_html=True)
     
-    # Logo - Use st.image centered with CSS
-    st.markdown("""
-        <style>
-        .landing-logo-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-    
+    # Logo - Use st.image centered with columns
+    # Remove previous CSS styling block for .landing-logo-container
+
     if os.path.exists(config.LOGO_PATH):
-        # Use markdown to wrap st.image in a styled div
-        st.markdown("<div class='landing-logo-container'>", unsafe_allow_html=True)
-        st.image(config.LOGO_PATH, width=200) # Adjust width as needed
-        st.markdown("</div>", unsafe_allow_html=True)
+        # Use columns to center the image
+        col1, col2, col3 = st.columns([1, 1, 1]) # Use equal columns for centering
+        with col2: # Place image in the center column
+            st.image(config.LOGO_PATH, width=200) # Adjust width as needed
     else:
         st.warning(f"Logo not found at path: {config.LOGO_PATH}")
     
