@@ -118,12 +118,8 @@ def render_landing_page():
         div[data-testid="stImage"] {
             margin-bottom: 25px;
         }
-        /* Center text in the Access Assessment button */
-        div[data-testid="stVerticalBlock"] > div.stHorizontalBlock > div:nth-child(2) div[data-testid="stButton"] > button {
-            text-align: center !important;
-        }
         </style>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
     # Logo - Display using columns and centered text within middle column
     if os.path.exists(config.LOGO_PATH):
@@ -305,11 +301,11 @@ def render_assessment():
     if st.session_state.get('is_admin', False):
         with st.sidebar.expander("TESTING TOOLS", expanded=False):
             auto_fill_option = st.radio(
-                "Auto-fill responses with:",
-                ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
-                key="auto_fill_option"
-            )
-
+            "Auto-fill responses with:",
+            ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
+            key="auto_fill_option"
+        )
+        
             if st.button("Apply Auto-Fill", key="apply_auto_fill", type="primary"):
                 sections = questionnaire["sections"]
                 current_section = st.session_state.current_section
@@ -321,25 +317,22 @@ def render_assessment():
                     for q_idx, question in enumerate(questions):
                         response_key = f"s{current_section}_q{q_idx}"
                         
-                        # Get options based on question format
                         if isinstance(question, dict):
                             options = question.get("options", [])
                         else:
                             options = section.get("options", [])[q_idx] if section.get("options") else ["Yes", "No", "Not applicable"]
                         
-                        # Select response based on auto-fill option
                         selected_option = None
                         if auto_fill_option == "All Yes/Positive":
-                            selected_option = options[0]  # First option (usually Yes/Positive)
+                            selected_option = options[0]
                         elif auto_fill_option == "All Partial/Medium":
-                            selected_option = options[1] if len(options) > 2 else options[0]  # Middle option if available
+                            selected_option = options[1] if len(options) > 2 else options[0]
                         elif auto_fill_option == "All No/Negative":
-                            selected_option = options[-1]  # Last option (usually No/Negative)
+                            selected_option = options[-1]
                         elif auto_fill_option == "Random Mix":
                             import random
                             selected_option = random.choice(options)
                         
-                        # Save the response if an option was selected
                         if selected_option:
                             st.session_state.responses[response_key] = selected_option
                     
@@ -1991,7 +1984,7 @@ def render_sidebar():
                     padding-left: calc(0.75rem - 3px) !important; /* Adjust padding for border */
                 }
             </style>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
         # --- End of CSS Injection --- #
 
         # Logo container - Now using st.image
@@ -2075,7 +2068,7 @@ def render_welcome_page():
                             st.session_state.selected_industry = None
                             logger.info(f"Regulation changed to {new_regulation}, Industry state cleared as no options available")
             # --- End Callback --- #
-
+            
             # Organization name with smaller label
             st.markdown('<p class="input-label">Organization Name *</p>', unsafe_allow_html=True)
             org_name = st.text_input(
@@ -2262,14 +2255,14 @@ def render_data_discovery():
         .high-risk { 
             color: #FF4B4B !important;
             font-weight: bold;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-    
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
     st.header("AI Data Discovery")
-    
+            
     col1, col2 = st.columns([2, 1])
-    
+            
     with col1:
         st.markdown("""
             #### Database Schema Analysis
