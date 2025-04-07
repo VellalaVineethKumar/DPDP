@@ -27,7 +27,8 @@ else:
 # Use absolute paths for questionnaires directory
 QUESTIONNAIRE_DIR = os.path.join(BASE_DIR, "Questionnaire")
 DATA_DIR = os.path.join(BASE_DIR, "data")
-LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo.png")
+# Define logo path relative to project root for st.image
+LOGO_PATH = "Assets/logo.png"
 
 # Ensure critical directories exist
 for directory in [QUESTIONNAIRE_DIR, os.path.join(BASE_DIR, "data"), os.path.join(BASE_DIR, "secure")]:

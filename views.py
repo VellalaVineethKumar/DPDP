@@ -73,14 +73,6 @@ from faq import FAQ_DATA  # Add this import at the top
 # Setup logging
 logger = logging.getLogger(__name__)
 
-# Base64 logo function (moved from landing.py)
-def get_base64_logo():
-    """Get base64 encoded logo"""
-    if os.path.exists(config.LOGO_PATH):
-        with open(config.LOGO_PATH, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    return ""
-
 def render_header():
     """Render the application header"""
     # Show organization name only if it exists and isn't empty
@@ -1973,15 +1965,12 @@ def render_sidebar():
         """, unsafe_allow_html=True)
         # --- End of CSS Injection --- #
 
-        # Logo container
+        # Logo container - Now using st.image
         st.markdown(get_logo_css(), unsafe_allow_html=True)
-        logo_base64 = get_base64_logo()
-        if logo_base64:
-            st.markdown(f"""
-                <div class='logo-container'>
-                    <img src="data:image/jpeg;base64,{logo_base64}" class="logo-image">
-                </div>
-            """, unsafe_allow_html=True)
+        if os.path.exists(config.LOGO_PATH): 
+            st.image(config.LOGO_PATH, use_column_width='auto')
+        else:
+            st.warning(f"Logo not found at path: {config.LOGO_PATH}")
         
         # Apply custom CSS for navigation menu
         st.markdown(get_section_navigation_css(), unsafe_allow_html=True)

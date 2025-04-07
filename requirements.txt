@@ -9,5 +9,6 @@ logging
 pypandoc
 python-dotenv
 markdown-pdf
+xlsxwriter
 # streamlit-authenticator # Re-add if needed
 # werkzeug # Re-add if needed
