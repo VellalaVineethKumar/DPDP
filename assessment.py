@@ -105,12 +105,7 @@ def create_fallback_questionnaire(regulation_code: str, industry_code: str) -> D
             logger.warning(f"SWITCHING BACK to e-commerce from {industry_code} due to locked questionnaire type")
             industry_code = "e-commerce"
             # Try loading the E-commerce file directly instead of creating fallback
-            base_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
-                "Questionnaire",
-                regulation_code
-            )
-            ecommerce_path = os.path.join(base_path, "E-commerce.json")
+            ecommerce_path = os.path.join(config.QUESTIONNAIRE_DIR, regulation_code, "E-commerce.json")
             if os.path.exists(ecommerce_path):
                 try:
                     with open(ecommerce_path, 'r', encoding='utf-8') as file:

@@ -14,6 +14,11 @@ import base64
 import json
 import traceback  # Add this import at the top
 from typing import Dict, List, Any, Optional, Tuple  # Add typing imports
+import subprocess
+import tempfile
+import pypandoc
+import re # Add re import
+from markdown_pdf import MarkdownPdf, Section # Add markdown-pdf imports
 
 import config
 # Update import: get reg/ind functions from config instead of assessment
@@ -33,7 +38,7 @@ from helpers import (
     format_regulation_name,
     validate_token
 )
-from token_storage import generate_token, cleanup_expired_tokens, revoke_token, get_organization_for_token
+from token_storage import generate_token, cleanup_expired_tokens, revoke_token, get_organization_for_token, TOKENS_FILE
 
 # Import the newly created styles
 from styles import (
@@ -43,12 +48,27 @@ from styles import (
     get_print_export_css,
     get_print_button_html,
     get_expiry_box_css,
-    get_section_navigation_css,  # Importing the dark theme navigation CSS
-    get_common_button_css  # Importing common button CSS
+    get_section_navigation_css,
+    get_common_button_css,
+    get_informatica_solution_css,
+    get_section_header_css,
+    get_progress_metrics_css,
+    get_penalties_table_css,
+    get_discovery_button_css,
+    get_faq_css,
+    get_input_label_css,
+    get_app_header_css,
+    get_contact_link_css,
+    get_ai_analysis_css,
+    get_penalties_section_css,
+    get_countdown_section_css,
+    get_logo_css,
+    get_spacing_css
 )
 
+from faq import FAQ_DATA  # Add this import at the top
+
 # Add import at the top with other imports
-from countdown_utils import create_countdown_timer
 
 # Setup logging
 logger = logging.getLogger(__name__)
@@ -56,9 +76,8 @@ logger = logging.getLogger(__name__)
 # Base64 logo function (moved from landing.py)
 def get_base64_logo():
     """Get base64 encoded logo"""
-    logo_path = config.LOGO_PATH
-    if os.path.exists(logo_path):
-        with open(logo_path, "rb") as img_file:
+    if os.path.exists(config.LOGO_PATH):
+        with open(config.LOGO_PATH, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
     return ""
 
@@ -67,31 +86,19 @@ def render_header():
     # Show organization name only if it exists and isn't empty
     org_name = st.session_state.organization_name if st.session_state.organization_name and st.session_state.organization_name.strip() else None
     
+    st.markdown(get_app_header_css(), unsafe_allow_html=True)
+    
     if org_name:
         st.markdown(f"""
-            <style>
-            .app-header {{
-                margin-bottom: 1rem;
-                padding: 1rem 0;
-                border-bottom: 1px solid rgba(49, 51, 63, 0.2);
-            }}
-            </style>
-            <div class="app-header" style='text-align: center;'>
-                <h1 style='margin: 0 0 0.5rem 0;'>{config.APP_TITLE}</h1>
-                <p style='font-size: 1.2em; font-weight: 500; margin: 0;'>Organization: {org_name}</p>
+            <div class="app-header">
+                <h1>{config.APP_TITLE}</h1>
+                <p>Organization: {org_name}</p>
             </div>
         """, unsafe_allow_html=True)
     else:
         st.markdown(f"""
-            <style>
-            .app-header {{
-                margin-bottom: 1rem;
-                padding: 1rem 0;
-                border-bottom: 1px solid rgba(49, 51, 63, 0.2);
-            }}
-            </style>
-            <div class="app-header" style='text-align: center;'>
-                <h1 style='margin: 0;'>{config.APP_TITLE}</h1>
+            <div class="app-header">
+                <h1>{config.APP_TITLE}</h1>
             </div>
         """, unsafe_allow_html=True)
 
@@ -106,6 +113,7 @@ def render_landing_page():
             
     # Apply custom CSS
     st.markdown(get_landing_page_css(), unsafe_allow_html=True)
+    st.markdown(get_contact_link_css(), unsafe_allow_html=True)
     
     # Logo
     logo_base64 = get_base64_logo()
@@ -121,7 +129,7 @@ def render_landing_page():
         <div class="title-container">
             <h1>{config.APP_TITLE}</h1>
             <p>Enter your access token to begin the assessment</p>
-            <p style="font-size: 0.9rem; margin-top: 1rem;">If you do not have a token, please <a href="mailto:info@datainfa.com?subject=Requesting%20Access%20token%20for%20my%20organisation">contact us</a> to get your access token.</p>
+            <p class="contact-link">If you do not have a token, please <a href="mailto:info@datainfa.com?subject=Requesting%20Access%20token%20for%20my%20organisation">contact us</a> to get your access token.</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -149,6 +157,8 @@ def render_assessment():
     # Create a top anchor to scroll to
     st.markdown('<div id="top"></div>', unsafe_allow_html=True)
 
+    # Add custom CSS to highlight "Informatica Solution:"
+    st.markdown(get_informatica_solution_css(), unsafe_allow_html=True)
 
     # DEBUGGING: Log entry to assessment page with full context
     logger.info(f"ENTERING render_assessment: industry={st.session_state.get('selected_industry', 'UNKNOWN')}")
@@ -271,80 +281,52 @@ def render_assessment():
     
     # TESTING ONLY - TO BE REMOVED BEFORE PRODUCTION
     # Add quick-fill testing option in sidebar for faster testing
-    with st.sidebar.expander("TESTING TOOLS - REMOVE BEFORE PRODUCTION", expanded=False):
-        
-        auto_fill_option = st.radio(
-            "Auto-fill responses with:",
-            ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
-            key="auto_fill_option"
-        )
-        
-        if st.button("Apply Auto-Fill", key="apply_auto_fill"):
-            sections = questionnaire["sections"]
-            current_section = st.session_state.current_section
-            
-            if current_section < len(sections):
-                section = sections[current_section]
-                questions = section["questions"]
+    if st.session_state.get('is_admin', False):
+        with st.sidebar.expander("TESTING TOOLS", expanded=False):
+            auto_fill_option = st.radio(
+                "Auto-fill responses with:",
+                ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
+                key="auto_fill_option"
+            )
+
+            if st.button("Apply Auto-Fill", key="apply_auto_fill", type="primary"):
+                sections = questionnaire["sections"]
+                current_section = st.session_state.current_section
                 
-                for q_idx, question in enumerate(questions):
-                    # Get options
-                    if isinstance(question, dict):
-                        options = question.get("options", [])
-                    else:
-                        try:
-                            options = section.get("options", [])[q_idx]
-                        except (IndexError, KeyError):
-                            options = ["Yes", "No", "Not applicable"]
+                if current_section < len(sections):
+                    section = sections[current_section]
+                    questions = section.get("questions", [])
                     
-                    if not options:
-                        continue
-                        
-                    # Determine which option to select based on auto_fill_option
-                    selected_option = None
-                    if auto_fill_option == "All Yes/Positive":
-                        # Look for positive answers ("Yes", contains "with", etc.)
-                        for option in options:
-                            option_lower = option.lower()
-                            if option_lower.startswith("yes") or "with" in option_lower or "clear" in option_lower:
-                                selected_option = option
-                                break
-                        # Default to first option if no positive option found
-                        if selected_option is None and options:
-                            selected_option = options[0]
-                    elif auto_fill_option == "All Partial/Medium":
-                        # Look for partial answers
-                        for option in options:
-                            option_lower = option.lower()
-                            if "partial" in option_lower or "need" in option_lower or "improvement" in option_lower:
-                                selected_option = option
-                                break
-                        # Default to middle option if no partial option found
-                        if selected_option is None and len(options) > 1:
-                            selected_option = options[len(options) // 2]
-                        elif options:
-                            selected_option = options[0]
-                    elif auto_fill_option == "All No/Negative":
-                        # Look for negative answers
-                        for option in options:
-                            option_lower = option.lower()
-                            if option_lower.startswith("no") or "lack" in option_lower or "not" in option_lower:
-                                selected_option = option
-                                break
-                        # Default to last option if no negative option found
-                        if selected_option is None and options:
-                            selected_option = options[-1]
-                    elif auto_fill_option == "Random Mix":
-                        import random
-                        selected_option = random.choice(options)
-                    
-                    # Save the response if an option was selected
-                    if selected_option:
+                    for q_idx, question in enumerate(questions):
                         response_key = f"s{current_section}_q{q_idx}"
-                        st.session_state.responses[response_key] = selected_option
-                
-                st.success(f"Auto-filled {len(questions)} responses for current section")
-                st.rerun()
+                        
+                        # Get options based on question format
+                        if isinstance(question, dict):
+                            options = question.get("options", [])
+                        else:
+                            options = section.get("options", [])[q_idx] if section.get("options") else ["Yes", "No", "Not applicable"]
+                        
+                        # Select response based on auto-fill option
+                        selected_option = None
+                        if auto_fill_option == "All Yes/Positive":
+                            selected_option = options[0]  # First option (usually Yes/Positive)
+                        elif auto_fill_option == "All Partial/Medium":
+                            selected_option = options[1] if len(options) > 2 else options[0]  # Middle option if available
+                        elif auto_fill_option == "All No/Negative":
+                            selected_option = options[-1]  # Last option (usually No/Negative)
+                        elif auto_fill_option == "Random Mix":
+                            import random
+                            selected_option = random.choice(options)
+                        
+                        # Save the response if an option was selected
+                        if selected_option:
+                            st.session_state.responses[response_key] = selected_option
+                    
+                    st.success(f"Auto-filled {len(questions)} responses for current section")
+                    st.rerun()
+                else:
+                    st.error("No section available for auto-fill")
+    
     # END OF TESTING CODE
     
     # Add debug info to see which questionnaire we're using
@@ -389,30 +371,8 @@ def render_assessment():
     overall_progress = (answered_questions / total_questions) * 100 if total_questions > 0 else 0
     
     # Show section header with both section and overall progress
+    st.markdown(get_section_header_css(), unsafe_allow_html=True)
     st.markdown(f"""
-        <style>
-        /* Remove excessive top margin to fix the large gap */
-        .main .block-container {{
-            padding-top: 1rem !important;
-            margin-top: 0 !important;
-        }}
-        /* Minimize space between elements */
-        .element-container {{
-            margin-bottom: 0.5rem !important;
-        }}
-        /* Adjust section header to be more compact */
-        .section-header {{
-            margin: 0 0 0.5rem 0 !important;
-            padding: 0.5rem 0.75rem !important;
-            background: rgba(49, 51, 63, 0.1);
-            border-radius: 0.5rem;
-        }}
-        .section-title {{
-            margin: 0 !important;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }}
-        </style>
         <div class="section-header">
             <h2 class="section-title">Part {st.session_state.current_section + 1}: {section_name}</h2>
         </div>
@@ -423,14 +383,34 @@ def render_assessment():
     st.progress(section_progress / 100)
     
     # Show both progress metrics with consistent spacing
+    st.markdown(get_progress_metrics_css(), unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f"<p style='margin: 0.5rem 0;'>Part progress: {section_progress:.1f}%</p>", unsafe_allow_html=True)
+        st.markdown(f'<p class="progress-metric">Part progress: {section_progress:.1f}%</p>', unsafe_allow_html=True)
     with col2:
-        st.markdown(f"<p style='margin: 0.5rem 0;'>Overall progress: {overall_progress:.1f}% ({answered_questions}/{total_questions} questions)</p>", unsafe_allow_html=True)
+        st.markdown(f'<p class="progress-metric">Overall progress: {overall_progress:.1f}% ({answered_questions}/{total_questions} questions)</p>', unsafe_allow_html=True)
     
     # Apply radio button styling
     st.markdown(get_radio_button_css(), unsafe_allow_html=True)
+    
+    # Add this near where questions are rendered
+    st.markdown("""
+        <style>
+        .informatica-solution {
+            color: #FF4B4B !important;
+            font-weight: bold;
+        }
+        .question-text a {
+            color: #FF4B4B;
+            text-decoration: none;
+            border-bottom: 1px dashed #FF4B4B;
+        }
+        .question-text a:hover {
+            color: #ff7575;
+            border-bottom: 1px solid #ff7575;
+        }
+        </style>
+    """, unsafe_allow_html=True)
     
     # Create a form for the section
     with st.form(key=f"section_form_{st.session_state.current_section}"):
@@ -453,7 +433,11 @@ def render_assessment():
                     logger.warning(f"No options found for question {q_id}, using default options")
             
             st.subheader(f"Question {q_id}")
-            st.markdown(q_text)
+            st.markdown(f"""
+                <div class="question-text">
+                    {q_text}
+                </div>
+            """, unsafe_allow_html=True)
             
             # Create a unique key for this question that we'll use to access response
             response_key = f"q_{st.session_state.current_section}_{q_idx}"
@@ -638,8 +622,8 @@ def render_report():
     results = st.session_state.results
     
     st.header(f"{format_regulation_name(st.session_state.selected_regulation)} Compliance Report")
-    st.subheader(f"For: {st.session_state.organization_name}")
-    st.write(f"Assessment Date: {st.session_state.assessment_date}")
+    # st.subheader(f"For: {st.session_state.organization_name}")
+    # st.write(f"Assessment Date: {st.session_state.assessment_date}")
     
     # Get questionnaire to check how many sections it has vs how many have scores
     questionnaire = get_questionnaire(
@@ -670,6 +654,71 @@ def render_report():
     for improvement.
     """)
     
+    # Create two columns for charts with 1:2 ratio
+    col1, col2 = st.columns([1, 2])
+    
+    # Add gauge chart in the first column
+    with col1:
+        # Create gauge chart
+        fig = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=results['overall_score'],
+            number={'suffix': '%', 'valueformat': '.0f'},
+            domain={'x': [0.1, 0.9], 'y': [0, 0.9]},
+            gauge={
+                'axis': {'range': [0, 100], 'tickvals': [0, 25, 50, 75, 100], 'ticktext': ['0%', '25%', '50%', '75%', '100%']},
+                'bar': {'color': "#1f77b4"},
+                'steps': [
+                    {'range': [0, 50], 'color': "#ff4b4b"},
+                    {'range': [50, 75], 'color': "#ffa64b"},
+                    {'range': [75, 100], 'color': "#4bff4b"}
+                ]
+            },
+            title={'text': "Overall Compliance Score"}
+        ))
+        fig.update_layout(height=300, margin=dict(t=40, b=20, l=20, r=20))
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Add horizontal bar chart in the second column
+    with col2:
+        # Get all sections from questionnaire
+        questionnaire = st.session_state.current_questionnaire
+        all_sections = [section["name"] for section in questionnaire["sections"]]
+        
+        # Create section scores dataframe with percentage scores and weights, including all sections
+        df = pd.DataFrame([
+            {
+                "Section": section,
+                "Score": max(0.1, round(results["section_scores"].get(section, 0) * 100)),
+                "Weight": round(next((s['weight'] * 100 for s in questionnaire['sections'] if s['name'] == section), 0), 1)
+            }
+            for section in all_sections
+        ])
+        df = df.sort_values(by="Score", ascending=True)
+        
+        # Create horizontal bar chart with improved color scheme and hover template
+        fig = px.bar(
+            df, 
+            x="Score", 
+            y="Section", 
+            orientation='h',
+            color="Score",
+            color_continuous_scale=[[0, "#FF4B4B"], [0.5, "#FF4B4B"], [0.5, "#FFA500"], [0.75, "#FFA500"], [0.75, "#00CC96"], [1, "#00CC96"]],
+            range_color=[0, 100],
+            labels={"Score": "Compliance Score (%)"}
+        )
+        fig.update_layout(
+            height=400,
+            margin=dict(l=10, r=10, t=10, b=10),
+            yaxis=dict(automargin=True)
+        )
+        # Add custom hover template to show weight
+        fig.update_traces(
+            hovertemplate="<b>%{y}</b><br>Score: %{x:.1f}%<br>Weight: %{customdata:.1f}%<extra></extra>",
+            customdata=df["Weight"]
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    
     # Add verification for perfect scores
     all_perfect = True
     all_section_scores = []
@@ -686,58 +735,7 @@ def render_report():
         **Note:** All your section scores show full compliance, but the overall score may be slightly below 100% 
         due to weighting factors or rounding. Your organization has effectively achieved full compliance.
         """)
-    
-    # Section scores - FIRST INSTANCE (visualization)
-    st.subheader("Section Scores Visualization")
-    
-    # Create dataframe for section scores visualization
-    section_data = []
-    
-    for section, score in results["section_scores"].items():
-        if score is not None:
-            status = "High Risk" if score < 0.6 else ("Moderate Risk" if score < 0.75 else "Compliant")
-            section_data.append({
-                "Section": section,
-                "Score": score * 100,
-                "Status": status
-            })
-    
-    df = pd.DataFrame(section_data)
-    if not df.empty:
-        df = df.sort_values("Score")
-        
-        # Create horizontal bar chart
-        try:
-            fig = px.bar(
-                df, 
-                x="Score", 
-                y="Section", 
-                orientation='h',
-                color="Status",
-                color_discrete_map={
-                    "High Risk": "#FF4B4B",
-                    "Moderate Risk": "#FFA500",
-                    "Compliant": "#00CC96"
-                },
-                labels={"Score": "Compliance Score (%)"}
-            )
-            fig.update_layout(height=400)
-            st.plotly_chart(fig, use_container_width=True)
-        except Exception as e:
-            st.error(f"Error generating chart: {e}")
-            # Fallback to show scores as text
-            st.write("Section Scores:")
-            for _, row in df.iterrows():
-                color = "#FF4B4B" if row["Status"] == "High Risk" else "#FFA500" if row["Status"] == "Moderate Risk" else "#00CC96"
-                st.markdown(f"<div style='color:{color};'>• {row['Section']}: {row['Score']:.1f}%</div>", unsafe_allow_html=True)
-    else:
-        st.info("No section scores available to display.")
-    
 
-    
-    # Section scores table - SECOND INSTANCE (detailed table)
-    st.subheader("Section Compliance Scores")
-    
     # Create dataframe for section scores table
     section_data = []
     none_score_sections = []
@@ -755,7 +753,6 @@ def render_report():
             none_score_sections.append(section)
     
     df = pd.DataFrame(section_data)
-    st.dataframe(df, use_container_width=True)
     
     # Display sections with None scores
     if none_score_sections:
@@ -763,34 +760,91 @@ def render_report():
         for section in none_score_sections:
             st.write(f"• {section}")
     
-    # Key findings
-    st.subheader("Key Findings")
+    # Add Recommended Actions section here
+    st.subheader("Recommended Actions")
+    if results.get("improvement_priorities"):
+        for i, area in enumerate(results["improvement_priorities"][:3]):
+            with st.expander(f"Priority {i+1}: {area}"):
+                if area in results["recommendations"] and results["recommendations"][area]:
+                    for rec in results["recommendations"][area]:
+                        st.write(f"• {rec}")
+                else:
+                    st.write("No specific recommendations available for this area.")
+    else:
+        st.info("No specific priority actions identified based on your assessment results.")
     
-    # Strengths
-    strengths = [
-        section for section, score in results["section_scores"].items() 
-        if score is not None and score >= 0.75
-    ]
+    # Add INFA Diagram
+    st.subheader("DPDP Implementation Framework")
+    html_path = os.path.join(config.BASE_DIR, "Assets", "INFA.html")
+    if os.path.exists(html_path):
+        with open(html_path, "r", encoding="utf-8") as f:
+            html_content = f.read()
+        # Use CSS Grid for perfect centering
+        centered_html = f"""
+        <style>
+        .diagram-container {{
+            display: grid;
+            place-items: center;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: -20px;
+        }}
+        .diagram-content {{
+            margin: 0 auto;
+            place-items: center;
+            max-width: 1800px;
+            width: 100%;
+            transform: scale(1.1);
+            transform-origin: center center;
+        }}
+        </style>
+        <div class="diagram-container">
+            <div class="diagram-content">
+                {html_content}
+            </div>
+        </div>
+        """
+        st.components.v1.html(centered_html, height=1100, scrolling=False)
+    else:
+        st.warning("DPDP Implementation Framework diagram not found.")
     
-    if strengths:
-        st.write("**Strengths:**")
-        for strength in strengths[:3]:  # Top 3 strengths
-            score = results["section_scores"][strength] * 100
-            st.success(f"• {strength} ({score:.1f}%)")
-    
-    # Areas for improvement
-    if results["high_risk_areas"]:
-        st.write("**Areas for Improvement:**")
-        for area in results["high_risk_areas"]:
-            score = results["section_scores"][area] * 100
-            st.error(f"• {area} ({score:.1f}%)")
-            
-            # Display top recommendation for this area
-            if area in results["recommendations"] and results["recommendations"][area]:
-                with st.expander("Key recommendation"):
-                    st.write(results["recommendations"][area][0])
-    
-    # Add Not Applicable answers section before Export Report
+    # Add CLAIRE Diagram with reduced spacing
+    st.markdown('<div style="margin-top: -20px;"></div>', unsafe_allow_html=True)
+    st.subheader("Informatica CLAIRE Framework")
+    claire_path = os.path.join(config.BASE_DIR, "Assets", "CLAIRE.html")
+    if os.path.exists(claire_path):
+        with open(claire_path, "r", encoding="utf-8") as f:
+            claire_content = f.read()
+        # Use modified styling for CLAIRE diagram
+        centered_html = f"""
+        <style>
+        .claire-container {{
+            display: grid;
+            place-items: center;
+            width: 100%;
+            padding: 10px;
+            margin-top: -20px;
+        }}
+        .claire-content {{
+            margin: 0 auto;
+            max-width: 1400px;
+            width: 100%;
+            transform: scale(0.88);  # Decreased scale from 0.92 to 0.88
+            transform-origin: center center;
+        }}
+        </style>
+        <div class="claire-container">
+            <div class="claire-content">
+                {claire_content}
+            </div>
+        </div>
+        """
+        st.components.v1.html(centered_html, height=825, scrolling=False) # Decreased height from 875 to 825
+    else:
+        st.warning("CLAIRE Framework diagram not found.")
+    # --- End of commented out section ---
+
+    # Add Not Applicable answers section
     st.subheader("Answers Marked as \"Not Applicable\"")
     
     # Get questionnaire for reference
@@ -827,11 +881,390 @@ def render_report():
         with st.expander("View Not Applicable Responses", expanded=False):
             st.info("No questions were marked as Not Applicable.")
     
-    # After the Not Applicable section and before Export Report
+    # Add AI Analysis section header/intro
+    st.markdown(get_ai_analysis_css(), unsafe_allow_html=True)
     st.markdown("""
-        <div style='background-color: #1E1E1E; padding: 20px; border-radius: 10px; margin: 20px 0;'>
-            <h4 style='color: #FF4B4B; margin-bottom: 10px; font-size: 1.5em;'>🚨 Potential Penalties Under DPDP</h4>
-            <p style='color: #FFF; margin-bottom: 20px; font-size: 1.1em;'>
+        <div class="ai-analysis-container-header"> <!-- Use a different class if needed -->
+            <h3 class="ai-analysis-header">🤖 AI Analysis Summary</h3>
+            <p class="ai-analysis-text">
+                AI-powered analysis of your compliance assessment:
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # --- AI Report Generation and Display ---
+    ai_report_content_placeholder = st.empty() # Create a placeholder
+
+    # Initialize cached report key if not exists
+    if 'cached_ai_report' not in st.session_state:
+        st.session_state.cached_ai_report = None
+
+    # Check if we should regenerate the report
+    should_regenerate = (
+        st.session_state.cached_ai_report is None or
+        st.session_state.get('ai_report_generated') is False
+    )
+
+    ai_report = None # Ensure ai_report is defined
+
+    with st.spinner("🔄 Generating detailed AI analysis...") if should_regenerate else st.container():
+        try:
+            if should_regenerate:
+                generated_report = generate_natural_language_report(st.session_state.results)
+                if generated_report and not generated_report.startswith("Error:"):
+                    # Clean up the report text
+                    cleaned_report = generated_report.strip()
+                    cleaned_report = cleaned_report.replace("```markdown", "").replace("```", "")
+                    cleaned_report = re.sub(r'</?div[^>]*>', '', cleaned_report, flags=re.IGNORECASE)
+                    cleaned_report = cleaned_report.replace("[Insert Date]", st.session_state.get('assessment_date', 'Unknown Date'))
+                    cleaned_report = cleaned_report.replace("[Insert Organization Name]", st.session_state.get('organization_name', 'Unknown Organization'))
+
+                    st.session_state.cached_ai_report = cleaned_report
+                    st.session_state.ai_report_generated = True
+                    ai_report = cleaned_report # Use the newly generated report
+                else:
+                    st.error("Failed to generate AI analysis. Please try again.")
+                    st.session_state.cached_ai_report = None
+            else:
+                 ai_report = st.session_state.cached_ai_report # Use cached report
+
+            # Display the report content in the placeholder
+            if ai_report:
+                # Add the previous CSS styling
+                st.markdown("""
+                    <style>
+                    .ai-analysis-container {
+                        background: rgba(255, 255, 255, 0.05);
+                        padding: 20px;
+                        border-radius: 10px;
+                        margin: 20px 0;
+                    }
+                    .ai-analysis-container h1 {
+                        font-size: 1.8em;
+                        font-weight: bold;
+                        color: white;
+                        margin-bottom: 25px;
+                        padding-bottom: 15px;
+                        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                    }
+                    .ai-analysis-container .report-header {
+                        font-size: 1.8em;
+                        font-weight: bold;
+                        color: white;
+                        margin-bottom: 25px;
+                        padding-bottom: 15px;
+                        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                    }
+                    .ai-analysis-container h2 {
+                        color: #6fa8dc;
+                        font-size: 1.5em;
+                        margin-top: 20px;
+                        margin-bottom: 15px;
+                    }
+                    .ai-analysis-container h3 {
+                        color: #6fa8dc;
+                        font-size: 1.3em;
+                        margin-top: 20px;
+                        margin-bottom: 15px;
+                    }
+                    .ai-analysis-container strong {
+                        color: #f8aeae;
+                    }
+                    .ai-analysis-container ul {
+                        margin-left: 20px;
+                        margin-bottom: 15px;
+                    }
+                    .ai-analysis-container li {
+                        margin-bottom: 10px;
+                        line-height: 1.6;
+                    }
+                    .ai-analysis-container p {
+                        line-height: 1.6;
+                        margin-bottom: 15px;
+                    }
+                    </style>
+                """, unsafe_allow_html=True)
+                
+                # Process the report to fix the first line
+                lines = ai_report.split('\n')
+                processed_lines = []
+                
+                # Check if the first line starts with # and contains compliance scores
+                if lines and lines[0].startswith('# '):
+                    # Extract the header text and handle special formatting
+                    header_line = lines[0].replace('# ', '')
+                    
+                    # Extract title and scores
+                    if "**Overall Compliance Score:" in header_line:
+                        # Split into title and scores
+                        parts = header_line.split("**Overall")
+                        title = parts[0].strip()
+                        
+                        # Format scores with vertical bar
+                        scores = "**Overall" + parts[1]
+                        scores = scores.replace("**", "")
+                        scores = scores.replace("Overall Compliance Score:", "Overall Compliance Score:")
+                        scores = scores.replace("Compliance Level:", "| Compliance Level:")
+                        
+                        # Create formatted header
+                        formatted_header = f"""<div class="report-header">
+                            {title}<br>
+                            <span style="font-size: 0.9em; color: #FF6B6B;">{scores}</span>
+                        </div>"""
+                        
+                        processed_lines.append(formatted_header)
+                    else:
+                        # Fallback for other header formats
+                        processed_lines.append(f'<div class="report-header">{header_line}</div>')
+                    
+                    # Add the rest of the lines
+                    processed_lines.extend(lines[1:])
+                else:
+                    # If it doesn't start with #, use the original lines
+                    processed_lines = lines
+                
+                # Join the processed lines
+                processed_report = '\n'.join(processed_lines)
+                
+                # Wrap the report in the styled container
+                st.markdown(f'<div class="ai-analysis-container">{processed_report}</div>', unsafe_allow_html=True)
+            else:
+                st.markdown('<div class="ai-analysis-container">AI report not available.</div>', unsafe_allow_html=True)
+
+
+        except Exception as e:
+            logger.error(f"Error rendering AI report: {e}")
+            st.error("An error occurred while generating the analysis. Please try again.")
+            ai_report_content_placeholder.markdown('<div class="ai-analysis-container"><p>Error generating report.</p></div>', unsafe_allow_html=True)
+            ai_report = None # Ensure report is None on error
+
+
+    # --- Download/Regenerate Buttons ---
+    if ai_report: # Only show buttons if report exists
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            def convert_for_download():
+                """Convert the report to PDF only when called"""
+                try:
+                    # Get the original AI report content
+                    original_report_content = st.session_state.cached_ai_report
+                    # Get organization name, default if not found
+                    org_name = st.session_state.get('organization_name', 'Unknown Organization')
+                    # Prepend organization name to the report content
+                    report_with_org = f"**Organization:** {org_name}\n\n{original_report_content}"
+                    # Pass the modified content and org name for metadata
+                    return convert_markdown_to_pdf(report_with_org, org_name)
+                except Exception as e:
+                    logger.error(f"Error in convert_for_download: {e}")
+                    st.error("Failed to generate PDF report. Please try again.")
+                    return None
+
+            # Add custom CSS for button alignment
+            st.markdown("""
+                <style>
+                [data-testid="stDownloadButton"] button {
+                    background: #FF6B6B !important;
+                    color: white !important;
+                    border: none !important;
+                    border-radius: 4px !important;
+                    font-weight: normal !important;
+                    font-size: 0.9rem !important;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+                    transition: all 0.2s ease !important;
+                    width: auto !important;
+                    display: inline-block !important;
+                }
+                [data-testid="stDownloadButton"] button:hover {
+                    background: #45a049 !important;
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+                    transform: translateY(-1px) !important;
+                }
+                [data-testid="stDownloadButton"] button:active {
+                    transform: translateY(0) !important;
+                }
+                /* Add right alignment for regenerate button container */
+                div.stButton {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+                </style>
+            """, unsafe_allow_html=True)
+
+            # Create a row for the buttons with more space between them
+            col1, spacer, col2 = st.columns([1, 2, 1])
+            
+            with col1:
+                # Generate PDF data
+                pdf_data = convert_for_download()
+                
+                # Only show download button if PDF generation was successful
+                if pdf_data is not None:
+                    if st.download_button(
+                        label="📥 Download Report (PDF)",
+                        data=pdf_data,
+                        file_name=f"ai_analysis_report_{datetime.now().strftime('%Y%m%d')}.pdf",
+                        mime="application/pdf",
+                        help="Download the AI-generated analysis as a PDF document",
+                        use_container_width=False
+                    ):
+                        st.success("PDF report generated successfully!")
+                else:
+                    st.error("Failed to generate PDF report. Please try again.")
+            
+            with col2:
+                if st.button("🔄 Regenerate", help="Generate a new AI analysis", use_container_width=False):
+                    st.session_state.ai_report_generated = False
+                    st.rerun()
+    else:
+         # Show retry button if generation failed or report is None
+         if st.button("🔄 Retry Analysis Generation"):
+             st.session_state.ai_report_generated = False
+             st.rerun()
+
+
+   
+    def get_image_base64(image_path):
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+
+    # Get all image data first
+    img1_base64 = get_image_base64(os.path.join(config.BASE_DIR, "Assets", "data-integration-tools-mq.jpg"))
+    img2_base64 = get_image_base64(os.path.join(config.BASE_DIR, "Assets", "ipaas-mq.jpg"))
+    img3_base64 = get_image_base64(os.path.join(config.BASE_DIR, "Assets", "data-governance-mq.jpg"))
+    img4_base64 = get_image_base64(os.path.join(config.BASE_DIR, "Assets", "data-quality-mq.png"))
+
+    # Add Gartner Magic Quadrant section with hover effect
+    st.markdown("""
+        <style>
+        .magic-quadrant-section {
+            background: #1E1E1E;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        .magic-quadrant-header {
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .magic-quadrant-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 10px;
+            flex-wrap: nowrap;
+        }
+        .quadrant-item {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .magic-quadrant-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .new-badge {
+            background: #8A2BE2;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        /* Image container styles */
+        .image-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 8px;
+        }
+        .image-container:hover {
+            position: relative;
+            z-index: 1000;
+        }
+        .image-container:hover img {
+            transform: scale(2.5);
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+        }
+        /* Add styles for the link */
+        .quadrant-link {
+            text-decoration: none;
+            display: block;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Render the Magic Quadrant section
+    st.markdown(f"""
+        <div class="magic-quadrant-section">
+            <div class="magic-quadrant-header">
+                Informatica Leadership in Gartner Magic Quadrant
+            </div>
+            <div class="magic-quadrant-grid">
+                <div class="quadrant-item">
+                    <div class="magic-quadrant-title">Data Integration Tools</div>
+                    <a href="https://www.informatica.com/lp/gartner-leadership.html" target="_blank" class="quadrant-link">
+                        <div class="image-container">
+                            <img src="data:image/jpeg;base64,{img1_base64}" alt="Data Integration Tools">
+                        </div>
+                    </a>
+                </div>
+                <div class="quadrant-item">
+                    <div class="magic-quadrant-title">Integration Platform as a Service (iPaaS)</div>
+                    <a href="https://www.informatica.com/lp/gartner-leadership.html" target="_blank" class="quadrant-link">
+                        <div class="image-container">
+                            <img src="data:image/jpeg;base64,{img2_base64}" alt="iPaaS">
+                        </div>
+                    </a>
+                </div>
+                <div class="quadrant-item">
+                    <div class="magic-quadrant-title">Data and Analytics Governance Platforms<span class="new-badge">NEW</span></div>
+                    <a href="https://www.informatica.com/lp/gartner-leadership.html" target="_blank" class="quadrant-link">
+                        <div class="image-container">
+                            <img src="data:image/jpeg;base64,{img3_base64}" alt="Data Governance">
+                        </div>
+                    </a>
+                </div>
+                <div class="quadrant-item">
+                    <div class="magic-quadrant-title">Augmented Data Quality Solutions<span class="new-badge">NEW</span></div>
+                    <a href="https://www.informatica.com/lp/gartner-leadership.html" target="_blank" class="quadrant-link">
+                        <div class="image-container">
+                            <img src="data:image/jpeg;base64,{img4_base64}" alt="Data Quality">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # Add penalties section with header
+    st.markdown(get_penalties_section_css(), unsafe_allow_html=True)
+    st.markdown("""
+        <div class="penalties-container">
+            <h4 class="penalties-header">🚨 Potential Penalties Under DPDP</h4>
+            <p class="penalties-text">
                 The Digital Personal Data Protection Act, 2023 prescribes significant penalties for non-compliance:
             </p>
         </div>
@@ -840,79 +1273,29 @@ def render_report():
     # Create the penalties data with enhanced styling
     penalties_data = {
         "Nature of violation/breach": [
-            "Failure to implement security safeguards",
-            "Failure to notify a breach to the board",
-            "Non-compliance with the special provisions regarding children",
-            "Non-compliance with the obligations of SDF",
-            "Non-compliance of obligations by the data principals",
-            "Violation of any voluntary undertaking if any",
-            "Violation of all other provisions than mentioned"
+            "Failure of data fiduciary to take reasonable security safeguards to prevent personal data breach",
+            "Failure to notify Data Protection Board of India and affected data principals in case of personal data breach",
+            "Non-fulfilment of additional obligations in relation to personal data of children",
+            "Non-fulfilment of additional obligations by significant data fiduciaries",
+            "Non-compliance with duties of data principals",
+            "Breach of any term of voluntary undertaking accepted by the Data Protection Board",
+            "Residuary penalty"
         ],
         "Penalty": [
-            "Up to INR 250 crores (~ $30.213 million)",
-            "Up to INR 200 crores (~ $24.17 million)",
-            "Up to INR 200 crores (~ $24.17 million)",
-            "Up to INR 150 crores (~ $18.127 million)",
-            "Up to INR 10,000 (~ $120)",
-            "Up to the extent applicable to that breach",
-            "Up to INR 50 crore (~ $6 million)"
+            "May extend to INR 250 crores",
+            "May extend to INR 200 crores",
+            "May extend to INR 200 crores",
+            "May extend to INR 150 crores",
+            "May extend to INR 10,000",
+            "Up to the extent applicable",
+            "May extend to INR 50 crores"
         ]
     }
-    
     # Create DataFrame
     penalties_df = pd.DataFrame(penalties_data)
     
     # Apply custom styling with improved aesthetics
-    st.markdown("""
-    <style>
-        .penalties-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            font-size: 0.95em;
-            margin: 1em 0;
-            background: #1E1E1E;
-        }
-        .penalties-table th:first-child,
-        .penalties-table td:first-child {
-            width: 25%; /* Adjust the width as needed */
-            min-width: 180px;
-        }
-        .penalties-table th:nth-child(2),
-        .penalties-table td:nth-child(2) {
-            width: 25%; /* Adjust the width for the second column */
-            min-width: 180px;
-        }
-        .penalties-table th {
-            background: linear-gradient(90deg, #FF4B4B 0%, #FF8F8F 100%);
-            color: white;
-            padding: 15px 12px;
-            text-align: left;
-            font-weight: 600;
-            border-top: 1px solid #FF4B4B;
-        }
-        .penalties-table td {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background-color 0.3s;
-        }
-        .penalties-table tr:hover td {
-            background-color: rgba(255, 75, 75, 0.1);
-        }
-        .penalties-table tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.03);
-        }
-        .penalties-note {
-            background-color: rgba(255, 75, 75, 0.1);
-            border-left: 4px solid #FF4B4B;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 0 5px 5px 0;
-            font-size: 0.9em;
-            color: #FFF;
-        }
-    </style>
-    """, unsafe_allow_html=True)
+    st.markdown(get_penalties_table_css(), unsafe_allow_html=True)
     
     # Display the table with custom formatting
     st.markdown(penalties_df.to_html(classes='penalties-table', escape=False, index=False), unsafe_allow_html=True)
@@ -920,70 +1303,56 @@ def render_report():
     # Add enhanced note about penalties and FAQ section
     st.markdown("""
         <div class='penalties-note'>
-            <strong>⚠️ Important Note:</strong><br>
-            These penalties are prescribed under the Digital Personal Data Protection Act, 2025. 
-        </div>
-
-        <div style='background-color: #1E1E1E; padding: 20px; border-radius: 10px; margin: 20px 0;'>
-            <h3 style='color: #4B4BFF; margin-bottom: 15px; font-size: 1.8em;'>❓ FAQ on the Digital Personal Data Protection Act</h3>
+            These penalties are prescribed under the Digital Personal Data Protection Act, 2023. 
         </div>
     """, unsafe_allow_html=True)
+    # --- End of commented out section ---
     
-    
-    # Use Streamlit's native components for FAQ
-    with st.expander("Is the DPDP Act applicable my Organization?", expanded=False):
-        st.write("The Digital Personal Data Protection (DPDP) Act, 2023 applies to the processing of digital personal data within India, including data collected offline but later digitized. It also applies to processing outside India if it involves offering goods or services to individuals in India.")
-    
-    with st.expander("Does India have a privacy law?", expanded=False):
-        st.write("Yes. Digital Personal Data Protection Act, 2023 is the data privacy law of India. The law aims to bring a balance between the rights of the users and the need for the processing of personal data.")
-    
-    with st.expander("What is personal data under the DPDP Act?", expanded=False):
-        st.write("The Digital Personal Data Protection (DPDP) Act, 2023, defines personal data as any data about an individual who is identifiable by or in relation to such data.")
-    
-    with st.expander("What is a personal data breach under the DPDP Act?", expanded=False):
-        st.write("The Digital Personal Data Protection (DPDP) Act, 2023 defines a personal data breach as any unauthorized or accidental disclosure, alteration, loss, or access that compromises the confidentiality, integrity, or availability of personal data.")
-    
-    with st.expander("Should I report all breaches under the DPDP Act?", expanded=False):
-        st.write("Yes. You must report all personal data breaches irrespective of their gravity or damage caused to the Data Protection Board.")
-    
-    with st.expander("What is the penalty under the DPDP Act?", expanded=False):
-        st.write("Penalties can extend up to Rs 250 crores/- and it depends upon several factors like gravity, repetitive nature, etc.")
-    
-    with st.expander("Has the DPDP Act been passed?", expanded=False):
-        st.write("Yes. The DPDP Act was passed in early August 2023. The act will be enforced when the central government issues a notification for the same.")
-    
+    # --- Temporarily comment out Countdown section for debugging ---
     # Add the countdown timer with reloader
+    st.markdown(get_countdown_section_css(), unsafe_allow_html=True)
     st.markdown("""
-        <div style='background-color: #1E1E1E; padding: 20px; border-radius: 10px; margin: 20px 0;'>
-            <h3 style='color: #FF4B4B; margin-bottom: 15px; font-size: 1.8em;'>⏰ Time Left to Achieve DPDP Compliance</h3>
-            <p style='color: #FFF; margin-bottom: 20px; font-size: 1.1em;'>
-                Your organization must achieve compliance before the deadline: December 31, 2025
+        <div class="countdown-container">
+            <h3 class="countdown-header">⏰ Time Left to Achieve DPDP Compliance</h3>
+            <p class="countdown-text">
+                Your organization must achieve compliance before the tentative deadline: December 31, 2025
             </p>
         </div>
     """, unsafe_allow_html=True)
+    # --- End of commented out section ---
     
-    # Add the auto-updating countdown timer
-    create_countdown_timer()
-    
-    # Export Report section continues...
-    st.subheader("Export Report")
+    # --- End of commented out section ---
+
+    # --- Temporarily comment out final columns/buttons for debugging ---
     col1, col2, col3 = st.columns(3)
     
     with col2:
-        st.metric("Compliance Level", results['compliance_level'])
-        st.write("")
+        # Add Quick AI Data Discovery button
+        st.markdown(get_discovery_button_css(), unsafe_allow_html=True)
+        
+        if st.button("🔍 Ready for a Quick AI Data Discovery ?", use_container_width=True):
+            st.session_state.current_page = 'discovery'
+            st.rerun()
+        
         st.write("")
         st.write("")
         
-        # Download buttons
+    with col1: 
+        # Download buttons - only show Excel download for admin users
+        if st.session_state.get('is_admin', False):
+            # Initialize assessment_type if not present
+            if 'assessment_type' not in st.session_state:
+                st.session_state.assessment_type = 'DPDP'  # Default to DPDP assessment type
+            
         excel_link = generate_excel_download_link(
             results,
             st.session_state.organization_name,
             st.session_state.assessment_date,
-            st.session_state.selected_regulation,
-            st.session_state.selected_industry
+                st.session_state.assessment_type,
+                st.session_state.selected_industry  # Add the missing industry parameter
         )
         st.markdown(excel_link, unsafe_allow_html=True)
+    # --- End of commented out section ---
 
 def render_recommendations():
     """Render the detailed recommendations page"""
@@ -1061,83 +1430,58 @@ def render_recommendations():
                     st.markdown(f"**Recommendation:** {context['recommendation']}")
                     st.markdown("---")
     
-    # Add AI Analysis section after recommendation context
-    st.markdown("""
-        <div style='background-color: rgba(75, 75, 255, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0;'>
-            <h3 style='color: #4B4BFF; margin-bottom: 15px; font-size: 1.8em;'>🤖 AI Analysis Summary</h3>
-            <p style='color: #FFF; margin-bottom: 20px; font-size: 1.1em;'>
-                AI-powered analysis of your compliance assessment:
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Initialize cached report key if not exists
-    if 'cached_ai_report' not in st.session_state:
-        st.session_state.cached_ai_report = None
-    
-    # Check if we should regenerate the report
-    should_regenerate = (
-        st.session_state.cached_ai_report is None or 
-        st.session_state.get('ai_report_generated') is False
-    )
-    
-    # Show AI loading indicator with enhanced styling
-    with st.spinner("🔄 Generating detailed AI analysis...") if should_regenerate else st.container():
-        try:
-            if should_regenerate:
-                ai_report = generate_natural_language_report(st.session_state.results)
-                if ai_report and not ai_report.startswith("Error:"):
-                    # Clean up the report text
-                    ai_report = ai_report.strip()
-                    ai_report = ai_report.replace("```markdown", "").replace("```", "")
-                    ai_report = ai_report.replace("<div>", "").replace("</div>", "")
-                    
-                    # Replace placeholders
-                    ai_report = ai_report.replace("[Insert Date]", st.session_state.get('assessment_date', 'Unknown Date'))
-                    ai_report = ai_report.replace("[Insert Organization Name]", st.session_state.get('organization_name', 'Unknown Organization'))
-                    
-                    # Cache the processed report
-                    st.session_state.cached_ai_report = ai_report
-                    st.session_state.ai_report_generated = True
-                else:
-                    st.error("Failed to generate AI analysis. Please try again.")
-                    st.session_state.cached_ai_report = None
-                    if st.button("🔄 Retry Analysis Generation"):
-                        st.session_state.ai_report_generated = False
-                        st.rerun()
-                    return
-            
-            # Use cached report
-            ai_report = st.session_state.cached_ai_report
-            
-            # Display the AI report with enhanced styling
-            st.markdown(f"""
-                <div style='background-color: rgba(75, 75, 255, 0.1); padding: 20px; border-radius: 5px; border-left: 4px solid #4B4BFF; font-size: 1.1em; line-height: 1.3; white-space: normal;'>
-                    {ai_report}
-                </div>
-            """, unsafe_allow_html=True)
-            
-            # Add download button for the report with better layout
-            col1, col2 = st.columns([3, 1])
-            with col1:
-                st.download_button(
-                    label="📥 Download Detailed Analysis",
-                    data=ai_report,
-                    file_name=f"ai_analysis_report_{datetime.now().strftime('%Y%m%d')}.txt",
-                    mime="text/plain",
-                    help="Download the AI-generated analysis as a text file"
-                )
-            with col2:
-                if st.button("🔄 Regenerate", help="Generate a new AI analysis"):
-                    st.session_state.ai_report_generated = False
-                    st.rerun()
+    # The AI Analysis section previously here has been removed.
 
-        except Exception as e:
-            logger.error(f"Error rendering AI report: {e}")
-            st.error("An error occurred while generating the analysis. Please try again.")
-            if st.button("🔄 Retry"):
-                st.session_state.ai_report_generated = False
-                st.rerun()
+def convert_markdown_to_pdf(markdown_content: str, organization_name: str = "Report") -> bytes | None:
+    """Convert markdown content to PDF format using the markdown-pdf library."""
+    output_file = None
+    try:
+        # Initialize PDF object with TOC level 2 (headings ##)
+        pdf = MarkdownPdf(toc_level=2)
+
+        # Add the entire markdown content as one section
+        # Note: markdown-pdf might handle TOC generation based on headings in the content
+        pdf.add_section(Section(markdown_content, toc=True))
+
+        # Set PDF metadata
+        pdf.meta["title"] = f"{organization_name} - AI Analysis Report"
+        pdf.meta["author"] = config.APP_TITLE # Or another relevant author
+
+        # Create a temporary file path for the PDF output
+        with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as temp_pdf_file:
+            output_file = temp_pdf_file.name
+            logger.info(f"Temporary PDF output path: {output_file}")
+
+        # Save the PDF to the temporary file
+        logger.info(f"Attempting conversion and save to: {output_file}")
+        pdf.save(output_file)
+        logger.info(f"markdown-pdf save operation completed for {output_file}")
+
+        # Check if the output file was created and read it
+        if os.path.exists(output_file):
+            logger.info(f"Output PDF file exists: {output_file}")
+            with open(output_file, 'rb') as f:
+                pdf_content = f.read()
+            logger.info(f"Successfully read {len(pdf_content)} bytes from {output_file}")
+            return pdf_content
+        else:
+            logger.error(f"Conversion failed. Output PDF file not found: {output_file}")
+            st.error("Error: Failed to generate PDF file.")
+            return None
+
+    except Exception as e:
+        # Catching a general exception as specific errors from markdown-pdf might vary
+        logger.error(f"Error during markdown-pdf generation: {e}", exc_info=True)
+        st.error(f"An error occurred during PDF generation: {e}")
+        return None
+    finally:
+        # Clean up temporary PDF file
+        if output_file and os.path.exists(output_file):
+            try:
+                os.unlink(output_file)
+                logger.info(f"Cleaned up temporary PDF file: {output_file}")
+            except Exception as e:
+                logger.error(f"Error deleting temporary PDF file {output_file}: {e}")
 
 def render_admin_page():
     """Render the admin page"""
@@ -1316,15 +1660,15 @@ def render_admin_page():
                 st.rerun()
             try:
                 # Get tokens from secure/tokens.csv
-                token_file_path = os.path.join('secure', 'tokens.csv')
-                if os.path.exists(token_file_path):
+                from token_storage import TOKENS_FILE
+                if os.path.exists(TOKENS_FILE):
                     # Read the actual CSV structure first to determine the column format
-                    with open(token_file_path, 'r') as f:
+                    with open(TOKENS_FILE, 'r') as f:
                         first_line = f.readline().strip()
                         logger.info(f"CSV Header: {first_line}")
                     # Read the actual CSV structure first to determine the column format
                     # Read CSV file with correct columns
-                    tokens_df = pd.read_csv(token_file_path)
+                    tokens_df = pd.read_csv(TOKENS_FILE)
                     logger.info(f"CSV columns detected: {list(tokens_df.columns)}")
                     
                     if not tokens_df.empty:
@@ -1426,10 +1770,10 @@ def render_admin_page():
                     st.error(f"Error during cleanup: {str(e)}")
         with col2:
             if st.button("Export Token Database", key="export_btn"):
-                token_file_path = os.path.join('secure', 'tokens.csv')
-                if os.path.exists(token_file_path):
+                from token_storage import TOKENS_FILE
+                if os.path.exists(TOKENS_FILE):
                     import base64
-                    with open(token_file_path, 'rb') as f:
+                    with open(TOKENS_FILE, 'rb') as f:
                         b64 = base64.b64encode(f.read()).decode()
                         href = f'<a href="data:file/csv;base64,{b64}" download="tokens_export.csv">Download CSV</a>'
                         st.markdown(href, unsafe_allow_html=True)
@@ -1584,12 +1928,58 @@ def render_admin_page():
 def render_sidebar():
     """Render the application sidebar"""
     with st.sidebar:
+        # --- Inject CSS directly for sidebar buttons --- #
+        st.markdown("""
+            <style>
+                /* Target the button's container within the user content area */
+                div[data-testid="stSidebarUserContent"] div[data-testid="stButton"] {
+                    background-color: transparent !important;
+                    border: none !important;
+                    box-shadow: none !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+
+                /* Style the button text itself */
+                div[data-testid="stSidebarUserContent"] div[data-testid="stButton"] > button {
+                    width: 100%;
+                    padding: 0.5rem 0.75rem; /* Adjust padding */
+                    margin: 0.1rem 0; /* Adjust margin */
+                    background-color: transparent !important;
+                    color: #fafafa;
+                    border: none !important;
+                    border-radius: 0.3rem;
+                    text-align: left;
+                    transition: color 0.2s, background-color 0.2s;
+                }
+                
+                /* Hover effect - subtle background */
+                div[data-testid="stSidebarUserContent"] div[data-testid="stButton"] > button:hover:not(:disabled) {
+                    background-color: rgba(255, 255, 255, 0.05) !important;
+                    color: #6fa8dc !important;
+                    border: none !important;
+                }
+
+                /* Active/Selected state - left border and highlight */
+                div[data-testid="stSidebarUserContent"] div[data-testid="stButton"] > button:focus,
+                div[data-testid="stSidebarUserContent"] div[data-testid="stButton"] > button:active,
+                div[data-testid="stSidebarUserContent"] div[data-testid="stButton"] > button[kind="secondary"] {
+                    background-color: rgba(255, 255, 255, 0.08) !important;
+                    color: #ffffff !important;
+                    border-left: 3px solid #6fa8dc !important;
+                    padding-left: calc(0.75rem - 3px) !important; /* Adjust padding for border */
+                }
+            </style>
+        """, unsafe_allow_html=True)
+        # --- End of CSS Injection --- #
+
         # Logo container
+        st.markdown(get_logo_css(), unsafe_allow_html=True)
         logo_base64 = get_base64_logo()
         if logo_base64:
             st.markdown(f"""
                 <div class='logo-container'>
-                    <img src="data:image/jpeg;base64,{logo_base64}" style='width: 200px; display: block; margin: 0 auto;'>
+                    <img src="data:image/jpeg;base64,{logo_base64}" class="logo-image">
                 </div>
             """, unsafe_allow_html=True)
         
@@ -1617,11 +2007,10 @@ def render_sidebar():
         nav_items = [
             {"label": "Home", "key": "nav_home", "page": "welcome", "always_show": True},
             {"label": "Assessment", "key": "nav_assessment", "page": "assessment", "show_if_ready": assessment_ready},
-            {"label": "Dashboard", "key": "nav_dashboard", "page": "dashboard", "show_if": "assessment_complete"},
-            {"label": "Report", "key": "nav_report", "page": "report", "show_if": "assessment_complete"},
-            {"label": "AI Recommendations ✨", "key": "nav_recommendations", "page": "recommendations", "show_if": "assessment_complete"},
-            {"label": "AI Data Discovery 🪄", "key": "nav_discovery", "page": "discovery", "show_if": "assessment_complete"},  # Added this line
-            {"label": "Admin", "key": "nav_admin", "page": "admin", "show_if": "is_admin"}
+            {"label": "AI Report ✨", "key": "nav_report", "page": "report", "show_if": "assessment_complete"},
+            {"label": "AI Data Discovery 🪄", "key": "nav_discovery", "page": "discovery", "show_if": "assessment_complete"},
+            {"label": "Admin", "key": "nav_admin", "page": "admin", "show_if": "is_admin"},
+            {"label": "FAQ", "key": "nav_faq", "page": "faq", "always_show": True}
         ]
         
         # Fix for button rendering
@@ -1649,38 +2038,46 @@ def render_welcome_page():
     with center_col:
         # Create container for form elements
         with st.container():
-            st.markdown("""
-                <style>
-                .input-label {
-                    font-size: 0.8rem;
-                    color: #666;
-                    margin-bottom: 0.2rem;
-                }
-                </style>
-            """, unsafe_allow_html=True)
+            st.markdown(get_input_label_css(), unsafe_allow_html=True)
             
+            # --- Callback to handle Regulation change --- #
+            def handle_regulation_change():
+                new_regulation = st.session_state.selected_regulation_key # Use the key from selectbox
+                if new_regulation:
+                    new_industries = config.get_available_industries(new_regulation)
+                    new_industry_options = list(new_industries.keys())
+                    if new_industry_options:
+                        # Update the session state for industry to the first new option
+                        # This ensures the Industry selectbox below will pick up the change
+                        if st.session_state.selected_industry not in new_industry_options:
+                            st.session_state.selected_industry = new_industry_options[0]
+                            logger.info(f"Regulation changed to {new_regulation}, Industry state reset to {st.session_state.selected_industry}")
+                    else:
+                        if st.session_state.selected_industry is not None:
+                            st.session_state.selected_industry = None
+                            logger.info(f"Regulation changed to {new_regulation}, Industry state cleared as no options available")
+            # --- End Callback --- #
+
             # Organization name with smaller label
             st.markdown('<p class="input-label">Organization Name *</p>', unsafe_allow_html=True)
             org_name = st.text_input(
-                "",  # Empty label since we're using custom label above
+                "Organization Name",  # Non-empty label
                 value=st.session_state.organization_name,
                 key="org_name_input",
                 placeholder="Enter organization name",
                 label_visibility="collapsed"
             )
             
-            # Update session state when changed
             if org_name != st.session_state.organization_name:
                 st.session_state.organization_name = org_name
             
-            # Add some spacing
             st.write("")
             
-            # Regulation selection with smaller label
+            # Regulation selection with callback
             st.markdown('<p class="input-label">Select Regulation *</p>', unsafe_allow_html=True)
             regulations = config.REGULATIONS
             selected_regulation = st.selectbox(
-                "",  # Empty label
+                "Regulation",  # Non-empty label
                 options=list(regulations.keys()),
                 label_visibility="collapsed"
             )
@@ -1691,12 +2088,35 @@ def render_welcome_page():
             # Industry selection with smaller label
             st.markdown('<p class="input-label">Select Industry *</p>', unsafe_allow_html=True)
             industries = config.get_available_industries(selected_regulation)
+            industry_options = list(industries.keys())
+
+            # Determine the default index safely
+            current_industry_from_state = st.session_state.get('selected_industry')
+            default_index = 0
+            if current_industry_from_state in industry_options:
+                try:
+                    default_index = industry_options.index(current_industry_from_state)
+                except ValueError:
+                    # Should not happen due to the 'in' check, but safeguard anyway
+                    logger.warning(f"Industry '{current_industry_from_state}' reported as 'in' options but index lookup failed. Defaulting to 0.")
+                    default_index = 0
+            elif industry_options:
+                 # If the saved industry is not valid for the current regulation, default to the first option
+                 logger.info(f"Saved industry '{current_industry_from_state}' not valid for regulation '{selected_regulation}'. Defaulting to '{industry_options[0]}'.")
+                 default_index = 0
+            else:
+                 # Handle case where there are no industries for the selected regulation
+                 logger.warning(f"No industries found for regulation '{selected_regulation}'.")
+                 default_index = 0 # Or handle appropriately, maybe disable the selectbox
+
             selected_industry = st.selectbox(
-                "",  # Empty label
-                options=list(industries.keys()),
-                format_func=lambda x: industries[x],
+                "Industry",  # Non-empty label
+                options=industry_options,
+                format_func=lambda x: industries.get(x, x), # Use .get for safety
                 key="selected_industry",
-                label_visibility="collapsed"
+                label_visibility="collapsed",
+                index=default_index, # Use the safely calculated default index
+                
             )
             
             # Add spacing before button
@@ -1727,249 +2147,164 @@ def render_welcome_page():
 
 def render_dashboard():
     """Render the dashboard view"""
+    pass
+
+def render_faq():
+    """Render the FAQ view"""
+    st.markdown(get_faq_css(), unsafe_allow_html=True)
+    st.markdown("<h1 class='faq-header'>Frequently Asked Questions</h1>", unsafe_allow_html=True)
+    
+    for category, faqs in FAQ_DATA.items():
+        st.markdown(f"<h2 class='faq-category'>{category}</h2>", unsafe_allow_html=True)
+        for question, answer in faqs.items():
+            with st.expander(question):
+                st.markdown(answer)
+
+def render_data_discovery():
+    """Render the data discovery view"""
     if not st.session_state.assessment_complete:
-        st.info("Complete the assessment to view your compliance dashboard")
-        if st.button("Start Assessment", type="primary"):
+        st.info("Complete the assessment to access the data discovery tool")
+        if st.button("Go to Assessment", type="primary"):
             st.session_state.current_page = 'assessment'
             st.rerun()
         return
     
-    results = st.session_state.results
+    # Add custom CSS for data discovery page
+    st.markdown("""
+        <style>
+        /* Page container styling */
+        div[data-testid="stVerticalBlock"] > div > div:has(div.stHeader) {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* Blended navigation button styling */
+        div[data-testid="stSidebarNav"] div[data-testid="stButton"] > button {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background-color: transparent !important;
+            color: #fafafa;
+            border: none !important;
+            border-radius: 0.3rem;
+            text-align: left;
+            transition: color 0.2s;
+        }
+        
+        /* Hover effect for blended navigation buttons */
+        div[data-testid="stSidebarNav"] div[data-testid="stButton"] > button:hover:not(:disabled) {
+            background-color: transparent !important;
+            color: #6fa8dc !important;
+            border: none !important;
+        }
+        
+        /* File uploader styling - text color */
+        [data-testid="stFileUploader"] p {
+            font-size: 14px !important;
+            color: #aaa !important;
+        }
+        
+        /* ONLY target the browse button within file uploader */
+        [data-testid="stFileUploader"] button[kind="secondary"] {
+            padding: 4px 12px !important;
+            font-size: 14px !important;
+            height: auto !important;
+            min-height: 32px !important;
+            line-height: 1.2 !important;
+            background-color: #4B4BFF !important;
+            border-radius: 4px !important;
+            margin: 5px !important;
+            width: auto !important;
+        }
+        
+        /* Improve the dropzone size - very specific selector */
+        [data-testid="stFileUploader"] section {
+            max-width: 500px !important;
+            padding: 15px !important;
+            border: 1px dashed #555 !important;
+            border-radius: 5px !important;
+        }
+        
+        /* Make the entire file uploader more compact - strict selector */
+        [data-testid="stFileUploader"] {
+            max-width: 500px !important;
+        }
+        
+        /* Analysis results styling */
+        [data-testid="stExpander"] {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+        }
+        
+        /* Make high-risk items stand out */
+        .high-risk { 
+            color: #FF4B4B !important;
+            font-weight: bold;
+        }
+        </style>
+    """, unsafe_allow_html=True)
     
-    st.header("DPDP Compliance Dashboard")
-    export_pdf_button()
+    st.header("AI Data Discovery")
     
-    # Create dashboard layout in separate containers for better formatting
-    col1, col2 = st.columns([1, 2])
+    col1, col2 = st.columns([2, 1])
     
     with col1:
-        # Overall score gauge
-        fig = go.Figure(go.Indicator(
-            mode="gauge+number",
-            value=results["overall_score"],
-            domain={'x': [0, 1], 'y': [0, 1]},
-            title={'text': "Overall Compliance"},
-            gauge={
-                'axis': {'range': [0, 100]},
-                'bar': {'color': "darkblue"},
-                'steps': [
-                    {'range': [0, 50], 'color': "red"},
-                    {'range': [50, 75], 'color': "orange"},
-                    {'range': [75, 90], 'color': "lightgreen"},
-                    {'range': [90, 100], 'color': "green"}
-                ],
-                'threshold': {
-                    'line': {'color': "black", 'width': 4},
-                    'thickness': 0.75,
-                    'value': results["overall_score"]
-                }
-            }
-        ))
-        fig.update_layout(height=250)
-        st.plotly_chart(fig, use_container_width=True)
-        
-        st.subheader("Compliance Level")
-        st.write(f"**{results['compliance_level']}**")
-        
-        # High risk areas
-        if results["high_risk_areas"]:
-            st.subheader("High Risk Areas")
-            for area in results["high_risk_areas"]:
-                score = results["section_scores"][area] * 100
-                st.error(f"• {area} ({score:.1f}%)")
-
-    with col2:
-        # Section scores
-        st.subheader("Section Compliance Scores")
-        
-        # Create dataframe for section scores
-        section_data = []
-        for section, score in results["section_scores"].items():
-            if score is not None:
-                section_data.append({
-                    "Section": section,
-                    "Score": score * 100
-                })
-        
-        df = pd.DataFrame(section_data)
-        if not df.empty:
-            df = df.sort_values("Score")
-            
-            # Create horizontal bar chart
-            fig = px.bar(
-                df, 
-                x="Score", 
-                y="Section", 
-                orientation='h',
-                color="Score",
-                color_continuous_scale=["red", "orange", "lightgreen", "green"],
-                range_color=[0, 100],
-                labels={"Score": "Compliance Score (%)"}
-            )
-            fig.update_layout(height=400)
-            st.plotly_chart(fig, use_container_width=True)
-    
-    st.subheader("Recommended Actions")
-    if results["improvement_priorities"]:
-        for i, area in enumerate(results["improvement_priorities"][:3]):
-            with st.expander(f"Priority {i+1}: {area}"):
-                if area in results["recommendations"] and results["recommendations"][area]:
-                    for rec in results["recommendations"][area]:
-                        st.write(f"• {rec}")
-                else:
-                    st.write("No specific recommendations available for this area.")
-
-def export_pdf_button():
-    """Create a PDF export button that uses custom JS to print a clean dashboard"""
-    # Apply custom CSS for printing
-    st.markdown(get_print_export_css(), unsafe_allow_html=True)
-    
-    # Add print button HTML
-    st.markdown(get_print_button_html(), unsafe_allow_html=True)
-
-from data_discovery import analyze_ddl_script, get_recommendations, render_findings_section
-
-def render_data_discovery():
-    """Render the data discovery page"""
-    try:
-        # Add custom CSS for better layout
         st.markdown("""
-            <style>
-            .discovery-header {
-                background: linear-gradient(90deg, #1E1E1E, #2D2D2D);
-                padding: 2rem;
-                border-radius: 10px;
-                margin-bottom: 2rem;
-                border: 1px solid #333;
-            }
-            .input-section {
-                background: #1E1E1E;
-                padding: 2rem;
-                border-radius: 10px;
-                border: 1px solid #333;
-                margin-bottom: 2rem;
-            }
-            .results-section {
-                background: #1E1E1E;
-                padding: 2rem;
-                border-radius: 10px;
-                border: 1px solid #333;
-            }
-            </style>
+            #### Database Schema Analysis
+        """)
+        
+    # Import and use the data discovery functionality
+    from data_discovery import analyze_ddl_script, render_findings_section, get_recommendations
+    
+    # File upload for DDL script
+    uploaded_file = st.file_uploader("Upload your database DDL script (SQL or TXT format)", type=['sql', 'txt'])
+    
+    if uploaded_file is not None:
+        ddl_content = uploaded_file.getvalue().decode("utf-8")
+        
+        with st.spinner("Analyzing database schema..."):
+            findings = analyze_ddl_script(ddl_content)
             
-            <div class="discovery-header">
-                <h1>🔍 AI Data Discovery Tool</h1>
-                <p style="font-size: 1.2em; color: #CCC;">
-                    Analyze your database schema for potential DPDP-sensitive data fields and get compliance recommendations.
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-
-        # Input section
-        with st.container():
-            
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                st.markdown("### Upload DDL Script")
-                uploaded_file = st.file_uploader("Upload SQL/DDL file", type=['sql', 'txt'])
-
-            with col2:
-                st.markdown("### Or Paste DDL Script")
-                ddl_text = st.text_area(
-                    "Paste your CREATE TABLE statements here",
-                    height=200,
-                    help="Enter your database schema definition"
-                )
-
-            analyze_clicked = st.button("🔍 Analyze Schema", type="primary", use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-        # Process analysis
-        if analyze_clicked:
-            ddl_content = uploaded_file.getvalue().decode() if uploaded_file else ddl_text
-            
-            if ddl_content:
-                with st.spinner("🔄 Analyzing schema for sensitive data..."):
-                    from data_discovery import analyze_ddl_script
-                    
-                    analysis_results = analyze_ddl_script(ddl_content)
-                    if "error" in analysis_results:
-                        st.error(analysis_results["error"])
-                        return
-
-                    # Display raw output only - remove redundant display
-                    if "raw_analysis" in analysis_results:
-                        st.markdown("### Analysis Results")
-                        st.markdown(analysis_results["raw_analysis"])
-
-                    # Get recommendations
-                    recommendations = get_recommendations(analysis_results)
-                    
-                    # Display recommendations after raw analysis
-                    st.subheader("📋 Recommendations")
-                    for rec in recommendations:
-                        st.markdown(f"- {rec}")
-                    
-                    
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        # Export as JSON
-                        export_data = {
-                            "timestamp": analysis_results.get("timestamp", datetime.now().isoformat()),
-                            "findings": analysis_results.get("findings", {}),
-                            "recommendations": recommendations,
-                            "raw_analysis": analysis_results.get("raw_analysis", ""),
-                            "metadata": {
-                                "organization": st.session_state.get("organization_name", "Unknown"),
-                                "analysis_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                            }
-                        }
-                        
-                        st.download_button(
-                            "📥 Download JSON Report",
-                            data=json.dumps(export_data, indent=2),
-                            file_name=f"data_discovery_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                            mime="application/json",
-                            help="Download the complete analysis results in JSON format"
-                        )
-                    
-                    with col2:
-                        # Export as CSV
-                        if "findings" in analysis_results:
-                            csv_data = []
-                            for table, fields in analysis_results["findings"].items():
-                                for field in fields:
-                                    csv_data.append({
-                                        "Table": table,
-                                        "Field": field["name"],
-                                        "Data Type": field.get("data_type", ""),
-                                        "Sensitivity": field.get("sensitivity", "Unknown"),
-                                        "Notes": field.get("notes", "")
-                                    })
-                            
-                            if csv_data:
-                                df = pd.DataFrame(csv_data)
-                                csv = df.to_csv(index=False)
-                                st.download_button(
-                                    "📥 Download CSV Report",
-                                    data=csv,
-                                    file_name=f"data_discovery_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
-                                    mime="text/csv",
-                                    help="Download the findings in CSV format"
-                                )
-                    
-                    # Track the analysis event
-                    track_event("data_discovery_analysis", {
-                        "tables_analyzed": len(analysis_results.get("findings", {})),
-                        "sensitive_fields_found": sum(len(fields) for fields in analysis_results.get("findings", {}).values())
-                    })
+            if "error" in findings:
+                st.error(f"Analysis failed: {findings['error']}")
             else:
-                st.warning("Please provide a DDL script to analyze.")
+                # Display findings
+                render_findings_section(findings)
                 
-    except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
-        logger.error(f"Error in data discovery: {str(e)}", exc_info=True)
+                st.subheader("Recommendations")
+                recommendations = get_recommendations(findings)
+                for rec in recommendations:
+                    st.markdown(f"• {rec}")
+    else:
+        st.info("Please upload a database DDL script to begin analysis.")
+        
+        # Show example of what will be analyzed
+        with st.expander("What will be analyzed?"):
+            st.markdown("""
+                Our AI will analyze your database schema to identify:
+                
+                - **Personal identifiers**: Names, contact details, government IDs
+                - **Financial information**: Banking details, payment information
+                - **Health information**: Medical records, treatment data
+                - **Biometric data**: Fingerprints, facial data
+                - **Digital identifiers**: Device IDs, IP addresses
+                - **Location data**: GPS coordinates, geographical tracking
+                - **Professional data**: Employment history, performance records
+                
+                You'll receive recommendations for technical controls, process controls, and monitoring requirements.
+            """)
 
-# ...existing code...
+def get_compliance_level_color(level):
+    """Return color based on compliance level"""
+    colors = {
+        "Non-Compliant": "#FF4B4B",  # Red
+        "Partially Compliant": "#FFA500",  # Orange
+        "Mostly Compliant": "#FFD700",  # Gold
+        "Fully Compliant": "#4CAF50"  # Green
+    }
+    return colors.get(level, "#808080")  # Default to gray if level not found
 

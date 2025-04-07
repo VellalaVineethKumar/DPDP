@@ -1,0 +1,9 @@
+2025-04-03 10:47:54,850 - __main__ - ERROR - Error in main application: name 'assessment_ready' is not defined
+Traceback (most recent call last):
+  File "C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\app.py", line 117, in main
+    elif st.session_state.current_page == 'assessment' and assessment_ready:
+                                                           ^^^^^^^^^^^^^^^^
+NameError: name 'assessment_ready' is not defined
+2025-04-03 10:50:35,991 - assessment - WARNING - Response 'Yes, Notices are provided in English and all 22 official Indian languages listed in the Eighth Schedule of the Constitution.' not found in answer_points
+2025-04-03 10:50:35,996 - assessment - WARNING - Response 'The Manual processes are in place, but they are effective: The organization uses manual processes for data erasure, which are effective but may not be as efficient or compliant with recognized standards as automated solutions.' not found in answer_points
+2025-04-03 10:50:35,998 - assessment - WARNING - No points assigned for response: 'The Manual processes are in place, but they are effective: The organization uses manual processes for data erasure, which are effective but may not be as efficient or compliant with recognized standards as automated solutions.'

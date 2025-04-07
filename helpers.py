@@ -250,7 +250,7 @@ def generate_excel_download_link(results, organization, date, regulation, indust
     # Create download link
     b64 = base64.b64encode(buffer.read()).decode()
     filename = f"{regulation}_{industry}_{organization.replace(' ', '_')}_{date}.xlsx"
-    return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">Download Excel Report</a>'
+    return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">[Admin] Download Excel Report</a>'
 
 # Analytics and tracking
 def track_event(event_name, properties=None):

@@ -87,9 +87,23 @@ def get_common_button_css():
 
         /* Navigation panel specific styling */
         section[data-testid="stSidebarContent"] div.stButton button {
-            margin: 0.15rem 0 !important;  /* Reduced from 0.4rem to 0.15rem */
-            padding: 0.5rem 0.75rem !important;  /* Reduced padding */
-            min-height: 32px !important;  /* Reduced from 36px */
+            background-color: #1e1e2d !important;
+            color: #ffffff !important;
+            margin: 0.15rem 0 !important;
+            padding: 0.5rem 0.75rem !important;
+            min-height: 32px !important;
+            border-radius: 4px !important;
+            transition: all 0.2s ease !important;
+        }
+        
+        section[data-testid="stSidebarContent"] div.stButton button:hover {
+            background-color: #2b2d3a !important;
+            transform: translateX(2px) !important;
+        }
+        
+        section[data-testid="stSidebarContent"] div.stButton button:active {
+            background-color: #3b3b49 !important;
+            transform: translateX(0) !important;
         }
         
         /* Compact input styling */
@@ -149,7 +163,7 @@ def get_sidebar_css():
     return """
         <style>
             section[data-testid="stSidebar"] > div {
-                padding-top: 0;
+                padding-top: 6rem;
                 background-color: #0e1117;
             }
             /* Remove specific button styling and use common styles */
@@ -331,24 +345,18 @@ def get_section_navigation_css():
             margin: 0.5rem 0 !important;
         }
         
-        /* Dark themed section buttons */
+        /* Navigation panel buttons will inherit styles from common button CSS */
         section[data-testid="stSidebarContent"] div.stButton button {
-            background-color: #444; /* Darker background */
-            color: #fafafa; /* Light text for visibility */
-            border: 1px solid #555; /* Slightly lighter border */
-            border-radius: 4px !important;
-            text-align: left !important;
-            margin: 0.4rem 0 !important;
-            padding: 0.75rem 0.75rem !important;
+            background-color: #1e1e2d !important;
+            border: none !important;
+            margin: 0.25rem 0 !important;
             font-size: 0.9rem !important;
-            transition: all 0.2s ease !important;
-            box-shadow: none !important;
         }
         
         /* Hover effect */
         section[data-testid="stSidebarContent"] div.stButton button:hover:not(:disabled) {
-            background-color: #555 !important; /* Darker on hover */
-            border-color: #777 !important; /* Lighter border on hover */
+            background-color: #2b2d3a !important;
+            transform: translateX(2px) !important;
         }
         
         /* Fix any white backgrounds in the navigation panel */
@@ -375,6 +383,305 @@ def get_section_navigation_css():
         /* Make sure all text in sidebar is light colored */
         section[data-testid="stSidebarContent"] div {
             color: #d1d1d1;
+        }
+        </style>
+    """
+
+def get_informatica_solution_css():
+    """Return the CSS for Informatica solution styling"""
+    return """
+        <style>
+        .informatica-solution {
+            color: #FF4B4B !important;
+            font-weight: bold;
+        }
+        .question-text a {
+            color: #FF4B4B;
+            text-decoration: none;
+            border-bottom: 1px dashed #FF4B4B;
+        }
+        .question-text a:hover {
+            color: #ff7575;
+            border-bottom: 1px solid #ff7575;
+        }
+        </style>
+    """
+
+def get_section_header_css():
+    """Return the CSS for section headers"""
+    return """
+        <style>
+        /* Remove excessive top margin to fix the large gap */
+        .main .block-container {
+            padding-top: 1rem !important;
+            margin-top: 0 !important;
+        }
+        /* Minimize space between elements */
+        .element-container {
+            margin-bottom: 0.5rem !important;
+        }
+        /* Adjust section header to be more compact */
+        .section-header {
+            margin: 0 0 0.5rem 0 !important;
+            padding: 0.5rem 0.75rem !important;
+            background: rgba(49, 51, 63, 0.1);
+            border-radius: 0.5rem;
+        }
+        .section-title {
+            margin: 0 !important;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        </style>
+    """
+
+def get_progress_metrics_css():
+    """Return the CSS for progress metrics"""
+    return """
+        <style>
+        .progress-metric {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        </style>
+    """
+
+def get_penalties_table_css():
+    """Return the CSS for penalties table"""
+    return """
+        <style>
+        .penalties-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+            margin: 0.5em 0;
+            background: #1E1E1E;
+        }
+        .penalties-table th:first-child,
+        .penalties-table td:first-child {
+            width: 40%;
+            padding: 8px 10px;
+        }
+        .penalties-table th:nth-child(2),
+        .penalties-table td:nth-child(2) {
+            width: 40%;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        .penalties-table th {
+            background: ##ff7070;
+            color: white;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #FF6B6B;
+        }
+        .penalties-table td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .penalties-table tr:hover td {
+            background-color: rgba(255, 75, 75, 0.05);
+        }
+        .penalties-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        .penalties-note {
+            background-color: rgba(255, 75, 75, 0.1);
+            border-left: 3px solid #ff9090;
+            padding: 8px 12px;
+            margin-top: 10px;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.85em;
+            color: #FFF;
+        }
+        </style>
+    """
+
+def get_discovery_button_css():
+    """Return the CSS for discovery button"""
+    return """
+        <style>
+        .discovery-button {
+            background-color: #4B4BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .discovery-button:hover {
+            background-color: #3A3AFF;
+        }
+        </style>
+    """
+
+def get_faq_css():
+    """Return the CSS for FAQ page"""
+    return """
+        <style>
+        .faq-header {
+            color: #FF4B4B;
+            margin-bottom: 2rem;
+        }
+        .faq-category {
+            color: #FFA500;
+            margin-top: 2rem;
+        }
+        .faq-question {
+            color: #ffffff;
+            background-color: #2E2E2E;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        </style>
+    """
+
+def get_input_label_css():
+    """Return the CSS for input labels"""
+    return """
+        <style>
+        .input-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+        </style>
+    """
+
+def get_app_header_css():
+    """Return the CSS for app header"""
+    return """
+        <style>
+        .app-header {
+            text-align: center;
+        }
+        .app-header h1 {
+            margin: 0 0 0.5rem 0;
+        }
+        .app-header p {
+            font-size: 1.2em;
+            font-weight: 500;
+            margin: 0;
+        }
+        </style>
+    """
+
+def get_contact_link_css():
+    """Return the CSS for contact link"""
+    return """
+        <style>
+        .contact-link {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        </style>
+    """
+
+def get_ai_analysis_css():
+    """Return the CSS for the AI analysis section"""
+    return """
+        <style>
+        .ai-analysis-container {
+            margin: 20px 0;
+            /* Add styles previously applied inline to the inner div */
+            background-color: rgba(75, 75, 255, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 4px solid #4B4BFF;
+            font-size: 1.1em;
+            line-height: 1.3;
+            white-space: normal;
+        }
+        .ai-analysis-header {
+            color: #4B4BFF;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        .ai-analysis-text {
+            color: #FFF;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        /* Removed .ai-analysis-content as it's no longer used */
+        </style>
+    """
+
+def get_penalties_section_css():
+    """Return the CSS for penalties section"""
+    return """
+        <style>
+        .penalties-container {
+            background-color: #1E1E1E;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .penalties-header {
+            color: #FF4B4B;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .penalties-text {
+            color: #FFF;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        </style>
+    """
+
+def get_countdown_section_css():
+    """Return the CSS for countdown section"""
+    return """
+        <style>
+        .countdown-container {
+            background-color: #1E1E1E;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .countdown-header {
+            color: #FF4B4B;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        .countdown-text {
+            color: #FFF;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        </style>
+    """
+
+def get_logo_css():
+    """Return the CSS for logo styling"""
+    return """
+        <style>
+        .logo-image {
+            width: 200px;
+            display: block;
+            margin: 0 auto;
+        }
+        </style>
+    """
+
+def get_expiry_text_css():
+    """Return the CSS for expiry text"""
+    return """
+        <style>
+        .expiry-text {
+            font-weight: bold;
+        }
+        </style>
+    """
+
+def get_spacing_css():
+    """Return the CSS for spacing adjustments"""
+    return """
+        <style>
+        .negative-margin-top {
+            margin-top: -40px;
         }
         </style>
     """

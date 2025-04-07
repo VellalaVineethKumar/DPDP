@@ -69,9 +69,9 @@ For each category, organize fields by risk level:
 
 ### Protection Requirements
 Organize by control type:
-🔒 **Technical Controls**
-📋 **Process Controls**
-👁️ **Monitoring Controls**
+**Technical Controls**
+**Process Controls**
+**Monitoring Controls**
 
 ### Compliance Actions
 Prioritize recommendations:
@@ -79,7 +79,7 @@ Prioritize recommendations:
 2️⃣ **Important Steps** - Near-term implementation
 3️⃣ **Best Practices** - Long-term improvements
 
-Use clear headings, bullet points, and emojis for visual organization.
+Use clear headings and bullet points for visual organization.
 Highlight critical findings in **bold**.
 Maintain consistent formatting throughout the analysis.
 

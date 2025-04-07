@@ -8,6 +8,11 @@ import os
 import sys
 import logging
 from typing import Dict, List, Optional
+from dotenv import load_dotenv
+import streamlit as st # Import streamlit
+
+# Load environment variables from .env file (for local dev fallback)
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +64,7 @@ INDUSTRY_FILENAME_MAP = {
 INDUSTRY_DISPLAY_NAMES = {
     "Banking and finance": "Financial Services",
     "E-commerce": "E-commerce & Retail",
-    "general": "General Industry"
+    # "general": "General Industry"
 }
 
 def get_available_regulations() -> Dict[str, str]:
@@ -75,7 +80,7 @@ def get_available_industries(regulation_code: str) -> Dict[str, str]:
             industries = {}
             
             # Add 'general' option that maps to a default questionnaire
-            industries["general"] = INDUSTRY_DISPLAY_NAMES.get("general", "General Industry")
+            # industries["general"] = INDUSTRY_DISPLAY_NAMES.get("general", "General Industry")
             
             # Add all available industries from files
             for file in files:
@@ -86,10 +91,10 @@ def get_available_industries(regulation_code: str) -> Dict[str, str]:
             return industries
         else:
             logging.warning(f"Regulation directory not found: {regulation_dir}")
-            return {"general": "General Industry"}
+            # return {"general": "General Industry"}
     except Exception as e:
         logging.error(f"Error getting available industries: {str(e)}")
-        return {"general": "General Industry"}
+        # return {"general": "General Industry"}
 
 
 
@@ -97,26 +102,74 @@ def get_available_industries(regulation_code: str) -> Dict[str, str]:
 AI_ENABLED = True
 AI_PROVIDER = "openrouter"
 
-# OpenRouter API key with bearer prefix
-AI_API_KEY_1 = "Bearer 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"
-AI_API_KEY_2 = "Bearer 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"
-AI_API_KEY_3 = "Bearer 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"
+# --- Read API keys: Prioritize Streamlit Secrets, fallback to environment variables --- #
+
+def get_secret_or_env(secret_name: str, env_var_name: str) -> Optional[str]:
+    """Helper to get key first from st.secrets, then from os.getenv."""
+    key = None
+    try:
+        # Check if running in Streamlit context and secrets exist
+        if hasattr(st, 'secrets') and secret_name in st.secrets:
+             key_raw = st.secrets.get(secret_name)
+             if key_raw:
+                 # Clean the key: remove whitespace and surrounding quotes
+                 key = key_raw.strip().strip('"').strip("'")
+                 logger.debug(f"Loaded {secret_name} from Streamlit Secrets.")
+                 return key
+    except Exception as e:
+        # st.secrets might not be available during certain phases or tests
+        logger.debug(f"Could not access st.secrets for {secret_name}: {e}")
+
+    # Fallback to environment variable if not found in secrets or secrets inaccessible
+    key_raw = os.getenv(env_var_name)
+    if key_raw:
+         # Clean the key: remove whitespace and surrounding quotes
+         key = key_raw.strip().strip('"').strip("'")
+         logger.debug(f"Loaded {env_var_name} from environment variables.")
+         return key
+
+    logger.warning(f"API Key not found in Streamlit Secrets ('{secret_name}') or environment ('{env_var_name}').")
+    return None
+
+api_key_1 = get_secret_or_env("OPENROUTER_API_KEY_1", "OPENROUTER_API_KEY_1")
+api_key_2 = get_secret_or_env("OPENROUTER_API_KEY_2", "OPENROUTER_API_KEY_2")
+api_key_3 = get_secret_or_env("OPENROUTER_API_KEY_3", "OPENROUTER_API_KEY_3")
+# --- End API Key Reading --- #
+
+# Filter out any keys that were not found (returned None)
+API_KEYS = [key for key in [api_key_1, api_key_2, api_key_3] if key]
+if not API_KEYS:
+    logger.error("CRITICAL: No OpenRouter API keys found in Streamlit Secrets or environment variables. AI features will likely fail.")
+else:
+    logger.info(f"Loaded {len(API_KEYS)} API key(s).")
 
 # API key rotation settings
 _current_api_key_index = 0
-API_KEYS = [AI_API_KEY_1, AI_API_KEY_2, AI_API_KEY_3]
 
 def get_ai_api_key():
     """Get the API key for AI services with rotation support"""
     global _current_api_key_index
+    if not API_KEYS:
+        logger.warning("No API keys loaded from environment variables.")
+        return None # Return None if no keys are available
+        
+    # Ensure index is valid
+    if _current_api_key_index >= len(API_KEYS):
+        _current_api_key_index = 0 # Reset index if out of bounds
+        
     key = API_KEYS[_current_api_key_index]
+    # Remove "Bearer " prefix if present
     return key.replace("Bearer ", "") if key and key.startswith("Bearer ") else key
 
 def rotate_api_key():
     """Rotate to the next available API key"""
     global _current_api_key_index
+    if not API_KEYS or len(API_KEYS) <= 1:
+        logger.debug("API key rotation skipped: Only one or zero keys available.")
+        return get_ai_api_key() # Return current key if rotation is not possible
+        
     _current_api_key_index = (_current_api_key_index + 1) % len(API_KEYS)
-    logger.info(f"Rotating to API key {_current_api_key_index + 1}")
+    logger.info(f"Rotating to API key index {_current_api_key_index}")
     return get_ai_api_key()
 
 # Update the getter function to handle missing keys better
