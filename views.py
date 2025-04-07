@@ -107,14 +107,41 @@ def render_landing_page():
     st.markdown(get_landing_page_css(), unsafe_allow_html=True)
     st.markdown(get_contact_link_css(), unsafe_allow_html=True)
     
-    # Logo - Use st.image centered with columns
-    # Remove previous CSS styling block for .landing-logo-container
+    # Add CSS to center the main content block
+    st.markdown("""
+        <style>
+        /* Target the main block containing landing page elements */
+        div[data-testid="stVerticalBlock"] > div.stHorizontalBlock > div[data-testid="stVerticalBlock"] {
+            align-items: center;
+        }
+        /* Optional: Add margin below logo if needed */
+        div[data-testid="stImage"] {
+            margin-bottom: 25px;
+        }
+        /* Center text in the Access Assessment button */
+        div[data-testid="stVerticalBlock"] > div.stHorizontalBlock > div:nth-child(2) div[data-testid="stButton"] > button {
+            text-align: center !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
+    # Logo - Display using columns and centered text within middle column
     if os.path.exists(config.LOGO_PATH):
-        # Use columns to center the image
-        col1, col2, col3 = st.columns([1, 1, 1]) # Use equal columns for centering
-        with col2: # Place image in the center column
-            st.image(config.LOGO_PATH, width=200) # Adjust width as needed
+        col1, col2, col3 = st.columns([1, 1, 1]) # Equal ratios
+        with col2:
+            # Inject CSS specifically for this column
+            st.markdown("""
+                <style>
+                    div[data-testid="stHorizontalBlock"] > div:nth-child(2) {
+                        text-align: center;
+                        display: flex; /* Use flexbox for centering */
+                        justify-content: center; /* Center horizontally */
+                        align-items: center; /* Center vertically if needed */
+                    }
+
+                </style>
+            """, unsafe_allow_html=True)
+            st.image(config.LOGO_PATH, width=300) # Increased width from 200 to 300
     else:
         st.warning(f"Logo not found at path: {config.LOGO_PATH}")
     
