@@ -9,6 +9,7 @@ import logging
 from typing import Dict, Any, List, Optional
 import time
 import re
+import os
 
 import config
 
@@ -274,14 +275,18 @@ def _generate_with_openai(context: Dict[str, Any], api_key: str, format: str = F
             try:
                 if use_openrouter:
                     logger.info("Configuring OpenRouter API client")
+                    # Remove SSL_CERT_FILE from environment if it exists
+                    if 'SSL_CERT_FILE' in os.environ:
+                        del os.environ['SSL_CERT_FILE']
+                    
+                    # Initialize OpenAI client with default SSL configuration
                     client = OpenAI(
                         base_url="https://openrouter.ai/api/v1",
                         api_key=api_key,
                         default_headers={
-                            "HTTP-Referer": "https://datainfa.com",
+                            "HTTP-Referer": "https://github.com/OpenRouter/",
                             "X-Title": "Compliance Assessment Tool"
-                        },
-                        timeout=httpx.Timeout(30.0, connect=5.0)
+                        }
                     )
                     model = "deepseek/deepseek-chat-v3-0324:free"
                     logger.info(f"OpenRouter client configured with model: {model}")

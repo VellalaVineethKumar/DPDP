@@ -78,21 +78,57 @@ def render_header():
     # Show organization name only if it exists and isn't empty
     org_name = st.session_state.organization_name if st.session_state.organization_name and st.session_state.organization_name.strip() else None
     
-    st.markdown(get_app_header_css(), unsafe_allow_html=True)
+    # Add CSS for header layout with logo
+    st.markdown("""
+            <style>
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header-logo {
+            width: 180px;
+            height: auto;
+        }
+        .header-text {
+            flex-grow: 1;
+        }
+        .header-text h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 1.8em;
+        }
+        .header-text p {
+            margin: 5px 0 0 0;
+            color: #cccccc;
+        }
+            </style>
+        """, unsafe_allow_html=True)
     
+    # Construct logo path
+    logo_path = os.path.join(config.BASE_DIR, "Assets", "@logo.png")
+    
+    # Create header HTML with logo
+    header_html = '<div class="app-header">'
+    
+    # Add logo if exists
+    if os.path.exists(logo_path):
+        with open(logo_path, "rb") as f:
+            logo_base64 = base64.b64encode(f.read()).decode()
+        header_html += f'<img src="data:image/png;base64,{logo_base64}" class="header-logo" alt="Logo">'
+    
+    # Add header text
+    header_html += '<div class="header-text">'
+    header_html += f'<h1>{config.APP_TITLE}</h1>'
     if org_name:
-        st.markdown(f"""
-            <div class="app-header">
-                <h1>{config.APP_TITLE}</h1>
-                <p>Organization: {org_name}</p>
-            </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown(f"""
-            <div class="app-header">
-                <h1>{config.APP_TITLE}</h1>
-            </div>
-        """, unsafe_allow_html=True)
+        header_html += f'<p>Organization: {org_name}</p>'
+    header_html += '</div></div>'
+    
+    st.markdown(header_html, unsafe_allow_html=True)
 
 # Landing page function (moved from landing.py)
 def render_landing_page():
@@ -210,19 +246,19 @@ def render_assessment():
     # Create a top anchor to scroll to
     st.markdown('<div id="top-of-form"></div>', unsafe_allow_html=True)
     
-    # Add JavaScript to scroll to top of page when loading a new section
+    # Add JavaScript to scroll to top when loading a new section
     st.markdown("""
-    <script>
-        // Automatically scroll to top when this component loads
-        window.scrollTo(0, 0);
-        
-        // Alternative method that may work better in some Streamlit versions
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                window.scrollTo(0, 0);
-            }, 100);
-        });
-    </script>
+        <script>
+            // Automatically scroll to top when this component loads
+            window.scrollTo(0, 0);
+            
+            // Alternative method that may work better in some Streamlit versions
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                }, 100);
+            });
+        </script>
     """, unsafe_allow_html=True)
     
     # Cache the questionnaire in session state, with preservation of "new banking fin"
@@ -2255,19 +2291,19 @@ def render_data_discovery():
         .high-risk { 
             color: #FF4B4B !important;
             font-weight: bold;
-            }
-            </style>
-        """, unsafe_allow_html=True)
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     st.header("AI Data Discovery")
-            
+    
     col1, col2 = st.columns([2, 1])
     
     with col1:
         st.markdown("""
             #### Database Schema Analysis
         """)
-        
+    
     # Import and use the data discovery functionality
     from data_discovery import analyze_ddl_script, render_findings_section, get_recommendations
     
@@ -2295,22 +2331,22 @@ def render_data_discovery():
             st.error(f"Error analyzing file: {str(e)}")
     else:
         st.info("Please upload a database DDL script to begin analysis.")
-        
-        # Show example of what will be analyzed
+    
+    # Show example of what will be analyzed
     with st.expander("What will be analyzed?"):
         st.markdown("""
-                Our AI will analyze your database schema to identify:
-                
-                - **Personal identifiers**: Names, contact details, government IDs
-                - **Financial information**: Banking details, payment information
-                - **Health information**: Medical records, treatment data
-                - **Biometric data**: Fingerprints, facial data
-                - **Digital identifiers**: Device IDs, IP addresses
-                - **Location data**: GPS coordinates, geographical tracking
-                - **Professional data**: Employment history, performance records
-                
-                You'll receive recommendations for technical controls, process controls, and monitoring requirements.
-            """)
+            Our AI will analyze your database schema to identify:
+            
+            - **Personal identifiers**: Names, contact details, government IDs
+            - **Financial information**: Banking details, payment information
+            - **Health information**: Medical records, treatment data
+            - **Biometric data**: Fingerprints, facial data
+            - **Digital identifiers**: Device IDs, IP addresses
+            - **Location data**: GPS coordinates, geographical tracking
+            - **Professional data**: Employment history, performance records
+            
+            You'll receive recommendations for technical controls, process controls, and monitoring requirements.
+        """)
 
 def get_compliance_level_color(level):
     """Return color based on compliance level"""
