@@ -301,11 +301,11 @@ def render_assessment():
     if st.session_state.get('is_admin', False):
         with st.sidebar.expander("TESTING TOOLS", expanded=False):
             auto_fill_option = st.radio(
-            "Auto-fill responses with:",
-            ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
-            key="auto_fill_option"
-        )
-        
+                "Auto-fill responses with:",
+                ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
+                key="auto_fill_option"
+            )
+            
             if st.button("Apply Auto-Fill", key="apply_auto_fill", type="primary"):
                 sections = questionnaire["sections"]
                 current_section = st.session_state.current_section
@@ -1130,10 +1130,10 @@ def render_report():
                     st.session_state.ai_report_generated = False
                     st.rerun()
     else:
-         # Show retry button if generation failed or report is None
-         if st.button("🔄 Retry Analysis Generation"):
-             st.session_state.ai_report_generated = False
-             st.rerun()
+        # Show retry button if generation failed or report is None
+        if st.button("🔄 Retry Analysis Generation"):
+            st.session_state.ai_report_generated = False
+            st.rerun()
 
 
    
@@ -1987,10 +1987,10 @@ def render_sidebar():
             """, unsafe_allow_html=True)
         # --- End of CSS Injection --- #
 
-        # Logo container - Now using st.image
+        # Logo container - Now using st.image with updated parameter
         st.markdown(get_logo_css(), unsafe_allow_html=True)
         if os.path.exists(config.LOGO_PATH): 
-            st.image(config.LOGO_PATH, use_column_width='auto')
+            st.image(config.LOGO_PATH, use_container_width=True)
         else:
             st.warning(f"Logo not found at path: {config.LOGO_PATH}")
         
@@ -2262,7 +2262,7 @@ def render_data_discovery():
     st.header("AI Data Discovery")
             
     col1, col2 = st.columns([2, 1])
-            
+    
     with col1:
         st.markdown("""
             #### Database Schema Analysis
@@ -2275,27 +2275,30 @@ def render_data_discovery():
     uploaded_file = st.file_uploader("Upload your database DDL script (SQL or TXT format)", type=['sql', 'txt'])
     
     if uploaded_file is not None:
-        ddl_content = uploaded_file.getvalue().decode("utf-8")
-        
-        with st.spinner("Analyzing database schema..."):
-            findings = analyze_ddl_script(ddl_content)
+        try:
+            ddl_content = uploaded_file.getvalue().decode("utf-8")
             
-            if "error" in findings:
-                st.error(f"Analysis failed: {findings['error']}")
-            else:
-                # Display findings
-                render_findings_section(findings)
+            with st.spinner("Analyzing database schema..."):
+                findings = analyze_ddl_script(ddl_content)
                 
-                st.subheader("Recommendations")
-                recommendations = get_recommendations(findings)
-                for rec in recommendations:
-                    st.markdown(f"• {rec}")
+                if "error" in findings:
+                    st.error(f"Analysis failed: {findings['error']}")
+                else:
+                    # Display findings
+                    render_findings_section(findings)
+                    
+                    st.subheader("Recommendations")
+                    recommendations = get_recommendations(findings)
+                    for rec in recommendations:
+                        st.markdown(f"• {rec}")
+        except Exception as e:
+            st.error(f"Error analyzing file: {str(e)}")
     else:
         st.info("Please upload a database DDL script to begin analysis.")
         
         # Show example of what will be analyzed
-        with st.expander("What will be analyzed?"):
-            st.markdown("""
+    with st.expander("What will be analyzed?"):
+        st.markdown("""
                 Our AI will analyze your database schema to identify:
                 
                 - **Personal identifiers**: Names, contact details, government IDs
