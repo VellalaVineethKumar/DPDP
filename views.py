@@ -14,9 +14,7 @@ import base64
 import json
 import traceback  # Add this import at the top
 from typing import Dict, List, Any, Optional, Tuple  # Add typing imports
-import subprocess
 import tempfile
-import pypandoc
 import re # Add re import
 from markdown_pdf import MarkdownPdf, Section # Add markdown-pdf imports
 
@@ -28,13 +26,10 @@ from assessment import get_questionnaire, calculate_compliance_score
 from recommendation_engine import get_recommendation_priority, organize_recommendations_by_priority
 from helpers import (
     go_to_page, 
-    go_to_section, 
     save_response, 
-    reset_assessment, 
     generate_excel_download_link,
     track_event,
     get_section_progress_percentage,  # Use this instead of local implementation
-    change_questionnaire,
     format_regulation_name,
     validate_token
 )
@@ -84,11 +79,11 @@ def render_header():
         .app-header {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 1rem;
+            gap: 10px;
+            padding: 0.5rem;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
         }
         .header-logo {
             width: 180px;
@@ -103,8 +98,9 @@ def render_header():
             font-size: 1.8em;
         }
         .header-text p {
-            margin: 5px 0 0 0;
+            margin: 2px 0 0 0;
             color: #cccccc;
+            font-size: 0.9em;
         }
             </style>
         """, unsafe_allow_html=True)
@@ -248,17 +244,17 @@ def render_assessment():
     
     # Add JavaScript to scroll to top when loading a new section
     st.markdown("""
-        <script>
-            // Automatically scroll to top when this component loads
-            window.scrollTo(0, 0);
-            
-            // Alternative method that may work better in some Streamlit versions
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    window.scrollTo(0, 0);
-                }, 100);
-            });
-        </script>
+    <script>
+        // Automatically scroll to top when this component loads
+        window.scrollTo(0, 0);
+        
+        // Alternative method that may work better in some Streamlit versions
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 100);
+        });
+    </script>
     """, unsafe_allow_html=True)
     
     # Cache the questionnaire in session state, with preservation of "new banking fin"
@@ -308,8 +304,6 @@ def render_assessment():
             </style>
         """, unsafe_allow_html=True)
         
-        st.write(f"Regulation: {st.session_state.selected_regulation}")
-        st.write(f"Industry: {st.session_state.selected_industry}")
         
         if "sections" in questionnaire:
             st.write("Jump to section:")
@@ -335,13 +329,69 @@ def render_assessment():
     # TESTING ONLY - TO BE REMOVED BEFORE PRODUCTION
     # Add quick-fill testing option in sidebar for faster testing
     if st.session_state.get('is_admin', False):
+        st.markdown("""
+            <style>
+            /* Expander styling */
+            .streamlit-expanderHeader {
+                background-color: #262730 !important;
+                border: none !important;
+                border-radius: 4px !important;
+                color: #fafafa !important;
+                font-size: 14px !important;
+            }
+            .streamlit-expanderHeader:hover {
+                background-color: #1E1E1E !important;
+            }
+            /* Testing tools container */
+            div.stExpander {
+                border: none !important;
+                background-color: transparent !important;
+            }
+            /* Radio buttons in testing tools */
+            div.stExpander div[data-testid="stRadio"] > div {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            div.stExpander div[data-testid="stRadio"] label {
+                background-color: #262730 !important;
+                padding: 8px 12px !important;
+                border-radius: 4px !important;
+                color: #fafafa !important;
+                transition: all 0.2s !important;
+            }
+            div.stExpander div[data-testid="stRadio"] label:hover {
+                background-color: #1E1E1E !important;
+                color: #6fa8dc !important;
+            }
+            /* Button styling */
+            div.stExpander div[data-testid="stButton"] > button {
+                width: 100% !important;
+                padding: 8px 12px !important;
+                margin: 4px 0 !important;
+                background-color: #262730 !important;
+                color: #fafafa !important;
+                border: none !important;
+                border-radius: 4px !important;
+                text-align: left !important;
+                transition: all 0.2s !important;
+            }
+            div.stExpander div[data-testid="stButton"] > button:hover {
+                background-color: #1E1E1E !important;
+                color: #6fa8dc !important;
+            }
+            div.stExpander div[data-testid="stButton"] > button:active {
+                border-left: 3px solid #6fa8dc !important;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+        
         with st.sidebar.expander("TESTING TOOLS", expanded=False):
             auto_fill_option = st.radio(
-                "Auto-fill responses with:",
-                ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
-                key="auto_fill_option"
-            )
-            
+            "Auto-fill responses with:",
+            ["None", "All Yes/Positive", "All Partial/Medium", "All No/Negative", "Random Mix"],
+            key="auto_fill_option"
+        )
             if st.button("Apply Auto-Fill", key="apply_auto_fill", type="primary"):
                 sections = questionnaire["sections"]
                 current_section = st.session_state.current_section
@@ -350,30 +400,39 @@ def render_assessment():
                     section = sections[current_section]
                     questions = section.get("questions", [])
                     
+                    import random
+                    responses_updated = False
+                
                     for q_idx, question in enumerate(questions):
+                        # Create the response key in the correct format
                         response_key = f"s{current_section}_q{q_idx}"
-                        
+                        # Get options for the question
                         if isinstance(question, dict):
                             options = question.get("options", [])
                         else:
-                            options = section.get("options", [])[q_idx] if section.get("options") else ["Yes", "No", "Not applicable"]
+                            try:
+                                options = section.get("options", [])[q_idx]
+                            except (IndexError, KeyError):
+                                options = ["Yes", "No", "Not applicable"]
                         
+                        # Select option based on auto-fill choice
                         selected_option = None
                         if auto_fill_option == "All Yes/Positive":
-                            selected_option = options[0]
+                            selected_option = options[0]  # First option (Yes/Positive)
                         elif auto_fill_option == "All Partial/Medium":
-                            selected_option = options[1] if len(options) > 2 else options[0]
+                            selected_option = options[1] if len(options) > 2 else options[0]  # Middle option if available
                         elif auto_fill_option == "All No/Negative":
-                            selected_option = options[-1]
+                            selected_option = options[-1]  # Last option (No/Negative)
                         elif auto_fill_option == "Random Mix":
-                            import random
-                            selected_option = random.choice(options)
+                            selected_option = random.choice(options)  # Random choice
                         
+                        # Update session state responses
                         if selected_option:
                             st.session_state.responses[response_key] = selected_option
+                            responses_updated = True
                     
-                    st.success(f"Auto-filled {len(questions)} responses for current section")
-                    st.rerun()
+                    if responses_updated:
+                        st.rerun()
                 else:
                     st.error("No section available for auto-fill")
     
@@ -430,7 +489,7 @@ def render_assessment():
     
     # Show current section progress
     section_progress = get_section_progress_percentage()
-    st.progress(section_progress / 100)
+    st.progress(overall_progress / 100)
     
     # Show both progress metrics with consistent spacing
     st.markdown(get_progress_metrics_css(), unsafe_allow_html=True)
@@ -837,7 +896,7 @@ def render_report():
             place-items: center;
             width: 100%;
             padding: 20px;
-            margin-bottom: -20px;
+            margin-bottom: -60px;
         }}
         .diagram-content {{
             margin: 0 auto;
@@ -854,12 +913,12 @@ def render_report():
             </div>
         </div>
         """
-        st.components.v1.html(centered_html, height=1100, scrolling=False)
+        st.components.v1.html(centered_html, height=900, scrolling=False)
     else:
         st.warning("DPDP Implementation Framework diagram not found.")
     
     # Add CLAIRE Diagram with reduced spacing
-    st.markdown('<div style="margin-top: -20px;"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="margin-top: -60px;"></div>', unsafe_allow_html=True)
     st.subheader("Informatica CLAIRE Framework")
     claire_path = os.path.join(config.BASE_DIR, "Assets", "CLAIRE.html")
     if os.path.exists(claire_path):
@@ -873,13 +932,13 @@ def render_report():
             place-items: center;
             width: 100%;
             padding: 10px;
-            margin-top: -20px;
+            margin-top: -40px;
         }}
         .claire-content {{
             margin: 0 auto;
             max-width: 1400px;
             width: 100%;
-            transform: scale(0.88);  # Decreased scale from 0.92 to 0.88
+            transform: scale(0.88);
             transform-origin: center center;
         }}
         </style>
@@ -889,12 +948,13 @@ def render_report():
             </div>
         </div>
         """
-        st.components.v1.html(centered_html, height=825, scrolling=False) # Decreased height from 875 to 825
+        st.components.v1.html(centered_html, height=800, scrolling=False)
     else:
         st.warning("CLAIRE Framework diagram not found.")
     # --- End of commented out section ---
 
     # Add Not Applicable answers section
+    st.markdown('<div style="margin-top: -60px;"></div>', unsafe_allow_html=True)
     st.subheader("Answers Marked as \"Not Applicable\"")
     
     # Get questionnaire for reference
@@ -1034,7 +1094,7 @@ def render_report():
                     }
                     </style>
                 """, unsafe_allow_html=True)
-                
+                    
                 # Process the report to fix the first line
                 lines = ai_report.split('\n')
                 processed_lines = []
@@ -1049,33 +1109,36 @@ def render_report():
                         # Split into title and scores
                         parts = header_line.split("**Overall")
                         title = parts[0].strip()
+                        scores_part = "Overall" + parts[1]
                         
-                        # Format scores with vertical bar
-                        scores = "**Overall" + parts[1]
-                        scores = scores.replace("**", "")
-                        scores = scores.replace("Overall Compliance Score:", "Overall Compliance Score:")
-                        scores = scores.replace("Compliance Level:", "| Compliance Level:")
+                        # Format scores with better styling
+                        scores_part = scores_part.replace("**Overall Compliance Score:", "<span style='color: #FF6B6B'>Overall Compliance Score:")
+                        scores_part = scores_part.replace("**Compliance Level:", "<span style='color: #FF6B6B'>Compliance Level:")
+                        scores_part = scores_part.replace("**Non-Compliant**", "<span style='color: #FF4B4B; font-weight: bold'>Non-Compliant</span>")
+                        scores_part = scores_part.replace("**", "</span>")
                         
-                        # Create formatted header
+                        # Create formatted header with proper styling
                         formatted_header = f"""<div class="report-header">
-                            {title}<br>
-                            <span style="font-size: 0.9em; color: #FF6B6B;">{scores}</span>
+                            <div style="font-size: 1.8em; color: white; margin-bottom: 15px;">{title}</div>
+                            <div style="font-size: 1.1em; line-height: 1.6;">{scores_part}</div>
                         </div>"""
                         
+                        # Add the formatted header first
                         processed_lines.append(formatted_header)
+                        # Then add the remaining lines
+                        processed_lines.extend(lines[1:])
                     else:
                         # Fallback for other header formats
                         processed_lines.append(f'<div class="report-header">{header_line}</div>')
-                    
-                    # Add the rest of the lines
-                    processed_lines.extend(lines[1:])
+                        # Add the remaining lines
+                        processed_lines.extend(lines[1:])
                 else:
                     # If it doesn't start with #, use the original lines
-                    processed_lines = lines
+                    processed_lines.extend(lines)
                 
                 # Join the processed lines
                 processed_report = '\n'.join(processed_lines)
-                
+                processed_report = '\n'.join(processed_lines)
                 # Wrap the report in the styled container
                 st.markdown(f'<div class="ai-analysis-container">{processed_report}</div>', unsafe_allow_html=True)
             else:
@@ -1093,73 +1156,63 @@ def render_report():
     if ai_report: # Only show buttons if report exists
         col1, col2 = st.columns([3, 1])
         with col1:
-            def convert_for_download():
-                """Convert the report to PDF only when called"""
-                try:
-                    # Get the original AI report content
-                    original_report_content = st.session_state.cached_ai_report
-                    # Get organization name, default if not found
-                    org_name = st.session_state.get('organization_name', 'Unknown Organization')
-                    # Prepend organization name to the report content
-                    report_with_org = f"**Organization:** {org_name}\n\n{original_report_content}"
-                    # Pass the modified content and org name for metadata
-                    return convert_markdown_to_pdf(report_with_org, org_name)
-                except Exception as e:
-                    logger.error(f"Error in convert_for_download: {e}")
-                    st.error("Failed to generate PDF report. Please try again.")
-                    return None
-
-            # Add custom CSS for button alignment
-            st.markdown("""
-                <style>
-                [data-testid="stDownloadButton"] button {
-                    background: #FF6B6B !important;
-                    color: white !important;
-                    border: none !important;
-                    border-radius: 4px !important;
-                    font-weight: normal !important;
-                    font-size: 0.9rem !important;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-                    transition: all 0.2s ease !important;
-                    width: auto !important;
-                    display: inline-block !important;
-                }
-                [data-testid="stDownloadButton"] button:hover {
-                    background: #45a049 !important;
-                    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
-                    transform: translateY(-1px) !important;
-                }
-                [data-testid="stDownloadButton"] button:active {
-                    transform: translateY(0) !important;
-                }
-                /* Add right alignment for regenerate button container */
-                div.stButton {
-                    display: flex;
-                    justify-content: flex-end;
-                }
-                </style>
-            """, unsafe_allow_html=True)
-
             # Create a row for the buttons with more space between them
             col1, spacer, col2 = st.columns([1, 2, 1])
             
             with col1:
-                # Generate PDF data
-                pdf_data = convert_for_download()
-                
-                # Only show download button if PDF generation was successful
-                if pdf_data is not None:
-                    if st.download_button(
-                        label="📥 Download Report (PDF)",
-                        data=pdf_data,
-                        file_name=f"ai_analysis_report_{datetime.now().strftime('%Y%m%d')}.pdf",
-                        mime="application/pdf",
-                        help="Download the AI-generated analysis as a PDF document",
-                        use_container_width=False
-                    ):
-                        st.success("PDF report generated successfully!")
-                else:
-                    st.error("Failed to generate PDF report. Please try again.")
+                # Store the report content in session state if not already there
+                if 'cached_ai_report' not in st.session_state:
+                    st.session_state.cached_ai_report = ai_report
+
+                # Function to generate PDF when download button is clicked
+                def get_pdf_data():
+                    if 'pdf_data' not in st.session_state:
+                        with st.spinner("Generating PDF report..."):
+                            try:
+                                # Get the original AI report content
+                                original_report_content = st.session_state.cached_ai_report
+                                if not original_report_content:
+                                    st.error("No report content available. Please generate a report first.")
+                                    return None
+                                
+                                # Get organization name, default if not found
+                                org_name = st.session_state.get('organization_name', 'Unknown Organization')
+                                current_date = datetime.now().strftime("%B %d, %Y")
+                                
+                                # Create header
+                                header = f"""#### AI Report Generated by DataINFA on: {current_date} for {org_name}
+
+---
+
+"""
+                                # Combine header with the report content
+                                report_with_header = f"{header}{original_report_content}"
+                                
+                                # Generate PDF
+                                pdf_data = convert_markdown_to_pdf(report_with_header, org_name)
+                                if pdf_data:
+                                    st.session_state.pdf_data = pdf_data
+                                    return pdf_data
+                            except Exception as e:
+                                logger.error(f"Error generating PDF: {e}")
+                                st.error("An error occurred while generating the PDF. Please try again.")
+                                return None
+                    return st.session_state.get('pdf_data')
+
+                # Download button that triggers PDF generation only when clicked
+                if st.download_button(
+                    label="📥 Download Report (PDF)",
+                    data=get_pdf_data(),
+                    file_name=f"AI_Report_{datetime.now().strftime('%Y%m%d')}.pdf",
+                    mime="application/pdf",
+                    help="Download the AI-generated analysis as a PDF document",
+                    use_container_width=False,
+                    key="download_pdf_button",
+                    disabled=not st.session_state.get('cached_ai_report')
+                ):
+                    # Clear the cached PDF data after successful download
+                    if 'pdf_data' in st.session_state:
+                        del st.session_state.pdf_data
             
             with col2:
                 if st.button("🔄 Regenerate", help="Generate a new AI analysis", use_container_width=False):
@@ -1182,18 +1235,17 @@ def render_report():
     img2_base64 = get_image_base64(os.path.join(config.BASE_DIR, "Assets", "ipaas-mq.jpg"))
     img3_base64 = get_image_base64(os.path.join(config.BASE_DIR, "Assets", "data-governance-mq.jpg"))
     img4_base64 = get_image_base64(os.path.join(config.BASE_DIR, "Assets", "data-quality-mq.png"))
-
     # Add Gartner Magic Quadrant section with hover effect
     st.markdown("""
         <style>
         .magic-quadrant-section {
             background: #1E1E1E;
             padding: 20px;
-            border-radius: 10px;
+                        border-radius: 10px;
             margin: 40px 0;
-        }
+                    }
         .magic-quadrant-header {
-            color: white;
+                        color: white;
             text-align: center;
             font-size: 24px;
             font-weight: bold;
@@ -1203,7 +1255,7 @@ def render_report():
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            padding: 10px;
+                        padding: 10px;
             flex-wrap: nowrap;
         }
         .quadrant-item {
@@ -1261,7 +1313,7 @@ def render_report():
         /* Add styles for the link */
         .quadrant-link {
             text-decoration: none;
-            display: block;
+                        display: block;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -1270,7 +1322,7 @@ def render_report():
     st.markdown(f"""
         <div class="magic-quadrant-section">
             <div class="magic-quadrant-header">
-                Informatica Leadership in Gartner Magic Quadrant
+                <span style="color: #FFA500;">Informatica Leadership in Gartner Magic Quadrant</span>
             </div>
             <div class="magic-quadrant-grid">
                 <div class="quadrant-item">
@@ -1489,13 +1541,41 @@ def convert_markdown_to_pdf(markdown_content: str, organization_name: str = "Rep
         # Initialize PDF object with TOC level 2 (headings ##)
         pdf = MarkdownPdf(toc_level=2)
 
+        # Get the logo path and verify it exists
+        logo_path = os.path.join(config.BASE_DIR, "Assets", "@logo.png")
+        logger.info(f"Looking for logo at: {logo_path}")
+        
+        # Create a header with the logo if it exists
+        header_content = ""
+        if os.path.exists(logo_path):
+            # Convert logo to base64
+            with open(logo_path, "rb") as f:
+                logo_base64 = base64.b64encode(f.read()).decode()
+            
+            # Add header with logo and styling
+            header_content = f"""
+<div style="text-align: center; margin-bottom: 30px;">
+    <img src="data:image/png;base64,{logo_base64}" style="max-width: 200px; margin-bottom: 20px;">
+    <h1 style="color: #333; margin: 0;">{organization_name}</h1>
+    <p style="color: #666; margin: 5px 0;">AI Analysis Report</p>
+    <p style="color: #666; margin: 5px 0;">Generated on: {datetime.now().strftime('%B %d, %Y')}</p>
+</div>
+
+---
+
+"""
+        # Combine header with the main content
+        full_content = header_content + markdown_content
+
         # Add the entire markdown content as one section
-        # Note: markdown-pdf might handle TOC generation based on headings in the content
-        pdf.add_section(Section(markdown_content, toc=True))
+        pdf.add_section(Section(full_content, toc=True))
 
         # Set PDF metadata
         pdf.meta["title"] = f"{organization_name} - AI Analysis Report"
-        pdf.meta["author"] = config.APP_TITLE # Or another relevant author
+        pdf.meta["author"] = config.APP_TITLE
+        pdf.meta["subject"] = "DPDP Compliance Assessment Report"
+        pdf.meta["keywords"] = "compliance, DPDP, assessment, analysis"
+        pdf.meta["creator"] = "DataInfa Assessment Tool"
 
         # Create a temporary file path for the PDF output
         with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as temp_pdf_file:
@@ -1520,10 +1600,10 @@ def convert_markdown_to_pdf(markdown_content: str, organization_name: str = "Rep
             return None
 
     except Exception as e:
-        # Catching a general exception as specific errors from markdown-pdf might vary
-        logger.error(f"Error during markdown-pdf generation: {e}", exc_info=True)
-        st.error(f"An error occurred during PDF generation: {e}")
-        return None
+            # Catching a general exception as specific errors from markdown-pdf might vary
+            logger.error(f"Error during markdown-pdf generation: {e}", exc_info=True)
+            st.error(f"An error occurred during PDF generation: {e}")
+            return None
     finally:
         # Clean up temporary PDF file
         if output_file and os.path.exists(output_file):
@@ -1540,295 +1620,290 @@ def render_admin_page():
         st.error("Access denied. Admin privileges required.")
         return
     
-    # Add tabs for different admin functions
-    admin_tabs = st.tabs(["Token Management", "Response Maintenance", "System Status"])
+    st.subheader("Token Management")
+    token_tabs = st.tabs(["Generate Token", "View Tokens", "Revoke Token"])
     
-    # Token Management Tab
-    with admin_tabs[0]:
-        st.subheader("Token Management")
-        token_tabs = st.tabs(["Generate Token", "View Tokens", "Revoke Token"])
+    # Generate Token Tab
+    with token_tabs[0]:
+        st.write("Create a new access token for an organization")
         
-        # Generate Token Tab
-        with token_tabs[0]:
-            st.write("Create a new access token for an organization")
+        # Organization name with clear label
+        st.markdown("#### Organization Details")
+        org_name = st.text_input(
+            "Organization Name *", 
+            key="new_org_name", 
+            placeholder="Enter organization name",
+            help="The organization this token will be issued to"
+        )
+        
+        # Add Generated By field
+        generated_by = st.text_input(
+            "Generated By *", 
+            key="generated_by",
+            value=st.session_state.get("admin_user", "Admin"),
+            placeholder="Enter your name",
+            help="Your name or identifier as the token generator"
+        )
+        
+        # Expiry date settings with better alignment
+        st.markdown("#### Token Expiration")
+        
+        # Apply custom CSS for expiry box
+        st.markdown(get_expiry_box_css(), unsafe_allow_html=True)
+        
+        # Force single line with container_width and custom height
+        container = st.container()
+        with container:
+            col1, col2 = st.columns([1, 1])
             
-            # Organization name with clear label
-            st.markdown("#### Organization Details")
-            org_name = st.text_input(
-                "Organization Name *", 
-                key="new_org_name", 
-                placeholder="Enter organization name",
-                help="The organization this token will be issued to"
-            )
+            with col1:
+                expiry_days = st.number_input(
+                    "Token validity (days)", 
+                    min_value=1, 
+                    max_value=365, 
+                    value=5, 
+                    key="expiry_days",
+                    help="Number of days this token will remain valid"
+                )
             
-            # Add Generated By field
-            generated_by = st.text_input(
-                "Generated By *", 
-                key="generated_by",
-                value=st.session_state.get("admin_user", "Admin"),
-                placeholder="Enter your name",
-                help="Your name or identifier as the token generator"
-            )
-            
-            # Expiry date settings with better alignment
-            st.markdown("#### Token Expiration")
-            
-            # Apply custom CSS for expiry box
-            st.markdown(get_expiry_box_css(), unsafe_allow_html=True)
-            
-            # Force single line with container_width and custom height
-            container = st.container()
-            with container:
-                col1, col2 = st.columns([1, 1])
-                
-                with col1:
-                    expiry_days = st.number_input(
-                        "Token validity (days)", 
-                        min_value=1, 
-                        max_value=365, 
-                        value=5, 
-                        key="expiry_days",
-                        help="Number of days this token will remain valid"
-                    )
-                
-                with col2:
-                    expiry_date = (datetime.now() + timedelta(days=expiry_days)).strftime("%Y-%m-%d")
-                    st.markdown(f"""
-                    <div class="expiry-box">
-                        <span style="font-weight: bold;">Expiry date:</span> {expiry_date}
-                    </div>
-                    """, unsafe_allow_html=True)
-            
-            # Generate token button
-            if st.button("Generate Token", key="gen_token_btn", type="primary", use_container_width=True):
-                if org_name:
-                    try:
-                        # Set token expiry in session state for token_storage to use
-                        import token_storage
-                        token_storage.TOKEN_EXPIRY_DAYS = expiry_days
-                        
-                        # Create secure directory if it doesn't exist
-                        if not os.path.exists('secure'):
-                            os.makedirs('secure', exist_ok=True)
-                        
-                        # Generate token with the organization name and generated by info
-                        new_token = generate_token(org_name, generated_by)
-                        if new_token:
-                            st.success(f"Token successfully generated for DINFA!")
-                            
-                            # Get current timestamp and format it
-                            current_time = datetime.now().strftime('%Y-%m-%d %H:%M')
-                            # Display the token in a more prominent way with updated styling
-                            st.markdown(f"""
-                            <style>
-                            .token-box {{
-                                padding: 20px;
-                                background: linear-gradient(135deg, #1a2980, #26d0ce);
-                                border: 1px solid #4a90e2;
-                                border-radius: 8px;
-                                margin: 15px 0;
-                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                            }}
-                            .token-box h3 {{
-                                color: white;
-                                margin-bottom: 15px;
-                                font-size: 1.4rem;
-                                text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-                            }}
-                            .token-value {{
-                                font-family: monospace;
-                                font-size: 1.2em;
-                                font-weight: bold;
-                                padding: 15px;
-                                background-color: rgba(255, 255, 255, 0.9);
-                                color: #1a2980;
-                                border-radius: 5px;
-                                word-wrap: break-word;
-                                margin-bottom: 15px;
-                                border-left: 4px solid #26d0ce;
-                            }}
-                            .token-details {{
-                                margin-top: 15px;
-                                font-size: 1em;
-                            }}
-                            .token-details table {{
-                                width: 100%;
-                            }}
-                            .token-details td {{
-                                padding: 6px 0;
-                            }}
-                            .token-details td:first-child {{
-                                font-weight: bold;
-                                width: 40%;
-                                color: #1a2980;
-                            }}
-                            </style>
-                            <div class="token-box">
-                                <h3>🔑 Token Generated</h3>
-                                <div class="token-value">{new_token}</div>
-                                <div class="token-details">
-                                    <table>
-                                        <tr>
-                                            <td>Organization:</td>
-                                            <td>{org_name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Generated By:</td>
-                                            <td>{generated_by}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Generated on:</td>
-                                            <td>{current_time}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Expires on:</td>
-                                            <td>{expiry_date}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Valid for:</td>
-                                            <td>{expiry_days} days</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            """, unsafe_allow_html=True)
-                            
-                            # Add copy instructions and security notice below
-                            st.info("⚠️ **Copy this token now.** For security reasons, it cannot be retrieved later.")
-                            st.warning("**Security Notice:** This token grants access to the assessment platform. Store and transmit it securely.")
-                        else:
-                            st.error("Failed to generate token. Check logs for details.")
-                    except Exception as e:
-                        st.error(f"Error: {str(e)}")
-                else:
-                    st.warning("Please enter an organization name")
-
-        # View Tokens Tab
-        with token_tabs[1]:
-            st.write("View existing access tokens")
-            if st.button("Refresh Token List", key="refresh_tokens"):
-                st.rerun()
-            try:
-                # Get tokens from secure/tokens.csv
-                from token_storage import TOKENS_FILE
-                if os.path.exists(TOKENS_FILE):
-                    # Read the actual CSV structure first to determine the column format
-                    with open(TOKENS_FILE, 'r') as f:
-                        first_line = f.readline().strip()
-                        logger.info(f"CSV Header: {first_line}")
-                    # Read the actual CSV structure first to determine the column format
-                    # Read CSV file with correct columns
-                    tokens_df = pd.read_csv(TOKENS_FILE)
-                    logger.info(f"CSV columns detected: {list(tokens_df.columns)}")
+            with col2:
+                expiry_date = (datetime.now() + timedelta(days=expiry_days)).strftime("%Y-%m-%d")
+                st.markdown(f"""
+                <div class="expiry-box">
+                    <span style="font-weight: bold;">Expiry date:</span> {expiry_date}
+                </div>
+                """, unsafe_allow_html=True)
+        
+        # Generate token button
+        if st.button("Generate Token", key="gen_token_btn", type="primary", use_container_width=True):
+            if org_name:
+                try:
+                    # Set token expiry in session state for token_storage to use
+                    import token_storage
+                    token_storage.TOKEN_EXPIRY_DAYS = expiry_days
                     
-                    if not tokens_df.empty:
-                        # Rename columns if needed for display consistency
-                        column_mapping = {}
-                        if 'organization_name' in tokens_df.columns:
-                            column_mapping['organization_name'] = 'organization'
-                        # Rename columns if needed for display consistency
-                        # Apply column renames if any mappings exist
-                        if column_mapping:
-                            tokens_df = tokens_df.rename(columns=column_mapping)
+                    # Create secure directory if it doesn't exist
+                    if not os.path.exists('secure'):
+                        os.makedirs('secure', exist_ok=True)
+                    
+                    # Generate token with the organization name and generated by info
+                    new_token = generate_token(org_name, generated_by)
+                    if new_token:
+                        st.success(f"Token successfully generated for DINFA!")
                         
-                        # Format dates for better readability
-                        date_columns = ['created_at', 'expires_at']
-                        for col in date_columns:
-                            if col in tokens_df.columns:
-                                try:
-                                    # Convert to datetime with flexible parsing
-                                    tokens_df[col] = pd.to_datetime(tokens_df[col], errors='coerce')
-                                except Exception as e:
-                                    logger.warning(f"Error formatting {col}: {e}")
+                        # Get current timestamp and format it
+                        current_time = datetime.now().strftime('%Y-%m-%d %H:%M')
+                        # Display the token in a more prominent way with updated styling
+                        st.markdown(f"""
+                        <style>
+                        .token-box {{
+                            padding: 20px;
+                            background: linear-gradient(135deg, #1a2980, #26d0ce);
+                            border: 1px solid #4a90e2;
+                            border-radius: 8px;
+                            margin: 15px 0;
+                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        }}
+                        .token-box h3 {{
+                            color: white;
+                            margin-bottom: 15px;
+                            font-size: 1.4rem;
+                            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+                        }}
+                        .token-value {{
+                            font-family: monospace;
+                            font-size: 1.2em;
+                            font-weight: bold;
+                            padding: 15px;
+                            background-color: rgba(255, 255, 255, 0.9);
+                            color: #1a2980;
+                            border-radius: 5px;
+                            word-wrap: break-word;
+                            margin-bottom: 15px;
+                            border-left: 4px solid #26d0ce;
+                        }}
+                        .token-details {{
+                            margin-top: 15px;
+                            font-size: 1em;
+                        }}
+                        .token-details table {{
+                            width: 100%;
+                        }}
+                        .token-details td {{
+                            padding: 6px 0;
+                        }}
+                        .token-details td:first-child {{
+                            font-weight: bold;
+                            width: 40%;
+                            color: #1a2980;
+                        }}
+                        </style>
+                        <div class="token-box">
+                            <h3>🔑 Token Generated</h3>
+                            <div class="token-value">{new_token}</div>
+                            <div class="token-details">
+                                <table>
+                                    <tr>
+                                        <td>Organization:</td>
+                                        <td>{org_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generated By:</td>
+                                        <td>{generated_by}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generated on:</td>
+                                        <td>{current_time}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Expires on:</td>
+                                        <td>{expiry_date}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valid for:</td>
+                                        <td>{expiry_days} days</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
                         
-                        # Add days remaining column
-                        if 'expires_at' in tokens_df.columns:
-                            current_time = datetime.now()
-                            days_remaining = []
-                            
-                            # Process each row individually
-                            for _, row in tokens_df.iterrows():
-                                try:
-                                    if pd.notna(row['expires_at']):
-                                        expires = pd.to_datetime(row['expires_at'], errors='coerce')
-                                        if pd.notna(expires):
-                                            delta = expires - current_time
-                                            days = delta.days
-                                            days_remaining.append("Expired" if days < 0 else f"{days} days")
-                                        else:
-                                            days_remaining.append("Unknown")
+                        # Add copy instructions and security notice below
+                        st.info("⚠️ **Copy this token now.** For security reasons, it cannot be retrieved later.")
+                        st.warning("**Security Notice:** This token grants access to the assessment platform. Store and transmit it securely.")
+                    else:
+                        st.error("Failed to generate token. Check logs for details.")
+                except Exception as e:
+                    st.error(f"Error: {str(e)}")
+            else:
+                st.warning("Please enter an organization name")
+
+    # View Tokens Tab
+    with token_tabs[1]:
+        st.write("View existing access tokens")
+        if st.button("Refresh Token List", key="refresh_tokens"):
+            st.rerun()
+        try:
+            # Get tokens from secure/tokens.csv
+            from token_storage import TOKENS_FILE
+            if os.path.exists(TOKENS_FILE):
+                # Read the actual CSV structure first to determine the column format
+                with open(TOKENS_FILE, 'r') as f:
+                    first_line = f.readline().strip()
+                    logger.info(f"CSV Header: {first_line}")
+                # Read the actual CSV structure first to determine the column format
+                # Read CSV file with correct columns
+                tokens_df = pd.read_csv(TOKENS_FILE)
+                logger.info(f"CSV columns detected: {list(tokens_df.columns)}")
+                
+                if not tokens_df.empty:
+                    # Rename columns if needed for display consistency
+                    column_mapping = {}
+                    if 'organization_name' in tokens_df.columns:
+                        column_mapping['organization_name'] = 'organization'
+                    # Rename columns if needed for display consistency
+                    # Apply column renames if any mappings exist
+                    if column_mapping:
+                        tokens_df = tokens_df.rename(columns=column_mapping)
+                    
+                    # Format dates for better readability
+                    date_columns = ['created_at', 'expires_at']
+                    for col in date_columns:
+                        if col in tokens_df.columns:
+                            try:
+                                # Convert to datetime with flexible parsing
+                                tokens_df[col] = pd.to_datetime(tokens_df[col], errors='coerce')
+                            except Exception as e:
+                                logger.warning(f"Error formatting {col}: {e}")
+                    
+                    # Add days remaining column
+                    if 'expires_at' in tokens_df.columns:
+                        current_time = datetime.now()
+                        days_remaining = []
+                        
+                        # Process each row individually
+                        for _, row in tokens_df.iterrows():
+                            try:
+                                if pd.notna(row['expires_at']):
+                                    expires = pd.to_datetime(row['expires_at'], errors='coerce')
+                                    if pd.notna(expires):
+                                        delta = expires - current_time
+                                        days = delta.days
+                                        days_remaining.append("Expired" if days < 0 else f"{days} days")
                                     else:
                                         days_remaining.append("Unknown")
-                                except Exception as e:
-                                    logger.warning(f"Error calculating days remaining: {e}")
+                                else:
                                     days_remaining.append("Unknown")
-                                    
-                            tokens_df['Days Remaining'] = days_remaining
-                        
-                        # Define columns to display, make sure they exist in the dataframe
-                        preferred_columns = ['organization', 'token', 'generated_by', 'created_at', 'expires_at', 'Days Remaining']
-                        display_columns = [col for col in preferred_columns if col in tokens_df.columns]
-                        
-                        # Final display column renames for better presentation
-                        column_renames = {
-                            'organization': 'Organization',
-                            'token': 'Token',
-                            'generated_by': 'Generated By',
-                            'created_at': 'Created At',
-                            'expires_at': 'Expires At'
-                        }
-                        # Only select and rename columns that exist
-                        tokens_df = tokens_df[display_columns].rename(columns={col: column_renames.get(col, col) for col in display_columns})
-                        st.dataframe(tokens_df, use_container_width=True)
-                    else:
-                        st.info("No tokens found")
+                            except Exception as e:
+                                logger.warning(f"Error calculating days remaining: {e}")
+                                days_remaining.append("Unknown")
+                                
+                        tokens_df['Days Remaining'] = days_remaining
+                    
+                    # Define columns to display, make sure they exist in the dataframe
+                    preferred_columns = ['organization', 'token', 'generated_by', 'created_at', 'expires_at', 'Days Remaining']
+                    display_columns = [col for col in preferred_columns if col in tokens_df.columns]
+                    
+                    # Final display column renames for better presentation
+                    column_renames = {
+                        'organization': 'Organization',
+                        'token': 'Token',
+                        'generated_by': 'Generated By',
+                        'created_at': 'Created At',
+                        'expires_at': 'Expires At'
+                    }
+                    # Only select and rename columns that exist
+                    tokens_df = tokens_df[display_columns].rename(columns={col: column_renames.get(col, col) for col in display_columns})
+                    st.dataframe(tokens_df, use_container_width=True)
                 else:
-                    st.info("No tokens have been created yet")
-            except Exception as e:
-                st.error(f"Error loading tokens: {str(e)}")
-                logger.error(f"Token loading error: {str(e)}", exc_info=True)
+                    st.info("No tokens found")
+            else:
+                st.info("No tokens have been created yet")
+        except Exception as e:
+            st.error(f"Error loading tokens: {str(e)}")
+            logger.error(f"Token loading error: {str(e)}", exc_info=True)
 
-        # Revoke Token Tab
-        with token_tabs[2]:
-            st.write("Revoke an existing access token")
-            token_to_revoke = st.text_input("Enter token to revoke", key="revoke_token_input")
-            if st.button("Revoke Token", key="revoke_btn", type="primary"):
-                if token_to_revoke:
-                    try:
-                        # Use imported function
-                        if revoke_token(token_to_revoke):
-                            st.success(f"Token revoked successfully!")
-                        else:
-                            st.error("Failed to revoke token. Token may not exist.")
-                    except Exception as e:
-                        st.error(f"Error: {str(e)}")
-                else:
-                    st.warning("Please enter a token to revoke")
-
-        # Token Maintenance Section
-        st.subheader("Maintenance")
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Clean up expired tokens", key="cleanup_btn"):
+    # Revoke Token Tab
+    with token_tabs[2]:
+        st.write("Revoke an existing access token")
+        token_to_revoke = st.text_input("Enter token to revoke", key="revoke_token_input")
+        if st.button("Revoke Token", key="revoke_btn", type="primary"):
+            if token_to_revoke:
                 try:
-                    count = cleanup_expired_tokens()
-                    if count > 0:
-                        st.success(f"Removed {count} expired tokens")
+                    # Use imported function
+                    if revoke_token(token_to_revoke):
+                        st.success(f"Token revoked successfully!")
                     else:
-                        st.info("No expired tokens found")
+                        st.error("Failed to revoke token. Token may not exist.")
                 except Exception as e:
-                    st.error(f"Error during cleanup: {str(e)}")
-        with col2:
-            if st.button("Export Token Database", key="export_btn"):
-                from token_storage import TOKENS_FILE
-                if os.path.exists(TOKENS_FILE):
-                    import base64
-                    with open(TOKENS_FILE, 'rb') as f:
-                        b64 = base64.b64encode(f.read()).decode()
-                        href = f'<a href="data:file/csv;base64,{b64}" download="tokens_export.csv">Download CSV</a>'
-                        st.markdown(href, unsafe_allow_html=True)
+                    st.error(f"Error: {str(e)}")
+            else:
+                st.warning("Please enter a token to revoke")
+
+    # Token Maintenance Section
+    st.subheader("Maintenance")
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Clean up expired tokens", key="cleanup_btn"):
+            try:
+                count = cleanup_expired_tokens()
+                if count > 0:
+                    st.success(f"Removed {count} expired tokens")
                 else:
-                    st.info("No token database found to export")
+                    st.info("No expired tokens found")
+            except Exception as e:
+                st.error(f"Error during cleanup: {str(e)}")
+    with col2:
+        if st.button("Export Token Database", key="export_btn"):
+            from token_storage import TOKENS_FILE
+            if os.path.exists(TOKENS_FILE):
+                import base64
+                with open(TOKENS_FILE, 'rb') as f:
+                    b64 = base64.b64encode(f.read()).decode()
+                    href = f'<a href="data:file/csv;base64,{b64}" download="tokens_export.csv">Download CSV</a>'
+                    st.markdown(href, unsafe_allow_html=True)
+            else:
+                st.info("No token database found to export")
     
     # Response Maintenance Tab
     with admin_tabs[1]:
@@ -2018,17 +2093,35 @@ def render_sidebar():
                     color: #ffffff !important;
                     border-left: 3px solid #6fa8dc !important;
                     padding-left: calc(0.75rem - 3px) !important; /* Adjust padding for border */
-                }
-            </style>
+                    }
+                    </style>
             """, unsafe_allow_html=True)
         # --- End of CSS Injection --- #
 
         # Logo container - Now using st.image with updated parameter
-        st.markdown(get_logo_css(), unsafe_allow_html=True)
-        if os.path.exists(config.LOGO_PATH): 
-            st.image(config.LOGO_PATH, use_container_width=True)
-        else:
-            st.warning(f"Logo not found at path: {config.LOGO_PATH}")
+        st.markdown("""
+            <style>
+            [data-testid="stSidebarUserContent"] {
+                text-align: center;
+            }
+            [data-testid="stSidebarUserContent"] [data-testid="stImage"] {
+                display: inline-block !important;
+                max-width: 200px !important;
+                margin: 0 auto !important;
+            }
+            [data-testid="stSidebarUserContent"] [data-testid="stImage"] img {
+                max-width: 200px !important;
+                height: auto !important;
+                margin: 0 auto !important;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            if os.path.exists(config.LOGO_PATH): 
+                st.image(config.LOGO_PATH, use_container_width=False, width=200)
+            else:
+                st.warning(f"Logo not found at path: {config.LOGO_PATH}")
         
         # Apply custom CSS for navigation menu
         st.markdown(get_section_navigation_css(), unsafe_allow_html=True)
@@ -2037,7 +2130,6 @@ def render_sidebar():
         st.markdown(get_common_button_css(), unsafe_allow_html=True)
         
         # Navigation section title
-        st.markdown("<div class='nav-title'>Navigation</div>", unsafe_allow_html=True)
         
         # Check if assessment parameters are filled AND assessment is started
         assessment_ready = (
@@ -2291,18 +2383,18 @@ def render_data_discovery():
         .high-risk { 
             color: #FF4B4B !important;
             font-weight: bold;
-        }
-        </style>
-    """, unsafe_allow_html=True)
+            }
+            </style>
+        """, unsafe_allow_html=True)
 
     st.header("AI Data Discovery")
-    
+            
     col1, col2 = st.columns([2, 1])
-    
+            
     with col1:
-        st.markdown("""
-            #### Database Schema Analysis
-        """)
+                st.markdown("""
+                    #### Database Schema Analysis
+                """)
     
     # Import and use the data discovery functionality
     from data_discovery import analyze_ddl_script, render_findings_section, get_recommendations
@@ -2329,8 +2421,7 @@ def render_data_discovery():
                         st.markdown(f"• {rec}")
         except Exception as e:
             st.error(f"Error analyzing file: {str(e)}")
-    else:
-        st.info("Please upload a database DDL script to begin analysis.")
+
     
     # Show example of what will be analyzed
     with st.expander("What will be analyzed?"):
@@ -2347,6 +2438,23 @@ def render_data_discovery():
             
             You'll receive recommendations for technical controls, process controls, and monitoring requirements.
         """)
+        
+    st.markdown("""
+        <style>
+        .penalties-note {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #aaa;
+            border-left: 3px solid #4B4BFF;
+        }
+        </style>
+        <div class='penalties-note'>
+            ℹ️ We never store your data. We only use it to provide you with a report.
+        </div>
+    """, unsafe_allow_html=True)
 
 def get_compliance_level_color(level):
     """Return color based on compliance level"""
@@ -2357,4 +2465,64 @@ def get_compliance_level_color(level):
         "Fully Compliant": "#4CAF50"  # Green
     }
     return colors.get(level, "#808080")  # Default to gray if level not found
+
+def convert_for_download():
+    try:
+        # Get the original report content from session state
+        original_report_content = st.session_state.get('ai_report_content')
+        if not original_report_content:
+            st.error("No report content available. Please generate a report first.")
+            return None
+
+        # Get organization name
+        org_name = st.session_state.get('organization_name', 'Organization')
+        current_date = datetime.now().strftime("%B %d, %Y")
+
+        # Add header with logo if available
+        logo_path = os.path.join(config.BASE_DIR, "Assets", "@logo.png")
+        header = f"""#### AI Report generated by DataINFA on: {current_date} for {org_name}
+
+---
+
+"""
+        
+        # Combine header with the report content
+        report_with_header = f"{header}{original_report_content}"
+        
+        with st.spinner("Generating PDF report..."):
+            # Generate PDF
+            pdf_data = convert_markdown_to_pdf(report_with_header, org_name)
+            if pdf_data:
+                st.success("PDF report generated successfully!")
+                return pdf_data
+            else:
+                st.error("Failed to generate PDF report. Please try again.")
+                return None
+    except Exception as e:
+        logger.error(f"Error generating PDF: {e}")
+        st.error("An error occurred while generating the PDF. Please try again.")
+        return None
+
+# In the main UI section where the download button is rendered:
+if st.session_state.get('ai_report_generated', False):
+    col1, col2 = st.columns([0.15, 0.85])
+    with col1:
+        # Generate PDF data first
+        pdf_data = convert_for_download() if st.session_state.get('ai_report_content') else None
+        
+        # Only show download button if we have PDF data
+        if pdf_data is not None:
+            if st.download_button(
+                "📥 Download",
+                data=pdf_data,
+                file_name=f"AI_Report_{datetime.now().strftime('%Y%m%d')}.pdf",
+                mime="application/pdf",
+                help="Download the report as PDF",
+                use_container_width=False
+            ):
+                pass  # The download will be handled by Streamlit
+        else:
+            st.error("Unable to generate PDF. Please try again.")
+
+
 

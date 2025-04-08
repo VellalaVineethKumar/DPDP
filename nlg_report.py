@@ -396,8 +396,8 @@ def _generate_with_openai(context: Dict[str, Any], api_key: str, format: str = F
                                         logger.warning(f"Found mismatched HTML tags: {mismatched_tags}")
                                         for tag in mismatched_tags:
                                             if mismatched_tags[tag] < 0:
-                                                report_content = re.sub(f'</\s*{tag}\s*>', '', report_content)
-                                                logger.info(f"Removed stray closing tag: </\s*{tag}\s*>")
+                                                report_content = re.sub(f'</\\s*{tag}\\s*>', '', report_content)
+                                                logger.info(f"Removed stray closing tag: </\\s*{tag}\\s*>")
                                 result_queue.put(report_content)
                                 return
                         
@@ -529,11 +529,62 @@ Compliance Level: {compliance_level}
 
 Section Scores and Recommendations:{sections_text}
 
+Information for your report on what products you can recommend based on the results:
+"1. Data gets Collected
+
+2. Data is discovered
+Discover Digital Personal Data.
+Identify Digital Personal Data Estate.
+Comply with data minimization, process limitation, and storage limitations.
+Relevant Informatica Products: Informatica Cloud Data Governance (CDGC), Metadata Command Center (MCC), Informatica Cloud Data Profiling (CDP), Informatica Data Privacy Management (DPM)
+
+3. Data is labeled based on sensitivity and protection needs
+Keep track of digital personal data.
+Respond to data principal access rights.
+Maintain accuracy and correctness.
+Keep track of personal data of children.
+Appropriately protect data.
+Relevant Informatica Products: Informatica Cloud Data Governance (CDGC), Informatica Cloud Data Quality (CDQ), Informatica Cloud Data Validation (CDV), Informatica Cloud Data Integration (CDI)
+
+4. Data gets protected based on policies
+Safeguard personal data.
+Protect personal data from unauthorized processing.
+Track personal data.
+Relevant Informatica Products: Informatica Data Privacy Management (DPM), Informatica Cloud Data Access Management (CDAM), Informatica Cloud Data Governance (CDGC)
+
+5(a). Data Travel Across National Boundaries
+Close monitoring of data transfers.
+Location-based policies to restrict access from unauthorized locations.
+Relevant Informatica Products: Informatica Cloud Data Governance Catalog (CDGC), Informatica Cloud Data Privacy Management (CDPM), Informatica Cloud Data Access Management (CDAM)
+
+5(b). Personal data is processed
+Adherence to data minimization and remediation of data exposure.
+Track processing activity to ensure lawful and fair processing.
+Manage Data Principal Rights.
+Relevant Informatica Products: Informatica Cloud Data Quality (CDQ), Informatica Cloud Data Privacy Management (CDPM), Informatica Cloud Data Governance (CDGC)
+
+5(c). Data activity is monitored
+Detect and respond to unauthorized access, transfer, or processing activities on personal data.
+Relevant Informatica Products: Informatica Cloud Application Integration (CAI), Informatica Cloud Data Governance Catalog (CDGC), CLAIRE GPT
+
+6. Data gets retired and deleted
+Retention and data lifecycle management.
+Mark documents as "Records".
+Disposition reviews to mark safe deletion.
+Relevant Informatica Products: Informatica Cloud Data Integration (CDI), Informatica Cloud Data Quality (CDQ), Informatica Cloud Master Data Management (CMDM), Informatica Cloud Data Access Management (CDAM)."
+
+
+
 Your report should include:
 1. An executive summary assessing the overall compliance status
 2. Analysis of each section with risk levels and implications
 3. Prioritized action items with clear descriptions
 4. Strategic recommendations for improving compliance posture (focus on Informatica Solutions provided in the context)
+
+IMPORTANT FORMATTING INSTRUCTIONS:
+- DO NOT prefix recommendations with "Informatica Solution:"
+- Present recommendations directly and concisely
+- When mentioning Informatica products, integrate them naturally into the recommendations
 
 {format_instructions}
 

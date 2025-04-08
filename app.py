@@ -12,7 +12,16 @@ import logging
 import os
 import sys
 from datetime import datetime
-from dotenv import load_dotenv  
+from dotenv import load_dotenv
+import config  # Import config before using it
+
+# Set page configuration with custom icon - MUST be the first Streamlit command
+st.set_page_config(
+    page_title=config.APP_TITLE,
+    page_icon=config.APP_ICON,
+    layout=config.APP_LAYOUT,
+    initial_sidebar_state=config.SIDEBAR_STATE
+)
 
 # Reduce logging frequency for timer updates
 logging.getLogger('__main__').setLevel(logging.INFO)
@@ -47,8 +56,7 @@ if os.path.exists(env_path):
 # Check for API key without logging
 api_key = os.environ.get("COMPLIANCE_AI_API_KEY")
 
-# Continue with the rest of the imports and application setup
-import config
+# Continue with the rest of the imports
 from helpers import initialize_session_state
 from assessment import get_questionnaire
 from views import (
@@ -61,15 +69,6 @@ from views import (
     render_data_discovery,
     render_admin_page,
     render_faq
-)
-
-
-# Set page configuration with custom icon
-st.set_page_config(
-    page_title=config.APP_TITLE,
-    page_icon=config.APP_ICON,
-    layout=config.APP_LAYOUT,
-    initial_sidebar_state=config.SIDEBAR_STATE
 )
 
 # Initialize session state
