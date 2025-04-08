@@ -386,10 +386,10 @@ def get_recommendations(findings: Dict) -> List[str]:
         recommendations = []
         
         # Add general recommendations
-        recommendations.append("🔒 General Data Protection Recommendations:")
-        recommendations.append("• Implement data encryption at rest and in transit")
-        recommendations.append("• Set up access controls and audit logging")
-        recommendations.append("• Establish data retention and deletion policies")
+        recommendations.append("General Data Protection Recommendations:")
+        recommendations.append("Implement data encryption at rest and in transit")
+        recommendations.append("Set up access controls and audit logging")
+        recommendations.append("Establish data retention and deletion policies")
         
         # Add AI-generated recommendations if available
         if findings.get("recommendations"):
