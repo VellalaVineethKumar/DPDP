@@ -551,19 +551,34 @@ def get_input_label_css():
     """
 
 def get_app_header_css():
-    """Return the CSS for app header"""
+    """Return the CSS for the application header"""
     return """
         <style>
         .app-header {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 5px;
         }
-        .app-header h1 {
-            margin: 0 0 0.5rem 0;
+        .header-logo {
+            width: 180px;
+            height: auto;
         }
-        .app-header p {
-            font-size: 1.2em;
-            font-weight: 500;
+        .header-text {
+            flex-grow: 1;
+        }
+        .header-text h1 {
             margin: 0;
+            padding: 0;
+            font-size: 1.8em;
+        }
+        .header-text p {
+            margin: 2px 0 0 0;
+            color: #cccccc;
+            font-size: 0.9em;
         }
         </style>
     """
@@ -682,6 +697,240 @@ def get_spacing_css():
         <style>
         .negative-margin-top {
             margin-top: -40px;
+        }
+        </style>
+    """
+
+def get_data_discovery_css():
+    """Return the CSS for the data discovery page"""
+    return """
+        <style>
+        /* Page container styling */
+        div[data-testid="stVerticalBlock"] > div > div:has(div.stHeader) {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* Blended navigation button styling */
+        div[data-testid="stSidebarNav"] div[data-testid="stButton"] > button {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background-color: transparent !important;
+            color: #fafafa;
+            border: none !important;
+            border-radius: 0.3rem;
+            text-align: left;
+            transition: color 0.2s;
+        }
+        
+        /* Hover effect for blended navigation buttons */
+        div[data-testid="stSidebarNav"] div[data-testid="stButton"] > button:hover:not(:disabled) {
+            background-color: transparent !important;
+            color: #6fa8dc !important;
+            border: none !important;
+        }
+        
+        /* File uploader styling - text color */
+        [data-testid="stFileUploader"] p {
+            font-size: 14px !important;
+            color: #aaa !important;
+        }
+        
+        /* ONLY target the browse button within file uploader */
+        [data-testid="stFileUploader"] button[kind="secondary"] {
+            padding: 4px 12px !important;
+            font-size: 14px !important;
+            height: auto !important;
+            min-height: 32px !important;
+            line-height: 1.2 !important;
+            background-color: #4B4BFF !important;
+            border-radius: 4px !important;
+            margin: 5px !important;
+            width: auto !important;
+        }
+        
+        /* Improve the dropzone size - very specific selector */
+        [data-testid="stFileUploader"] section {
+            max-width: 500px !important;
+            padding: 15px !important;
+            border: 1px dashed #555 !important;
+            border-radius: 5px !important;
+        }
+        
+        /* Make the entire file uploader more compact - strict selector */
+        [data-testid="stFileUploader"] {
+            max-width: 500px !important;
+        }
+        
+        /* Analysis results styling */
+        [data-testid="stExpander"] {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+        }
+        
+        /* Make high-risk items stand out */
+        .high-risk { 
+            color: #FF4B4B !important;
+            font-weight: bold;
+        }
+        </style>
+    """
+
+def get_magic_quadrant_css():
+    """Return the CSS for the magic quadrant section"""
+    return """
+        <style>
+        .magic-quadrant-section {
+            background: #1E1E1E;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        .magic-quadrant-header {
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .magic-quadrant-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 10px;
+            flex-wrap: nowrap;
+        }
+        .quadrant-item {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .magic-quadrant-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .new-badge {
+            background: #8A2BE2;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        .image-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 8px;
+        }
+        .image-container:hover {
+            position: relative;
+            z-index: 1000;
+        }
+        .image-container:hover img {
+            transform: scale(2.5);
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+        }
+        .quadrant-link {
+            text-decoration: none;
+            display: block;
+        }
+        </style>
+    """
+
+def get_ai_report_css():
+    """Return the CSS for the AI report section"""
+    return """
+        <style>
+        .ai-analysis-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .ai-analysis-container h1 {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .ai-analysis-container .report-header {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .ai-analysis-container h2 {
+            color: #6fa8dc;
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .ai-analysis-container h3 {
+            color: #6fa8dc;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .ai-analysis-container strong {
+            color: #f8aeae;
+        }
+        .ai-analysis-container ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .ai-analysis-container li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .ai-analysis-container p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        </style>
+    """
+
+def get_penalties_note_css():
+    """Return the CSS for the penalties note section"""
+    return """
+        <style>
+        .penalties-note {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #aaa;
+            border-left: 3px solid #4B4BFF;
         }
         </style>
     """

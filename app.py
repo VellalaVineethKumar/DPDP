@@ -67,6 +67,7 @@ from views import (
     render_assessment, 
     render_report, 
     render_data_discovery,
+    render_privacy_policy_analyzer,
     render_admin_page,
     render_faq
 )
@@ -117,6 +118,8 @@ else:
                 render_report()
             elif st.session_state.current_page == 'discovery' and st.session_state.get('assessment_complete', False):
                 render_data_discovery()
+            elif st.session_state.current_page == 'privacy':
+                render_privacy_policy_analyzer()
             elif st.session_state.current_page == 'faq':
                 render_faq()
             elif st.session_state.current_page == 'admin' and st.session_state.get('is_admin', False):

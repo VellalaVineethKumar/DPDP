@@ -17,6 +17,7 @@ from typing import Dict, List, Any, Optional, Tuple  # Add typing imports
 import tempfile
 import re # Add re import
 from markdown_pdf import MarkdownPdf, Section # Add markdown-pdf imports
+import requests
 
 import config
 # Update import: get reg/ind functions from config instead of assessment
@@ -58,7 +59,11 @@ from styles import (
     get_penalties_section_css,
     get_countdown_section_css,
     get_logo_css,
-    get_spacing_css
+    get_spacing_css,
+    get_data_discovery_css,
+    get_magic_quadrant_css,
+    get_ai_report_css,
+    get_penalties_note_css
 )
 
 from faq import FAQ_DATA  # Add this import at the top
@@ -74,36 +79,7 @@ def render_header():
     org_name = st.session_state.organization_name if st.session_state.organization_name and st.session_state.organization_name.strip() else None
     
     # Add CSS for header layout with logo
-    st.markdown("""
-            <style>
-        .app-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            margin-bottom: 5px;
-        }
-        .header-logo {
-            width: 180px;
-            height: auto;
-        }
-        .header-text {
-            flex-grow: 1;
-        }
-        .header-text h1 {
-            margin: 0;
-            padding: 0;
-            font-size: 1.8em;
-        }
-        .header-text p {
-            margin: 2px 0 0 0;
-            color: #cccccc;
-            font-size: 0.9em;
-        }
-            </style>
-        """, unsafe_allow_html=True)
+    st.markdown(get_app_header_css(), unsafe_allow_html=True)
     
     # Construct logo path
     logo_path = os.path.join(config.BASE_DIR, "Assets", "@logo.png")
@@ -1454,7 +1430,6 @@ def render_report():
                 st.session_state.selected_industry  # Add the missing industry parameter
         )
         st.markdown(excel_link, unsafe_allow_html=True)
-    # --- End of commented out section ---
 
 def render_recommendations():
     """Render the detailed recommendations page"""
@@ -1903,30 +1878,7 @@ def render_admin_page():
             else:
                 st.info("No token database found to export")
 
-    # Testing Tools Tab
-    admin_tabs = st.tabs(["Testing Tools"])
-    with admin_tabs[0]:
-        st.subheader("Testing Tools")
-        
-        # Auto-fill section
-        with st.expander("Auto-fill Options", expanded=True):
-            st.write("Select an option to auto-fill responses:")
-            
-            auto_fill_option = st.radio(
-                "Auto-fill Type",
-                ["All Compliant", "All Non-Compliant", "All Partially Compliant", "Random Mix"],
-                key="auto_fill_type"
-            )
-            
-            if st.button("Apply Auto-fill", key="apply_autofill"):
-                if not st.session_state.get('selected_regulation'):
-                    st.error("Please select a regulation first")
-                elif not st.session_state.get('selected_industry'):
-                    st.error("Please select an industry first")
-                else:
-                    auto_fill_responses(auto_fill_option)
-                    st.success(f"Responses auto-filled with {auto_fill_option} values")
-                    st.session_state.assessment_complete = True
+    
 
 def auto_fill_responses(auto_fill_type):
     """Auto-fill responses based on the selected type"""
@@ -2051,6 +2003,7 @@ def render_sidebar():
             {"label": "Assessment", "key": "nav_assessment", "page": "assessment", "show_if_ready": assessment_ready},
             {"label": "AI Report ✨", "key": "nav_report", "page": "report", "show_if": "assessment_complete"},
             {"label": "AI Data Discovery 🪄", "key": "nav_discovery", "page": "discovery", "show_if": "assessment_complete"},
+            {"label": "AI Privacy Policy Analyzer 📄", "key": "nav_privacy", "page": "privacy", "always_show": True},
             {"label": "Admin", "key": "nav_admin", "page": "admin", "show_if": "is_admin"},
             {"label": "FAQ", "key": "nav_faq", "page": "faq", "always_show": True}
         ]
@@ -2212,86 +2165,9 @@ def render_data_discovery():
         return
     
     # Add custom CSS for data discovery page
-    st.markdown("""
-        <style>
-        /* Page container styling */
-        div[data-testid="stVerticalBlock"] > div > div:has(div.stHeader) {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        
-        /* Blended navigation button styling */
-        div[data-testid="stSidebarNav"] div[data-testid="stButton"] > button {
-            width: 100%;
-            padding: 0.5rem;
-            margin: 0.25rem 0;
-            background-color: transparent !important;
-            color: #fafafa;
-            border: none !important;
-            border-radius: 0.3rem;
-            text-align: left;
-            transition: color 0.2s;
-        }
-        
-        /* Hover effect for blended navigation buttons */
-        div[data-testid="stSidebarNav"] div[data-testid="stButton"] > button:hover:not(:disabled) {
-            background-color: transparent !important;
-            color: #6fa8dc !important;
-            border: none !important;
-        }
-        
-        /* File uploader styling - text color */
-        [data-testid="stFileUploader"] p {
-            font-size: 14px !important;
-            color: #aaa !important;
-        }
-        
-        /* ONLY target the browse button within file uploader */
-        [data-testid="stFileUploader"] button[kind="secondary"] {
-            padding: 4px 12px !important;
-            font-size: 14px !important;
-            height: auto !important;
-            min-height: 32px !important;
-            line-height: 1.2 !important;
-            background-color: #4B4BFF !important;
-            border-radius: 4px !important;
-            margin: 5px !important;
-            width: auto !important;
-        }
-        
-        /* Improve the dropzone size - very specific selector */
-        [data-testid="stFileUploader"] section {
-            max-width: 500px !important;
-            padding: 15px !important;
-            border: 1px dashed #555 !important;
-            border-radius: 5px !important;
-        }
-        
-        /* Make the entire file uploader more compact - strict selector */
-        [data-testid="stFileUploader"] {
-            max-width: 500px !important;
-        }
-        
-        /* Analysis results styling */
-        [data-testid="stExpander"] {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 10px;
-        }
-        
-        /* Make high-risk items stand out */
-        .high-risk { 
-            color: #FF4B4B !important;
-            font-weight: bold;
-            }
-            </style>
-        """, unsafe_allow_html=True)
+    st.markdown(get_data_discovery_css(), unsafe_allow_html=True)
 
     st.header("AI Data Discovery")
-            
     
     # Import and use the data discovery functionality
     from data_discovery import analyze_ddl_script, render_findings_section, get_recommendations
@@ -2318,7 +2194,6 @@ def render_data_discovery():
                         st.markdown(f"• {rec}")
         except Exception as e:
             st.error(f"Error analyzing file: {str(e)}")
-
     
     # Show example of what will be analyzed
     with st.expander("What will be analyzed?"):
@@ -2344,18 +2219,8 @@ def render_data_discovery():
             Contact info@datainfa.com for further understanding and DPDP implementation
         """)
         
+    st.markdown(get_penalties_note_css(), unsafe_allow_html=True)
     st.markdown("""
-        <style>
-        .penalties-note {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px 20px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #aaa;
-            border-left: 3px solid #4B4BFF;
-        }
-        </style>
         <div class='penalties-note'>
             ℹ️ We never store your data. We only use it to provide you with a report.
         </div>
@@ -2426,6 +2291,289 @@ if st.session_state.get('ai_report_generated', False):
                 use_container_width=False
             ):
                 pass  # The download will be handled by Streamlit
+
+def render_privacy_policy_analyzer():
+    """Render the privacy policy analyzer page"""
+    # Add custom CSS for the privacy analyzer page
+    st.markdown("""
+        <style>
+        .privacy-analyzer-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        /* File uploader styling */
+        .stFileUploader {
+            background: rgba(255, 255, 255, 0.05) !important;
+            padding: 2rem !important;
+            border-radius: 10px !important;
+            border: 2px dashed rgba(255, 255, 255, 0.2) !important;
+            margin: 1rem 0 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .stFileUploader:hover {
+            border-color: #6fa8dc !important;
+            background: rgba(111, 168, 220, 0.1) !important;
+            cursor: pointer !important;
+        }
+        
+        /* Upload zone styling */
+        .stFileUploader [data-testid="stFileUploadDropzone"] {
+            min-height: 200px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 1rem !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            background: transparent !important;
+            padding: 2rem !important;
+        }
+        
+        /* Hide default upload text */
+        .stFileUploader [data-testid="stFileUploadDropzone"] > div:first-child {
+            display: none !important;
+        }
+        
+        /* Custom upload content */
+        .upload-content {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #6fa8dc;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-subtext {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Browse button styling */
+        .stFileUploader [data-testid="stFileUploadDropzone"] button {
+            background-color: #6fa8dc !important;
+            color: white !important;
+            border: none !important;
+            padding: 0.5rem 2rem !important;
+            border-radius: 8px !important;
+            font-weight: 500 !important;
+            transition: background-color 0.2s ease !important;
+            margin-top: 1rem !important;
+        }
+        
+        .stFileUploader [data-testid="stFileUploadDropzone"] button:hover {
+            background-color: #5a89b0 !important;
+        }
+        
+        /* Analysis results styling */
+        .analysis-results {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .analysis-results h2 {
+            color: #6fa8dc;
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-results h3 {
+            color: #6fa8dc;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-results strong {
+            color: #f8aeae;
+        }
+        
+        .analysis-results ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .analysis-results li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .analysis-results p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.header("AI Privacy Policy Analyzer")
+    
+    # Create two columns for better layout
+    col1, col2, col3 = st.columns([1, 3, 1])
+    
+    with col2:
+        # Custom upload zone HTML
+        st.markdown("""
+            <div class="upload-content">
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Drag and drop your privacy policy here</div>
+                <div class="upload-subtext">Supported format: TXT</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # File upload with custom styling
+        uploaded_file = st.file_uploader(
+            label="Upload Privacy Policy",
+            type=['txt'],
+            label_visibility="collapsed"
+        )
+    
+    # Show file size limit in a more subtle way
+    st.markdown("""
+        <div style='text-align: center; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; margin-top: -0.5rem;'>
+            Maximum file size: 200MB
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Rest of your existing code...
+    if uploaded_file is not None:
+        try:
+            # Get file content
+            policy_content = uploaded_file.getvalue().decode("utf-8")
+            
+            # Read DPDP Act content
+            dpdp_file_path = os.path.join(os.path.dirname(__file__), "Assets", "DPDP20203.txt")
+            with open(dpdp_file_path, 'r', encoding='utf-8') as f:
+                dpdp_content = f.read()
+            
+            with st.spinner("Analyzing privacy policy against DPDP Act requirements..."):
+                # Analyze the privacy policy
+                analysis_result = analyze_privacy_policy_with_dpdp(policy_content, dpdp_content)
+                
+                if "error" in analysis_result:
+                    st.error(f"Error analyzing privacy policy: {analysis_result['error']}")
+                    return
+                
+                # Display the analysis results with the new styling
+                st.markdown("""
+                    <div class="analysis-results">
+                        {}
+                    </div>
+                """.format(analysis_result["analysis"]), unsafe_allow_html=True)
+                
+                # Add a note about data privacy
+                st.markdown("""
+                    <div style="background: rgba(111, 168, 220, 0.1); padding: 1rem; border-radius: 8px; margin-top: 2rem; border-left: 4px solid #6fa8dc;">
+                        <strong style="color: #6fa8dc;">Note:</strong> Your privacy policy document is processed securely and is not stored. 
+                        The analysis is performed in real-time and results are displayed immediately.
+                    </div>
+                """, unsafe_allow_html=True)
+                
+        except Exception as e:
+            st.error(f"Error processing file: {str(e)}")
+            logger.error(f"File processing error: {str(e)}")
+
+def analyze_privacy_policy_with_dpdp(policy_content: str, dpdp_content: str) -> Dict:
+    """
+    Analyze a privacy policy against DPDP Act requirements.
+    
+    Args:
+        policy_content: The content of the privacy policy to analyze
+        dpdp_content: The content of the DPDP Act
+        
+    Returns:
+        Dictionary containing analysis results
+    """
+    try:
+        # Create the analysis prompt
+        analysis_prompt = f"""
+        You are a privacy policy compliance expert. Analyze the following privacy policy against the requirements of the Digital Personal Data Protection Act, 2023 (DPDP Act).
+        
+        Your task is to:
+        1. Identify any conflicts or gaps between the privacy policy and the DPDP Act requirements
+        2. Highlight specific sections of the DPDP Act that are relevant to each finding use hyperlink (https://datainfa.com/dpdp-act/)
+        3. Provide recommendations for compliance
+        4. Clearly highlightKey issues 
+        
+        Format your response as follows:
+
+        
+        # Privacy Policy Analysis
+
+        ## Summary
+
+        ## Key Findings
+        - List major findings with specific references to DPDP Act sections
+        
+        ## Compliance Gaps
+        - List specific gaps with references to DPDP Act requirements
+        
+        ## Recommendations
+        - Provide actionable recommendations to address each gap
+        
+        ## Detailed Analysis
+        For each major section of the privacy policy, provide:
+        - What was found
+        - Relevant DPDP Act sections
+        - Compliance status
+        - Recommendations
+        
+        Privacy Policy Content:
+        {policy_content}
+        
+        DPDP Act Content:
+        {dpdp_content}
+        """
+        
+        # Get API key from config
+        api_key = config.get_ai_api_key()
+        if not api_key:
+            raise ValueError("API key not found in configuration")
+            
+        # Call the AI API
+        response = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "HTTP-Referer": "https://datainfa.com",
+                "X-Title": "Privacy Policy Analyzer",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": "deepseek/deepseek-chat-v3-0324:free",
+                "messages": [
+                    {"role": "system", "content": "You are a privacy policy compliance expert analyzing policies against DPDP Act requirements."},
+                    {"role": "user", "content": analysis_prompt}
+                ],
+                "temperature": 0.2,
+                "max_tokens": 2000
+            }
+        )
+        
+        if response.status_code != 200:
+            logger.error(f"OpenRouter API error: {response.status_code}")
+            return {"error": "Failed to analyze privacy policy"}
+            
+        result = response.json()
+        return {"analysis": result["choices"][0]["message"]["content"]}
+        
+    except Exception as e:
+        logger.error(f"Privacy policy analysis error: {str(e)}")
+        return {"error": str(e)}
 
 
 
