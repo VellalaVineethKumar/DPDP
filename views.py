@@ -864,7 +864,7 @@ def render_report():
     if os.path.exists(html_path):
         with open(html_path, "r", encoding="utf-8") as f:
             html_content = f.read()
-        # Use CSS Grid for perfect centering
+        # Use CSS Grid for perfect centering with responsive scaling
         centered_html = f"""
         <style>
         .diagram-container {{
@@ -873,14 +873,34 @@ def render_report():
             width: 100%;
             padding: 20px;
             margin-bottom: -60px;
+            overflow: hidden;
         }}
         .diagram-content {{
             margin: 0 auto;
-            place-items: center;
-            max-width: 1800px;
+            max-width: 100%;
             width: 100%;
-            transform: scale(1.1);
             transform-origin: center center;
+            transition: transform 0.3s ease;
+        }}
+        @media (max-width: 1200px) {{
+            .diagram-content {{
+                transform: scale(0.9);
+            }}
+        }}
+        @media (max-width: 992px) {{
+            .diagram-content {{
+                transform: scale(0.8);
+            }}
+        }}
+        @media (max-width: 768px) {{
+            .diagram-content {{
+                transform: scale(0.7);
+            }}
+        }}
+        @media (max-width: 576px) {{
+            .diagram-content {{
+                transform: scale(0.6);
+            }}
         }}
         </style>
         <div class="diagram-container">
@@ -900,7 +920,7 @@ def render_report():
     if os.path.exists(claire_path):
         with open(claire_path, "r", encoding="utf-8") as f:
             claire_content = f.read()
-        # Use modified styling for CLAIRE diagram
+        # Use modified styling for CLAIRE diagram with responsive scaling
         centered_html = f"""
         <style>
         .claire-container {{
@@ -909,13 +929,34 @@ def render_report():
             width: 100%;
             padding: 10px;
             margin-top: -40px;
+            overflow: hidden;
         }}
         .claire-content {{
             margin: 0 auto;
-            max-width: 1400px;
+            max-width: 100%;
             width: 100%;
-            transform: scale(0.88);
             transform-origin: center center;
+            transition: transform 0.3s ease;
+        }}
+        @media (max-width: 1200px) {{
+            .claire-content {{
+                transform: scale(0.9);
+            }}
+        }}
+        @media (max-width: 992px) {{
+            .claire-content {{
+                transform: scale(0.8);
+            }}
+        }}
+        @media (max-width: 768px) {{
+            .claire-content {{
+                transform: scale(0.7);
+            }}
+        }}
+        @media (max-width: 576px) {{
+            .claire-content {{
+                transform: scale(0.6);
+            }}
         }}
         </style>
         <div class="claire-container">

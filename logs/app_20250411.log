@@ -811,3 +811,10 @@
 2025-04-11 17:43:07,383 - privacy_policy_analyzer - INFO - Cleaned up temporary PDF file: C:\Users\vella\AppData\Local\Temp\tmpyogftl5k.pdf
 2025-04-11 17:43:50,675 - config - INFO - Loaded 3 API key(s).
 2025-04-11 17:43:50,679 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:50:04,595 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:50:04,598 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:50:09,848 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:50:10,001 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:50:10,037 - helpers - INFO - Admin token validated
+2025-04-11 17:50:10,171 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:50:10,209 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
