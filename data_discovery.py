@@ -110,7 +110,7 @@ def get_ai_analysis(schema: str) -> Optional[Dict]:
                     {"role": "user", "content": SENSITIVE_DATA_PROMPT.format(schema=schema)}
                 ],
                 "temperature": 0.2,
-                "max_tokens": 2000
+                "max_tokens": 8000
             }
         )
 

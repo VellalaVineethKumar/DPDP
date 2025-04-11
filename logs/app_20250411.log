@@ -1,0 +1,813 @@
+2025-04-11 14:38:00,150 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:00,987 - numexpr.utils - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-04-11 14:38:00,988 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-04-11 14:38:06,454 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:06,586 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:06,624 - helpers - INFO - Admin token validated
+2025-04-11 14:38:06,750 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:06,802 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 14:38:10,069 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:11,416 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:12,115 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:12,169 - views - INFO - Starting assessment for adwwad
+2025-04-11 14:38:12,170 - helpers - INFO - Navigating to page: assessment from welcome
+2025-04-11 14:38:12,268 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:12,306 - views - INFO - ENTERING render_assessment: industry=banking and finance
+2025-04-11 14:38:12,307 - views - INFO - Session state keys: ['organization_name', 'selected_regulation', 'nav_admin', 'assessment_date', 'assessment_started', 'responses', 'results', 'current_page', 'org_name_input', 'assessment_complete', 'is_admin', 'nav_assessment', 'nav_home', 'nav_faq', 'authenticated', 'nav_privacy', 'selected_industry', 'assessment_ready', 'current_section']
+2025-04-11 14:38:12,312 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\Banking and finance.json
+2025-04-11 14:38:14,234 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 14:38:14,272 - helpers - INFO - Navigating to page: privacy from assessment
+2025-04-11 14:38:14,370 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:17:33,583 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:17:34,486 - numexpr.utils - INFO - Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2025-04-11 17:17:34,487 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-04-11 17:17:40,928 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:17:41,099 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:17:41,146 - helpers - INFO - Admin token validated
+2025-04-11 17:17:41,256 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:17:41,312 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:17:42,985 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:17:43,023 - helpers - INFO - Navigating to page: privacy from welcome
+2025-04-11 17:17:43,162 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:18:12,951 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:18:31,955 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:18:31,958 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:18:42,997 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:18:57,813 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:18:59,495 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:18:59,535 - privacy_policy_analyzer - INFO - Searching privacy policy for organization: Omantel 
+2025-04-11 17:19:00,068 - privacy_policy_analyzer - INFO - Found privacy policy URL for Omantel : https://www.omantel.om/Footer2/Privacy%20Policy
+2025-04-11 17:19:00,069 - privacy_policy_analyzer - INFO - Fetching privacy policy content from: https://www.omantel.om/Footer2/Privacy%20Policy
+2025-04-11 17:19:01,276 - privacy_policy_analyzer - DEBUG - Successfully fetched content from https://www.omantel.om/Footer2/Privacy%20Policy on attempt 1
+2025-04-11 17:19:01,358 - privacy_policy_analyzer - DEBUG - Removed 24 unwanted elements
+2025-04-11 17:19:01,369 - privacy_policy_analyzer - DEBUG - Found content using selector: {'role': 'main'}
+2025-04-11 17:19:01,370 - privacy_policy_analyzer - INFO - Successfully extracted 10887 characters of content
+2025-04-11 17:19:01,375 - privacy_policy_analyzer - INFO - Sending request to OpenRouter for PDPP (Oman) analysis
+2025-04-11 17:19:17,024 - privacy_policy_analyzer - INFO - Received response from OpenRouter with status code: 200
+2025-04-11 17:19:17,025 - privacy_policy_analyzer - INFO - Successfully received analysis from OpenRouter
+2025-04-11 17:19:17,030 - privacy_policy_analyzer - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:19:17,088 - privacy_policy_analyzer - INFO - Temporary PDF output path: C:\Users\vella\AppData\Local\Temp\tmpt8glivs7.pdf
+2025-04-11 17:19:17,089 - privacy_policy_analyzer - INFO - Attempting to save PDF to: C:\Users\vella\AppData\Local\Temp\tmpt8glivs7.pdf
+2025-04-11 17:19:17,120 - privacy_policy_analyzer - INFO - PDF save operation completed for C:\Users\vella\AppData\Local\Temp\tmpt8glivs7.pdf
+2025-04-11 17:19:17,121 - privacy_policy_analyzer - INFO - Reading PDF content from: C:\Users\vella\AppData\Local\Temp\tmpt8glivs7.pdf
+2025-04-11 17:19:17,162 - privacy_policy_analyzer - INFO - Successfully read 560071 bytes from PDF
+2025-04-11 17:19:17,163 - privacy_policy_analyzer - INFO - Cleaned up temporary PDF file: C:\Users\vella\AppData\Local\Temp\tmpt8glivs7.pdf
+2025-04-11 17:21:25,591 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:21:25,595 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:31,414 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:31,446 - helpers - INFO - Navigating to page: welcome from privacy
+2025-04-11 17:22:31,633 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:31,673 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:22:36,166 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:36,326 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:36,372 - views - INFO - Starting assessment for awda
+2025-04-11 17:22:36,373 - helpers - INFO - Navigating to page: assessment from welcome
+2025-04-11 17:22:36,482 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:36,513 - views - INFO - ENTERING render_assessment: industry=banking and finance
+2025-04-11 17:22:36,514 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_home', 'nav_admin', 'is_admin', 'selected_regulation', 'assessment_started', 'nav_privacy', 'nav_assessment', 'results', 'responses', 'selected_industry', 'current_page', 'nav_faq', 'authenticated', 'organization_name', 'org_name_input', 'current_section', 'assessment_ready']
+2025-04-11 17:22:36,518 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\Banking and finance.json
+2025-04-11 17:22:39,606 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:39,632 - helpers - INFO - Navigating to page: welcome from assessment
+2025-04-11 17:22:39,747 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:39,789 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:22:43,426 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:43,456 - helpers - INFO - Navigating to page: assessment from welcome
+2025-04-11 17:22:43,578 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:43,611 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:22:43,612 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_home', 'nav_admin', 'is_admin', 'selected_regulation', 'assessment_started', 'nav_privacy', 'current_questionnaire', 'nav_assessment', 'results', 'responses', 'selected_industry', 'current_page', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready']
+2025-04-11 17:22:43,613 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:22:43,614 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:22:43,635 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\Banking and finance.json
+2025-04-11 17:22:47,414 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:47,440 - helpers - INFO - Navigating to page: welcome from assessment
+2025-04-11 17:22:47,561 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:22:47,606 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:23:08,852 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:23:08,880 - helpers - INFO - Navigating to page: privacy from welcome
+2025-04-11 17:23:08,972 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:23:54,079 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:23:54,082 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:23:56,685 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:23:56,709 - helpers - INFO - Navigating to page: welcome from privacy
+2025-04-11 17:23:56,803 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:23:56,838 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:24:12,436 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:24:12,463 - helpers - INFO - Navigating to page: assessment from welcome
+2025-04-11 17:24:12,573 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:24:12,601 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:24:12,602 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_admin', 'is_admin', 'selected_regulation', 'assessment_started', 'nav_privacy', 'current_questionnaire', 'nav_assessment', 'results', 'responses', 'selected_industry', 'nav_home', 'current_page', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready']
+2025-04-11 17:24:12,603 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:24:12,604 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:24:12,623 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\Banking and finance.json
+2025-04-11 17:24:13,020 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:24:13,048 - helpers - INFO - Navigating to page: privacy from assessment
+2025-04-11 17:24:13,162 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:24:52,509 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:24:52,540 - helpers - INFO - Navigating to page: welcome from privacy
+2025-04-11 17:24:52,748 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:24:52,793 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:25:16,751 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:25:16,776 - helpers - INFO - Navigating to page: privacy from welcome
+2025-04-11 17:25:16,877 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:25:33,885 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:25:33,908 - helpers - INFO - Navigating to page: welcome from privacy
+2025-04-11 17:25:34,012 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:25:34,045 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:25:43,639 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:28:08,320 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:28:08,323 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:28:08,413 - helpers - INFO - Navigating to page: privacy from welcome
+2025-04-11 17:28:08,529 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:28:12,512 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:28:13,865 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:28:13,906 - privacy_policy_analyzer - INFO - Searching privacy policy for organization: assessment
+2025-04-11 17:28:14,416 - privacy_policy_analyzer - INFO - Found privacy policy URL for assessment: https://www.assessment.com/Privacy
+2025-04-11 17:28:14,419 - privacy_policy_analyzer - INFO - Fetching privacy policy content from: https://www.assessment.com/Privacy
+2025-04-11 17:28:15,653 - privacy_policy_analyzer - DEBUG - Successfully fetched content from https://www.assessment.com/Privacy on attempt 1
+2025-04-11 17:28:15,665 - privacy_policy_analyzer - DEBUG - Removed 21 unwanted elements
+2025-04-11 17:28:15,668 - privacy_policy_analyzer - WARNING - No specific content container found, using body or full document
+2025-04-11 17:28:15,669 - privacy_policy_analyzer - INFO - Successfully extracted 3662 characters of content
+2025-04-11 17:28:15,675 - privacy_policy_analyzer - INFO - Sending request to OpenRouter for DPDP Act (India) analysis
+2025-04-11 17:28:42,187 - privacy_policy_analyzer - INFO - Received response from OpenRouter with status code: 200
+2025-04-11 17:28:42,188 - privacy_policy_analyzer - INFO - Successfully received analysis from OpenRouter
+2025-04-11 17:28:42,189 - privacy_policy_analyzer - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:28:42,207 - privacy_policy_analyzer - INFO - Temporary PDF output path: C:\Users\vella\AppData\Local\Temp\tmpza0d_gfl.pdf
+2025-04-11 17:28:42,207 - privacy_policy_analyzer - INFO - Attempting to save PDF to: C:\Users\vella\AppData\Local\Temp\tmpza0d_gfl.pdf
+2025-04-11 17:28:42,232 - privacy_policy_analyzer - INFO - PDF save operation completed for C:\Users\vella\AppData\Local\Temp\tmpza0d_gfl.pdf
+2025-04-11 17:28:42,233 - privacy_policy_analyzer - INFO - Reading PDF content from: C:\Users\vella\AppData\Local\Temp\tmpza0d_gfl.pdf
+2025-04-11 17:28:42,255 - privacy_policy_analyzer - INFO - Successfully read 575469 bytes from PDF
+2025-04-11 17:28:42,256 - privacy_policy_analyzer - INFO - Cleaned up temporary PDF file: C:\Users\vella\AppData\Local\Temp\tmpza0d_gfl.pdf
+2025-04-11 17:28:45,549 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:36:43,118 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:36:43,120 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:36:46,739 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:36:46,775 - privacy_policy_analyzer - INFO - Searching privacy policy for organization: assessment
+2025-04-11 17:36:47,682 - privacy_policy_analyzer - INFO - Found privacy policy URL for assessment: https://www.assessment.com/Privacy
+2025-04-11 17:36:47,683 - privacy_policy_analyzer - INFO - Fetching privacy policy content from: https://www.assessment.com/Privacy
+2025-04-11 17:36:48,834 - privacy_policy_analyzer - DEBUG - Successfully fetched content from https://www.assessment.com/Privacy on attempt 1
+2025-04-11 17:36:48,849 - privacy_policy_analyzer - DEBUG - Removed 21 unwanted elements
+2025-04-11 17:36:48,854 - privacy_policy_analyzer - WARNING - No specific content container found, using body or full document
+2025-04-11 17:36:48,855 - privacy_policy_analyzer - INFO - Successfully extracted 3662 characters of content
+2025-04-11 17:36:48,861 - privacy_policy_analyzer - INFO - Sending request to OpenRouter for DPDP Act (India) analysis
+2025-04-11 17:37:15,992 - privacy_policy_analyzer - INFO - Received response from OpenRouter with status code: 200
+2025-04-11 17:37:15,994 - privacy_policy_analyzer - INFO - Successfully received analysis from OpenRouter
+2025-04-11 17:37:15,995 - privacy_policy_analyzer - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:37:16,011 - privacy_policy_analyzer - INFO - Temporary PDF output path: C:\Users\vella\AppData\Local\Temp\tmp7illvj43.pdf
+2025-04-11 17:37:16,011 - privacy_policy_analyzer - INFO - Attempting to save PDF to: C:\Users\vella\AppData\Local\Temp\tmp7illvj43.pdf
+2025-04-11 17:37:16,018 - privacy_policy_analyzer - INFO - PDF save operation completed for C:\Users\vella\AppData\Local\Temp\tmp7illvj43.pdf
+2025-04-11 17:37:16,019 - privacy_policy_analyzer - INFO - Reading PDF content from: C:\Users\vella\AppData\Local\Temp\tmp7illvj43.pdf
+2025-04-11 17:37:16,050 - privacy_policy_analyzer - INFO - Successfully read 148514 bytes from PDF
+2025-04-11 17:37:16,052 - privacy_policy_analyzer - INFO - Cleaned up temporary PDF file: C:\Users\vella\AppData\Local\Temp\tmp7illvj43.pdf
+2025-04-11 17:37:28,770 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:07,268 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:38:07,272 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:07,325 - helpers - INFO - Navigating to page: welcome from privacy
+2025-04-11 17:38:07,476 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:07,516 - views - INFO - Saved industry 'general' not valid for regulation 'DPDP'. Defaulting to 'banking and finance'.
+2025-04-11 17:38:11,082 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:11,271 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:11,323 - views - INFO - Starting assessment for gdrs
+2025-04-11 17:38:11,324 - helpers - INFO - Navigating to page: assessment from welcome
+2025-04-11 17:38:11,444 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:11,475 - views - INFO - ENTERING render_assessment: industry=banking and finance
+2025-04-11 17:38:11,477 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_admin', 'is_admin', 'selected_regulation', 'assessment_started', 'nav_privacy', 'current_questionnaire', 'nav_assessment', 'results', 'org_name_input', 'responses', 'selected_industry', 'nav_home', 'current_page', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready']
+2025-04-11 17:38:11,478 - helpers - INFO - CHECKING questionnaire: industry=banking and finance, sections=13
+2025-04-11 17:38:11,479 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:11,504 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\Banking and finance.json
+2025-04-11 17:38:15,797 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:15,832 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:15,833 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'nav_section_1', 'current_questionnaire', 'results', 'selected_industry', 'nav_home', 'q_0_0', 'q_0_2', 'nav_section_4', 'FormSubmitter:section_form_0-Next Section', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'nav_section_7', 'FormSubmitter:section_form_0-Previous Section', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'nav_section_0', 'q_0_3', 'q_0_4', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'q_0_1', 'nav_section_3', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:15,835 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:15,835 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:15,862 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\Banking and finance.json
+2025-04-11 17:38:16,207 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:16,245 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:16,246 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'nav_section_1', 'current_questionnaire', 'results', 'selected_industry', 'nav_home', 'q_0_0', 'q_0_2', 'nav_section_4', 'FormSubmitter:section_form_0-Next Section', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'nav_section_7', 'FormSubmitter:section_form_0-Previous Section', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'nav_section_0', 'q_0_3', 'q_0_4', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'q_0_1', 'nav_section_3', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:16,246 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:16,247 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:16,409 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:16,447 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:16,450 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'nav_section_1', 'current_questionnaire', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'nav_section_0', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:16,451 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:16,452 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:17,606 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:17,638 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:17,640 - views - INFO - Session state keys: ['q_0_0', 'assessment_date', 'assessment_complete', 'q_0_1', 'nav_section_11', 'nav_admin', 'nav_section_2', 'nav_section_0', 'nav_section_1', 'current_questionnaire', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'FormSubmitter:section_form_0-Next Section', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'nav_section_7', 'FormSubmitter:section_form_0-Previous Section', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'q_0_2', 'nav_section_5', 'q_0_3', 'nav_section_3', 'q_0_4', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:17,641 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:17,642 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:17,708 - helpers - INFO - EVENT: section_completed - {"section": "Data Collection and Processing"}
+2025-04-11 17:38:17,848 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:17,891 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:17,892 - views - INFO - Session state keys: ['q_0_0', 'assessment_date', 'assessment_complete', 'q_0_1', 'nav_section_11', 'nav_admin', 'nav_section_2', 'form_validation_attempted', 'nav_section_0', 'nav_section_1', 'current_questionnaire', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'FormSubmitter:section_form_0-Next Section', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'FormSubmitter:section_form_0-Previous Section', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'q_0_2', 'nav_section_5', 'q_0_3', 'nav_section_3', 'q_0_4', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:17,893 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:17,894 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:18,339 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:18,376 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:18,378 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'form_validation_attempted', 'nav_section_0', 'nav_section_1', 'current_questionnaire', 'results', 'q_1_0', 'selected_industry', 'nav_home', 'q_1_2', 'FormSubmitter:section_form_1-Next Section', 'nav_section_4', 'q_1_1', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'FormSubmitter:section_form_1-Previous Section', 'nav_section_6', 'nav_section_12', 'q_1_3', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'q_1_4', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:18,379 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:18,380 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:18,522 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:18,559 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:18,560 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'form_validation_attempted', 'nav_section_0', 'nav_section_1', 'current_questionnaire', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:18,561 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:18,562 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:19,139 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:19,170 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:19,170 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'form_validation_attempted', 'q_1_2', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'q_1_0', 'selected_industry', 'nav_home', 'q_1_4', 'FormSubmitter:section_form_1-Next Section', 'nav_section_4', 'q_1_1', 'q_1_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'FormSubmitter:section_form_1-Previous Section', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:19,172 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:19,173 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:19,223 - helpers - INFO - EVENT: section_completed - {"section": "Data Principal Rights"}
+2025-04-11 17:38:19,346 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:19,377 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:19,378 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'form_validation_attempted', 'q_1_2', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'q_1_0', 'selected_industry', 'nav_home', 'q_1_4', 'FormSubmitter:section_form_1-Next Section', 'nav_section_4', 'q_1_1', 'q_1_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'FormSubmitter:section_form_1-Previous Section', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:19,380 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:19,381 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:19,807 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:19,841 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:19,842 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'q_2_1', 'nav_section_11', 'nav_admin', 'nav_section_2', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'q_2_4', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'q_2_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'q_2_2', 'FormSubmitter:section_form_2-Next Section', 'is_admin', 'q_2_0', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'FormSubmitter:section_form_2-Previous Section', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:19,842 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:19,843 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:19,990 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:20,033 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:20,034 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'nav_section_2', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:20,036 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:20,037 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:20,619 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:20,655 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:20,656 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'q_2_4', 'q_2_2', 'nav_section_0', 'q_2_1', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'FormSubmitter:section_form_2-Next Section', 'is_admin', 'q_2_0', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'q_2_3', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'FormSubmitter:section_form_2-Previous Section', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:20,657 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:20,658 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:20,711 - helpers - INFO - EVENT: section_completed - {"section": "Data Security Measures"}
+2025-04-11 17:38:20,831 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:20,870 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:20,871 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'q_2_4', 'q_2_2', 'nav_section_0', 'q_2_1', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'FormSubmitter:section_form_2-Next Section', 'is_admin', 'q_2_0', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'q_2_3', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'FormSubmitter:section_form_2-Previous Section', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:20,872 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:20,873 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:21,324 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:21,361 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:21,362 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'q_3_0', 'q_3_1', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'q_3_2', 'FormSubmitter:section_form_3-Previous Section', 'FormSubmitter:section_form_3-Next Section', 'nav_section_5', 'nav_section_3', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:21,363 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:21,363 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:21,501 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:21,540 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:21,542 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_3', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:21,543 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:21,544 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:22,144 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:22,179 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:22,180 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'q_3_0', 'nav_section_11', 'nav_admin', 'q_3_1', 'form_validation_attempted', 'nav_section_0', 'q_3_2', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'FormSubmitter:section_form_3-Previous Section', 'FormSubmitter:section_form_3-Next Section', 'nav_section_5', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:22,180 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:22,181 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:22,234 - helpers - INFO - EVENT: section_completed - {"section": "Data Breach Notification"}
+2025-04-11 17:38:22,370 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:22,409 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:22,411 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'q_3_0', 'nav_section_11', 'nav_admin', 'q_3_1', 'form_validation_attempted', 'nav_section_0', 'q_3_2', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'FormSubmitter:section_form_3-Previous Section', 'FormSubmitter:section_form_3-Next Section', 'nav_section_5', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:22,412 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:22,413 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:22,794 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:22,836 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:22,837 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'q_4_3', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'q_4_2', 'FormSubmitter:section_form_4-Previous Section', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'q_4_0', 'q_4_1', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'FormSubmitter:section_form_4-Next Section', 'nav_section_5', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:22,839 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:22,839 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:23,008 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:23,047 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:23,048 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_4', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_5', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:23,050 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:23,051 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:24,102 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:24,133 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:24,135 - views - INFO - Session state keys: ['q_4_1', 'assessment_date', 'assessment_complete', 'q_4_3', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'FormSubmitter:section_form_4-Previous Section', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'q_4_0', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'q_4_2', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'FormSubmitter:section_form_4-Next Section', 'nav_section_5', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:24,135 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:24,137 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:24,187 - helpers - INFO - EVENT: section_completed - {"section": "Data Retention and Erasure"}
+2025-04-11 17:38:24,336 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:24,382 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:24,383 - views - INFO - Session state keys: ['q_4_1', 'assessment_date', 'assessment_complete', 'q_4_3', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'FormSubmitter:section_form_4-Previous Section', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'q_4_0', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'q_4_2', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'FormSubmitter:section_form_4-Next Section', 'nav_section_5', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:24,385 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:24,385 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:24,762 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:24,801 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:24,801 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'q_5_1', 'FormSubmitter:section_form_5-Previous Section', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'FormSubmitter:section_form_5-Next Section', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_5', 'q_5_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:24,802 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:24,803 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:24,951 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:24,992 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:24,993 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_5', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:24,994 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:24,994 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:25,472 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:25,505 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:25,506 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'q_5_1', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'FormSubmitter:section_form_5-Previous Section', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'FormSubmitter:section_form_5-Next Section', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'q_5_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:25,508 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:25,509 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:25,555 - helpers - INFO - EVENT: section_completed - {"section": "Data Accuracy and Completeness"}
+2025-04-11 17:38:25,675 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:25,714 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:25,715 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'q_5_1', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'FormSubmitter:section_form_5-Previous Section', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'FormSubmitter:section_form_5-Next Section', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'q_5_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:25,716 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:25,717 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:26,081 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:26,118 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:26,119 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'FormSubmitter:section_form_6-Next Section', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'q_6_2', 'FormSubmitter:section_form_6-Previous Section', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'q_6_1', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'q_6_0', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:26,120 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:26,120 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:26,261 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:26,302 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:26,304 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_6', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:26,305 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:26,305 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:27,283 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:27,318 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:27,319 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'FormSubmitter:section_form_6-Next Section', 'nav_section_11', 'nav_admin', 'q_6_1', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'FormSubmitter:section_form_6-Previous Section', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'q_6_2', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'q_6_0', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:27,321 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:27,322 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:27,372 - helpers - INFO - EVENT: section_completed - {"section": "Children's Data Protection"}
+2025-04-11 17:38:27,500 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:27,539 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:27,540 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'FormSubmitter:section_form_6-Next Section', 'nav_section_11', 'nav_admin', 'q_6_1', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'FormSubmitter:section_form_6-Previous Section', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'q_6_2', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'q_6_0', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:27,541 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:27,542 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:27,914 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:27,949 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:27,950 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'FormSubmitter:section_form_7-Previous Section', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'FormSubmitter:section_form_7-Next Section', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'q_7_0', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'q_7_1', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:27,951 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:27,951 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:28,087 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:28,125 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:28,127 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_7', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:28,129 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:28,130 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:28,655 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:28,690 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:28,691 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'FormSubmitter:section_form_7-Previous Section', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'q_7_1', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'q_7_0', 'FormSubmitter:section_form_7-Next Section', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:28,692 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:28,693 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:28,740 - helpers - INFO - EVENT: section_completed - {"section": "Third-Party Processing"}
+2025-04-11 17:38:28,858 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:28,900 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:28,901 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'FormSubmitter:section_form_7-Previous Section', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'q_7_1', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'q_7_0', 'FormSubmitter:section_form_7-Next Section', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:28,902 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:28,903 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:29,300 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:29,338 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:29,339 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'FormSubmitter:section_form_8-Next Section', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'q_8_0', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'FormSubmitter:section_form_8-Previous Section', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'q_8_2', 'q_8_1', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:29,340 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:29,341 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:29,488 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:29,527 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:29,529 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_8', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:29,530 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:29,531 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:30,798 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:30,832 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:30,833 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'FormSubmitter:section_form_8-Next Section', 'nav_section_0', 'q_8_2', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'FormSubmitter:section_form_8-Previous Section', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'q_8_1', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_8', 'q_8_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:30,834 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:30,835 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:30,880 - helpers - INFO - EVENT: section_completed - {"section": "Cross-Border Data Transfers"}
+2025-04-11 17:38:31,007 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:31,052 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:31,054 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'FormSubmitter:section_form_8-Next Section', 'nav_section_0', 'q_8_2', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'FormSubmitter:section_form_8-Previous Section', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'q_8_1', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_8', 'q_8_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:31,055 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:31,056 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:31,468 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:31,505 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:31,506 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'FormSubmitter:section_form_9-Previous Section', 'form_validation_attempted', 'q_9_1', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'q_9_2', 'selected_industry', 'nav_home', 'q_9_0', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'FormSubmitter:section_form_9-Next Section', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:31,507 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:31,508 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:31,654 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:31,708 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:31,710 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_9', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:31,711 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:31,712 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:32,301 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:32,335 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:32,336 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'FormSubmitter:section_form_9-Previous Section', 'form_validation_attempted', 'q_9_0', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'q_9_1', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'nav_section_12', 'FormSubmitter:section_form_9-Next Section', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'q_9_2', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:32,337 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:32,337 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:32,389 - helpers - INFO - EVENT: section_completed - {"section": "Significant Data Fiduciary Obligations"}
+2025-04-11 17:38:32,510 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:32,551 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:32,552 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'FormSubmitter:section_form_9-Previous Section', 'form_validation_attempted', 'q_9_0', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'q_9_1', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'nav_section_12', 'FormSubmitter:section_form_9-Next Section', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'q_9_2', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:32,553 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:32,554 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:33,053 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:33,096 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:33,096 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'FormSubmitter:section_form_10-Next Section', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'q_10_2', 'selected_industry', 'nav_home', 'FormSubmitter:section_form_10-Previous Section', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'q_10_0', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'q_10_1', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:33,097 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:33,099 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:33,245 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:33,286 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:33,287 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_section_10', 'nav_privacy', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:33,289 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:33,290 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:33,872 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:33,908 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:33,909 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'FormSubmitter:section_form_10-Next Section', 'nav_section_0', 'q_10_1', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'FormSubmitter:section_form_10-Previous Section', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'q_10_2', 'current_section', 'assessment_ready', 'nav_section_12', 'q_10_0', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:33,911 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:33,912 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:33,965 - helpers - INFO - EVENT: section_completed - {"section": "Grievance Redressal"}
+2025-04-11 17:38:34,086 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:34,128 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:34,129 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'FormSubmitter:section_form_10-Next Section', 'nav_section_0', 'q_10_1', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'FormSubmitter:section_form_10-Previous Section', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'q_10_2', 'current_section', 'assessment_ready', 'nav_section_12', 'q_10_0', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:34,130 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:34,131 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:34,483 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:34,525 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:34,526 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'q_11_0', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'FormSubmitter:section_form_11-Next Section', 'current_section', 'assessment_ready', 'nav_section_12', 'FormSubmitter:section_form_11-Previous Section', 'is_admin', 'q_11_1', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:34,527 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:34,528 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:34,666 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:34,706 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:34,707 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_section_11', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:34,708 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:34,708 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:35,201 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:35,237 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:35,238 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'q_11_1', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'FormSubmitter:section_form_11-Next Section', 'current_section', 'assessment_ready', 'nav_section_12', 'FormSubmitter:section_form_11-Previous Section', 'is_admin', 'nav_section_11', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'q_11_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:35,239 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:35,240 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:35,281 - helpers - INFO - EVENT: section_completed - {"section": "Exemptions"}
+2025-04-11 17:38:35,403 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:35,444 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:35,445 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'q_11_1', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'FormSubmitter:section_form_11-Next Section', 'current_section', 'assessment_ready', 'nav_section_12', 'FormSubmitter:section_form_11-Previous Section', 'is_admin', 'nav_section_11', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'q_11_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:35,446 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:35,447 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:35,873 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:35,915 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:35,916 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_admin', 'form_validation_attempted', 'FormSubmitter:section_form_12-Previous Section', 'q_12_0', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'q_12_3', 'results', 'FormSubmitter:section_form_12-Complete Assessment', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'q_12_4', 'q_12_1', 'nav_section_12', 'is_admin', 'nav_section_11', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'q_12_2', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:35,917 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:35,918 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:36,094 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:36,143 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:36,144 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'nav_admin', 'form_validation_attempted', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'selected_industry', 'nav_home', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'nav_section_12', 'is_admin', 'nav_section_11', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:36,145 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:36,146 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:37,352 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:37,392 - views - INFO - ENTERING render_assessment: industry=general
+2025-04-11 17:38:37,393 - views - INFO - Session state keys: ['assessment_date', 'assessment_complete', 'q_12_4', 'nav_admin', 'form_validation_attempted', 'q_12_3', 'FormSubmitter:section_form_12-Previous Section', 'nav_section_0', 'nav_section_7', 'current_questionnaire', 'nav_section_1', 'results', 'FormSubmitter:section_form_12-Complete Assessment', 'selected_industry', 'nav_home', 'q_12_1', 'nav_section_3', 'nav_faq', 'authenticated', 'organization_name', 'nav_section_9', 'current_section', 'assessment_ready', 'q_12_2', 'is_admin', 'nav_section_11', 'selected_regulation', 'scroll_to_top', 'nav_section_6', 'assessment_started', 'nav_privacy', 'nav_section_10', 'nav_section_5', 'nav_assessment', 'apply_auto_fill', 'responses', 'nav_section_4', 'nav_section_8', 'nav_section_12', 'q_12_0', 'nav_section_2', 'current_page', 'auto_fill_option']
+2025-04-11 17:38:37,394 - helpers - INFO - CHECKING questionnaire: industry=general, sections=13
+2025-04-11 17:38:37,396 - helpers - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:37,448 - assessment - INFO - Processing questionnaire with 13 sections for DPDP/general
+2025-04-11 17:38:37,448 - assessment - INFO - Section names: ['Data Collection and Processing', 'Data Principal Rights', 'Data Security Measures', 'Data Breach Notification', 'Data Retention and Erasure', 'Data Accuracy and Completeness', "Children's Data Protection", 'Third-Party Processing', 'Cross-Border Data Transfers', 'Significant Data Fiduciary Obligations', 'Grievance Redressal', 'Exemptions', 'Documentation and Compliance']
+2025-04-11 17:38:37,449 - assessment - INFO - Answer points dictionary has 175 entries
+2025-04-11 17:38:37,449 - assessment - WARNING - Response 'Partially, Notices are not provided in all required languages.' not found in answer_points
+2025-04-11 17:38:37,451 - assessment - WARNING - Response 'Yes, with robust measures: The organization has implemented comprehensive technical and organizational measures to ensure the effectiveness of the grievance redressal system, including dedicated channels for submitting grievances, clear timelines for resolution, and a robust monitoring system to analyze performance and identify trends.' not found in answer_points
+2025-04-11 17:38:37,452 - assessment - INFO - Processing scores for 13 sections
+2025-04-11 17:38:37,452 - assessment - INFO - Found responses for section indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+2025-04-11 17:38:37,453 - assessment - INFO - ===== Calculating score for section: Data Collection and Processing =====
+2025-04-11 17:38:37,455 - assessment - INFO - Question 1: Response = 'Partially, Notices are not provided in all required languages.'
+2025-04-11 17:38:37,456 - assessment - INFO - Question 1: Points = 0.0 (partial match)
+2025-04-11 17:38:37,458 - assessment - WARNING - No points assigned for response: 'Partially, Notices are not provided in all required languages.'
+2025-04-11 17:38:37,459 - assessment - INFO - Question 2: Response = 'Not applicable: This option might apply if your organization does not collect personal data or if the notice is not required due to exemptions.'
+2025-04-11 17:38:37,459 - assessment - INFO - Question 2: Points = None
+2025-04-11 17:38:37,460 - assessment - INFO - Question 3: Response = 'No, we rely on implicit consent or lack clear affirmative action: Consent is assumed without explicit action or is not clearly tied to specific purposes.'
+2025-04-11 17:38:37,461 - assessment - INFO - Question 3: Points = 0.0
+2025-04-11 17:38:37,462 - assessment - INFO - Question 3: Adding 0.0 points, running total = 0.0/3
+2025-04-11 17:38:37,464 - assessment - INFO - Question 4: Response = 'No, processing often exceeds specified purposes: The organization frequently processes personal data for purposes not specified in the notice.'
+2025-04-11 17:38:37,465 - assessment - INFO - Question 4: Points = 0.0
+2025-04-11 17:38:37,465 - assessment - INFO - Question 4: Adding 0.0 points, running total = 0.0/4
+2025-04-11 17:38:37,466 - assessment - INFO - Question 5: Response = 'Yes, with clear verification processes: The organization has established procedures to verify that data is provided voluntarily for specific purposes where consent exemptions apply, ensuring compliance with DPDP Act requirements.'
+2025-04-11 17:38:37,467 - assessment - INFO - Question 5: Points = 1.0
+2025-04-11 17:38:37,469 - assessment - INFO - Question 5: Adding 1.0 points, running total = 1.0/5
+2025-04-11 17:38:37,470 - assessment - INFO - Section Data Collection and Processing score: BEFORE=20.0%, AFTER=20.0% (Corrected)
+2025-04-11 17:38:37,472 - assessment - INFO - Section Data Collection and Processing: total_points=1.0, max_points=5
+2025-04-11 17:38:37,472 - assessment - INFO - ===== Calculating score for section: Data Principal Rights =====
+2025-04-11 17:38:37,473 - assessment - INFO - Question 1: Response = 'No, communication channels are lacking or complex: The organization does not have established or accessible channels for data principals to exercise their rights.'
+2025-04-11 17:38:37,475 - assessment - INFO - Question 1: Points = 0.0
+2025-04-11 17:38:37,476 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-04-11 17:38:37,476 - assessment - INFO - Question 2: Response = 'Partially, but the feature needs improvement: While some mechanism exists, it may not be fully accessible or user-friendly, requiring further enhancements.'
+2025-04-11 17:38:37,477 - assessment - INFO - Question 2: Points = 0.5
+2025-04-11 17:38:37,478 - assessment - INFO - Question 2: Adding 0.5 points, running total = 0.5/2
+2025-04-11 17:38:37,478 - assessment - INFO - Question 3: Response = 'No, we lack adequate internal capacity for timely responses: The organization does not have sufficient resources or processes in place to respond to data principal requests within the specified time limits.'
+2025-04-11 17:38:37,479 - assessment - INFO - Question 3: Points = 0.0
+2025-04-11 17:38:37,480 - assessment - INFO - Question 3: Adding 0.0 points, running total = 0.5/3
+2025-04-11 17:38:37,481 - assessment - INFO - Question 4: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if such grievances are not relevant to your operations.'
+2025-04-11 17:38:37,482 - assessment - INFO - Question 4: Points = None
+2025-04-11 17:38:37,483 - assessment - INFO - Question 5: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if such nominations are not relevant to your operations.'
+2025-04-11 17:38:37,483 - assessment - INFO - Question 5: Points = None
+2025-04-11 17:38:37,484 - assessment - INFO - Section Data Principal Rights score: BEFORE=10.0%, AFTER=10.0% (Corrected)
+2025-04-11 17:38:37,486 - assessment - INFO - Section Data Principal Rights: total_points=0.5, max_points=5
+2025-04-11 17:38:37,487 - assessment - INFO - ===== Calculating score for section: Data Security Measures =====
+2025-04-11 17:38:37,488 - assessment - INFO - Question 1: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if such measures are not relevant to your operations.'
+2025-04-11 17:38:37,490 - assessment - INFO - Question 1: Points = None
+2025-04-11 17:38:37,490 - assessment - INFO - Question 2: Response = 'Partially, but access controls need enhancement: While some access controls exist, they may not be comprehensive or could be improved to better secure computer resources.'
+2025-04-11 17:38:37,491 - assessment - INFO - Question 2: Points = 0.5
+2025-04-11 17:38:37,491 - assessment - INFO - Question 2: Adding 0.5 points, running total = 0.5/2
+2025-04-11 17:38:37,493 - assessment - INFO - Question 3: Response = 'Partially, but logging and monitoring need improvement: While some logging and monitoring systems exist, they may not be comprehensive or could be enhanced for better detection and response.'
+2025-04-11 17:38:37,494 - assessment - INFO - Question 3: Points = 0.5
+2025-04-11 17:38:37,495 - assessment - INFO - Question 3: Adding 0.5 points, running total = 1.0/3
+2025-04-11 17:38:37,496 - assessment - INFO - Question 4: Response = 'No, we lack adequate backup and recovery measures: The organization does not have sufficient mechanisms in place for continued processing in case of data compromise.'
+2025-04-11 17:38:37,496 - assessment - INFO - Question 4: Points = 0.0
+2025-04-11 17:38:37,497 - assessment - INFO - Question 4: Adding 0.0 points, running total = 1.0/4
+2025-04-11 17:38:37,498 - assessment - INFO - Question 5: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if such retention is not relevant to your operations.'
+2025-04-11 17:38:37,498 - assessment - INFO - Question 5: Points = None
+2025-04-11 17:38:37,500 - assessment - INFO - Section Data Security Measures score: BEFORE=20.0%, AFTER=20.0% (Corrected)
+2025-04-11 17:38:37,501 - assessment - INFO - Section Data Security Measures: total_points=1.0, max_points=5
+2025-04-11 17:38:37,501 - assessment - INFO - ===== Calculating score for section: Data Breach Notification =====
+2025-04-11 17:38:37,502 - assessment - INFO - Question 1: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if breach notifications are not relevant to your operations.'
+2025-04-11 17:38:37,503 - assessment - INFO - Question 1: Points = None
+2025-04-11 17:38:37,506 - assessment - INFO - Question 2: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if breach notifications are not relevant to your operations.'
+2025-04-11 17:38:37,506 - assessment - INFO - Question 2: Points = None
+2025-04-11 17:38:37,506 - assessment - INFO - Question 3: Response = 'The Processes are in place, but they are not strictly time-bound: The organization has procedures for notifying the Data Protection Board, but they do not strictly adhere to the 72-hour deadline.'
+2025-04-11 17:38:37,508 - assessment - INFO - Question 3: Points = 0
+2025-04-11 17:38:37,509 - assessment - INFO - Question 3: Adding 0 points, running total = 0.0/3
+2025-04-11 17:38:37,510 - assessment - INFO - Section Data Breach Notification score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-04-11 17:38:37,511 - assessment - INFO - Section Data Breach Notification: total_points=0.0, max_points=3
+2025-04-11 17:38:37,511 - assessment - INFO - ===== Calculating score for section: Data Retention and Erasure =====
+2025-04-11 17:38:37,512 - assessment - INFO - Question 1: Response = 'Yes, with automated processes for data erasure: The organization has implemented automated processes to erase personal data promptly upon withdrawal of consent or request for erasure by the data principal, as required by the DPDP Act.'
+2025-04-11 17:38:37,512 - assessment - INFO - Question 1: Points = 1.0
+2025-04-11 17:38:37,513 - assessment - INFO - Question 1: Adding 1.0 points, running total = 1.0/1
+2025-04-11 17:38:37,514 - assessment - INFO - Question 2: Response = 'Manual processes are in place, but they are effective: The organization uses manual processes for erasing personal data, which are effective but may not be as efficient as automated systems.'
+2025-04-11 17:38:37,514 - assessment - INFO - Question 2: Points = 0
+2025-04-11 17:38:37,514 - assessment - INFO - Question 2: Adding 0 points, running total = 1.0/2
+2025-04-11 17:38:37,515 - assessment - INFO - Question 3: Response = 'No, we do not provide advance notice: The organization does not provide any advance notice to customers before deleting their personal data.'
+2025-04-11 17:38:37,515 - assessment - INFO - Question 3: Points = 0.0
+2025-04-11 17:38:37,516 - assessment - INFO - Question 3: Adding 0.0 points, running total = 1.0/3
+2025-04-11 17:38:37,516 - assessment - INFO - Question 4: Response = 'No, we lack secure erasure standards: The organization does not have specific secure erasure standards or procedures in place to ensure that personal data is properly erased.'
+2025-04-11 17:38:37,517 - assessment - INFO - Question 4: Points = 0.0
+2025-04-11 17:38:37,517 - assessment - INFO - Question 4: Adding 0.0 points, running total = 1.0/4
+2025-04-11 17:38:37,519 - assessment - INFO - Section Data Retention and Erasure score: BEFORE=25.0%, AFTER=25.0% (Corrected)
+2025-04-11 17:38:37,519 - assessment - INFO - Section Data Retention and Erasure: total_points=1.0, max_points=4
+2025-04-11 17:38:37,520 - assessment - INFO - ===== Calculating score for section: Data Accuracy and Completeness =====
+2025-04-11 17:38:37,520 - assessment - INFO - Question 1: Response = 'Partially: We have some measures in place to ensure data quality, but our processes need improvement to fully guarantee completeness, accuracy, and consistency.'
+2025-04-11 17:38:37,521 - assessment - INFO - Question 1: Points = 0.5
+2025-04-11 17:38:37,521 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-04-11 17:38:37,522 - assessment - INFO - Question 2: Response = 'Yes, with comprehensive audit logging: The organization has implemented robust audit logs that track all database modifications, including details such as the user, timestamp, type of operation (insert, update, delete), and affected records. These logs are designed to ensure traceability and compliance with security standards.'
+2025-04-11 17:38:37,522 - assessment - INFO - Question 2: Points = 1.0
+2025-04-11 17:38:37,524 - assessment - INFO - Question 2: Adding 1.0 points, running total = 1.5/2
+2025-04-11 17:38:37,524 - assessment - INFO - Section 'Data Accuracy and Completeness' has all full compliance responses - should have perfect score
+2025-04-11 17:38:37,525 - assessment - INFO - Correcting Data Accuracy and Completeness score from 0.75 to 1.0 based on full compliance pattern
+2025-04-11 17:38:37,526 - assessment - INFO - Section Data Accuracy and Completeness score: BEFORE=75.0%, AFTER=100.0% (Corrected)
+2025-04-11 17:38:37,526 - assessment - INFO - Section Data Accuracy and Completeness: total_points=1.5, max_points=2
+2025-04-11 17:38:37,526 - assessment - INFO - ===== Calculating score for section: Children's Data Protection =====
+2025-04-11 17:38:37,528 - assessment - INFO - Question 1: Response = 'Partially, but consent mechanisms need improvement: While some mechanisms exist, they may not fully ensure that parental consent is verifiable or that it meets all legal standards for processing children's data.'
+2025-04-11 17:38:37,528 - assessment - INFO - Question 1: Points = 0.5
+2025-04-11 17:38:37,529 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-04-11 17:38:37,529 - assessment - INFO - Question 2: Response = 'No, we lack technical measures for verification: The organization does not have specific technical measures in place to verify the identity and age of parents.'
+2025-04-11 17:38:37,530 - assessment - INFO - Question 2: Points = 0.0
+2025-04-11 17:38:37,530 - assessment - INFO - Question 2: Adding 0.0 points, running total = 0.5/2
+2025-04-11 17:38:37,531 - assessment - INFO - Question 3: Response = 'Partially, but we need further clarification: While the organization may fit into exempted categories, there is uncertainty about whether all activities qualify for exemptions or if additional conditions must be met.'
+2025-04-11 17:38:37,531 - assessment - INFO - Question 3: Points = 0.5
+2025-04-11 17:38:37,532 - assessment - INFO - Question 3: Adding 0.5 points, running total = 1.0/3
+2025-04-11 17:38:37,532 - assessment - INFO - Section Children's Data Protection score: BEFORE=33.3%, AFTER=33.3% (Corrected)
+2025-04-11 17:38:37,532 - assessment - INFO - Section Children's Data Protection: total_points=1.0, max_points=3
+2025-04-11 17:38:37,533 - assessment - INFO - ===== Calculating score for section: Third-Party Processing =====
+2025-04-11 17:38:37,533 - assessment - INFO - Question 1: Response = 'Not applicable: This option might apply if your organization does not engage third-party processors or if such contracts are not relevant to your operations.'
+2025-04-11 17:38:37,535 - assessment - INFO - Question 1: Points = None
+2025-04-11 17:38:37,536 - assessment - INFO - Question 2: Response = 'Not applicable: This option might apply if your organization does not engage data processors or if such provisions are not relevant to your operations.'
+2025-04-11 17:38:37,536 - assessment - INFO - Question 2: Points = None
+2025-04-11 17:38:37,537 - assessment - INFO - Section Third-Party Processing score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-04-11 17:38:37,538 - assessment - INFO - Section Third-Party Processing: total_points=0.0, max_points=2
+2025-04-11 17:38:37,538 - assessment - INFO - ===== Calculating score for section: Cross-Border Data Transfers =====
+2025-04-11 17:38:37,539 - assessment - INFO - Question 1: Response = 'Not applicable: This option might apply if your organization does not handle data subject to RBI or IRDAI regulations, such as payment system data or insurance records.'
+2025-04-11 17:38:37,540 - assessment - INFO - Question 1: Points = None
+2025-04-11 17:38:37,540 - assessment - INFO - Question 2: Response = 'Yes, with strict compliance: The organization ensures that specified personal data and traffic data, as designated by the Central Government, are processed domestically and not transferred outside India, in compliance with the DPDP Rules.'
+2025-04-11 17:38:37,541 - assessment - INFO - Question 2: Points = 1.0
+2025-04-11 17:38:37,541 - assessment - INFO - Question 2: Adding 1.0 points, running total = 1.0/2
+2025-04-11 17:38:37,542 - assessment - INFO - Question 3: Response = 'No, we do not comply with government requirements: The organization does not adhere to the Central Government's requirements for making personal data available to foreign entities, which could lead to regulatory issues.'
+2025-04-11 17:38:37,542 - assessment - INFO - Question 3: Points = 0.0
+2025-04-11 17:38:37,543 - assessment - INFO - Question 3: Adding 0.0 points, running total = 1.0/3
+2025-04-11 17:38:37,543 - assessment - INFO - Section Cross-Border Data Transfers score: BEFORE=33.3%, AFTER=33.3% (Corrected)
+2025-04-11 17:38:37,544 - assessment - INFO - Section Cross-Border Data Transfers: total_points=1.0, max_points=3
+2025-04-11 17:38:37,544 - assessment - INFO - ===== Calculating score for section: Significant Data Fiduciary Obligations =====
+2025-04-11 17:38:37,546 - assessment - INFO - Question 1: Response = 'No, we do not conduct regular DPIAs and audits: The organization does not conduct DPIAs and audits as required for Significant Data Fiduciaries, which could lead to non-compliance and potential penalties.'
+2025-04-11 17:38:37,546 - assessment - INFO - Question 1: Points = 0.0
+2025-04-11 17:38:37,547 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-04-11 17:38:37,547 - assessment - INFO - Question 2: Response = 'No, we do not submit such reports: The organization does not submit reports containing significant observations from DPIAs and audits to the Data Protection Board, which could lead to non-compliance and potential penalties.'
+2025-04-11 17:38:37,548 - assessment - INFO - Question 2: Points = 0.0
+2025-04-11 17:38:37,548 - assessment - INFO - Question 2: Adding 0.0 points, running total = 0.0/2
+2025-04-11 17:38:37,549 - assessment - INFO - Question 3: Response = 'No, we lack due diligence processes: The organization does not have specific due diligence processes in place to verify the safety of algorithmic software used for personal data processing, which could lead to compliance issues.'
+2025-04-11 17:38:37,550 - assessment - INFO - Question 3: Points = 0.0
+2025-04-11 17:38:37,551 - assessment - INFO - Question 3: Adding 0.0 points, running total = 0.0/3
+2025-04-11 17:38:37,551 - assessment - INFO - Section Significant Data Fiduciary Obligations score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-04-11 17:38:37,552 - assessment - INFO - Section Significant Data Fiduciary Obligations: total_points=0.0, max_points=3
+2025-04-11 17:38:37,552 - assessment - INFO - ===== Calculating score for section: Grievance Redressal =====
+2025-04-11 17:38:37,553 - assessment - INFO - Question 1: Response = 'Partially, but the mechanism needs improvement: While some grievance redressal processes exist, they may not fully meet the requirements of being readily available or effective in resolving data principals' complaints, requiring further enhancements.'
+2025-04-11 17:38:37,554 - assessment - INFO - Question 1: Points = 0.5
+2025-04-11 17:38:37,554 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-04-11 17:38:37,555 - assessment - INFO - Question 2: Response = 'Yes, with clear publication: The organization has clearly published the timeframe for responding to grievances on its website and/or app, ensuring transparency and compliance with regulatory requirements.'
+2025-04-11 17:38:37,556 - assessment - INFO - Question 2: Points = 1.0
+2025-04-11 17:38:37,556 - assessment - INFO - Question 2: Adding 1.0 points, running total = 1.5/2
+2025-04-11 17:38:37,558 - assessment - INFO - Question 3: Response = 'Yes, with robust measures: The organization has implemented comprehensive technical and organizational measures to ensure the effectiveness of the grievance redressal system, including dedicated channels for submitting grievances, clear timelines for resolution, and a robust monitoring system to analyze performance and identify trends.'
+2025-04-11 17:38:37,558 - assessment - WARNING - No points assigned for response: 'Yes, with robust measures: The organization has implemented comprehensive technical and organizational measures to ensure the effectiveness of the grievance redressal system, including dedicated channels for submitting grievances, clear timelines for resolution, and a robust monitoring system to analyze performance and identify trends.'
+2025-04-11 17:38:37,559 - assessment - INFO - Section 'Grievance Redressal' has all full compliance responses - should have perfect score
+2025-04-11 17:38:37,560 - assessment - INFO - Correcting Grievance Redressal score from 0.5 to 1.0 based on full compliance pattern
+2025-04-11 17:38:37,560 - assessment - INFO - Section Grievance Redressal score: BEFORE=50.0%, AFTER=100.0% (Corrected)
+2025-04-11 17:38:37,561 - assessment - INFO - Section Grievance Redressal: total_points=1.5, max_points=3
+2025-04-11 17:38:37,561 - assessment - INFO - ===== Calculating score for section: Exemptions =====
+2025-04-11 17:38:37,562 - assessment - INFO - Question 1: Response = 'Partially, but awareness needs improvement: While some awareness exists about these exemptions, there may be a lack of clarity or understanding about their scope and application, requiring further education or guidance.'
+2025-04-11 17:38:37,563 - assessment - INFO - Question 1: Points = 0.5
+2025-04-11 17:38:37,563 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-04-11 17:38:37,563 - assessment - INFO - Question 2: Response = 'No, we have not received exemptions: The organization has not been granted any exemptions by the government related to the volume and nature of personal data processed.'
+2025-04-11 17:38:37,565 - assessment - INFO - Question 2: Points = 0.0
+2025-04-11 17:38:37,565 - assessment - INFO - Question 2: Adding 0.0 points, running total = 0.5/2
+2025-04-11 17:38:37,566 - assessment - INFO - Section Exemptions score: BEFORE=25.0%, AFTER=25.0% (Corrected)
+2025-04-11 17:38:37,567 - assessment - INFO - Section Exemptions: total_points=0.5, max_points=2
+2025-04-11 17:38:37,567 - assessment - INFO - ===== Calculating score for section: Documentation and Compliance =====
+2025-04-11 17:38:37,568 - assessment - INFO - Question 1: Response = 'Yes, with comprehensive documentation: The organization has thoroughly documented all processes related to personal data protection, including records of processing activities, data protection impact assessments (DPIAs), technical and organizational measures (TOMs), and policies for handling personal data. This documentation is maintained in a granular and meaningful way, ensuring compliance with data protection regulations.'
+2025-04-11 17:38:37,569 - assessment - INFO - Question 1: Points = 1.0
+2025-04-11 17:38:37,569 - assessment - INFO - Question 1: Adding 1.0 points, running total = 1.0/1
+2025-04-11 17:38:37,571 - assessment - INFO - Question 2: Response = 'Partially, but reviews and updates need improvement: While some reviews and updates occur, they may not be as frequent or comprehensive as needed, requiring further enhancements to maintain compliance and effectiveness.'
+2025-04-11 17:38:37,572 - assessment - INFO - Question 2: Points = 0.5
+2025-04-11 17:38:37,573 - assessment - INFO - Question 2: Adding 0.5 points, running total = 1.5/2
+2025-04-11 17:38:37,573 - assessment - INFO - Question 3: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if such appointments are not relevant to your operations.'
+2025-04-11 17:38:37,574 - assessment - INFO - Question 3: Points = None
+2025-04-11 17:38:37,574 - assessment - INFO - Question 4: Response = 'Not applicable: This option might apply if your organization does not handle personal data or if such training is not relevant to your operations.'
+2025-04-11 17:38:37,575 - assessment - INFO - Question 4: Points = None
+2025-04-11 17:38:37,576 - assessment - INFO - Question 5: Response = 'No, we do not have a process: The organization does not have a specific process in place to stay updated on changes to data protection regulations, which could lead to compliance gaps and potential risks.'
+2025-04-11 17:38:37,576 - assessment - INFO - Question 5: Points = 0.0
+2025-04-11 17:38:37,577 - assessment - INFO - Question 5: Adding 0.0 points, running total = 1.5/5
+2025-04-11 17:38:37,578 - assessment - INFO - Section Documentation and Compliance score: BEFORE=30.0%, AFTER=30.0% (Corrected)
+2025-04-11 17:38:37,578 - assessment - INFO - Section Documentation and Compliance: total_points=1.5, max_points=5
+2025-04-11 17:38:37,579 - assessment - INFO - Verifying all sections have scores...
+2025-04-11 17:38:37,579 - assessment - INFO - Calculated section scores: {'Data Collection and Processing': 0.2, 'Data Principal Rights': 0.1, 'Data Security Measures': 0.2, 'Data Breach Notification': 0.0, 'Data Retention and Erasure': 0.25, 'Data Accuracy and Completeness': 1.0, "Children's Data Protection": 0.3333333333333333, 'Third-Party Processing': 0.0, 'Cross-Border Data Transfers': 0.3333333333333333, 'Significant Data Fiduciary Obligations': 0.0, 'Grievance Redressal': 1.0, 'Exemptions': 0.25, 'Documentation and Compliance': 0.3}
+2025-04-11 17:38:37,580 - assessment - INFO - ===== Calculating weighted overall score =====
+2025-04-11 17:38:37,581 - assessment - INFO - Section Data Collection and Processing: score=0.20, weight=0.11, contribution=0.02
+2025-04-11 17:38:37,581 - assessment - INFO - Section Data Principal Rights: score=0.10, weight=0.11, contribution=0.01
+2025-04-11 17:38:37,582 - assessment - INFO - Section Data Security Measures: score=0.20, weight=0.13, contribution=0.03
+2025-04-11 17:38:37,582 - assessment - INFO - Section Data Breach Notification: score=0.00, weight=0.10, contribution=0.00
+2025-04-11 17:38:37,584 - assessment - INFO - Section Data Retention and Erasure: score=0.25, weight=0.05, contribution=0.01
+2025-04-11 17:38:37,584 - assessment - INFO - Section Data Accuracy and Completeness: score=1.00, weight=0.08, contribution=0.08
+2025-04-11 17:38:37,585 - assessment - INFO - Section Children's Data Protection: score=0.33, weight=0.03, contribution=0.01
+2025-04-11 17:38:37,585 - assessment - INFO - Section Third-Party Processing: score=0.00, weight=0.08, contribution=0.00
+2025-04-11 17:38:37,586 - assessment - INFO - Section Cross-Border Data Transfers: score=0.33, weight=0.06, contribution=0.02
+2025-04-11 17:38:37,587 - assessment - INFO - Section Significant Data Fiduciary Obligations: score=0.00, weight=0.10, contribution=0.00
+2025-04-11 17:38:37,587 - assessment - INFO - Section Grievance Redressal: score=1.00, weight=0.05, contribution=0.05
+2025-04-11 17:38:37,589 - assessment - INFO - Section Exemptions: score=0.25, weight=0.03, contribution=0.01
+2025-04-11 17:38:37,589 - assessment - INFO - Section Documentation and Compliance: score=0.30, weight=0.06, contribution=0.02
+2025-04-11 17:38:37,590 - assessment - INFO - Total weighted score: 0.25700000000000006, Total weight: 0.99
+2025-04-11 17:38:37,590 - assessment - INFO - Overall score calculation: (0.25700000000000006 / total_weight) * 100 = 25.96%
+2025-04-11 17:38:37,591 - assessment - INFO - Added recommendation from partial match: Strengthen internal processes to ensure breach notifications strictly adhere to the 72-hour reporting requirement.
+2025-04-11 17:38:37,592 - assessment - INFO - Added recommendation from partial match: The organization does not adhere to the Central Government's requirements for making personal data available to foreign entities, which could lead to regulatory issues. Develop and implement a compliance framework to meet Central Government regulations on cross-border data transfers under DPDP Section 14.
+2025-04-11 17:38:37,594 - helpers - INFO - EVENT: section_completed - {"section": "Documentation and Compliance"}
+2025-04-11 17:38:37,715 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:38:39,555 - views - INFO - Requesting AI report generation with the following configuration:
+2025-04-11 17:38:39,556 - views - INFO - AI enabled: True
+2025-04-11 17:38:39,556 - views - INFO - API key available: Yes
+2025-04-11 17:38:39,557 - views - INFO - API provider: openrouter
+2025-04-11 17:38:39,557 - nlg_report - INFO - Starting report generation process in markdown format
+2025-04-11 17:38:39,557 - nlg_report - INFO - Checking AI API configuration
+2025-04-11 17:38:39,558 - nlg_report - INFO - Got AI_API_KEY via function, length: 73
+2025-04-11 17:38:39,558 - nlg_report - INFO - API Key last 4 chars: a39e
+2025-04-11 17:38:39,558 - nlg_report - INFO - AI API is fully configured and enabled
+2025-04-11 17:38:39,559 - nlg_report - INFO - API key first 4 chars: sk-o
+2025-04-11 17:38:39,567 - nlg_report - INFO - AI API configuration status: enabled=True, use_external_api=True
+2025-04-11 17:38:39,568 - nlg_report - INFO - Attempting AI-powered report generation using openrouter API
+2025-04-11 17:38:39,569 - nlg_report - INFO - Preparing context data for openrouter API
+2025-04-11 17:38:39,570 - nlg_report - INFO - Using API provider: openrouter
+2025-04-11 17:38:39,570 - nlg_report - INFO - Using OpenRouter API for report generation
+2025-04-11 17:38:39,571 - nlg_report - INFO - Configuring OpenRouter API client
+2025-04-11 17:38:40,534 - nlg_report - INFO - OpenRouter client configured with model: deepseek/deepseek-chat-v3-0324:free
+2025-04-11 17:38:40,535 - nlg_report - INFO - Creating AI prompt for markdown format from context data
+2025-04-11 17:38:40,535 - nlg_report - INFO - Created prompt with length: 10919 characters
+2025-04-11 17:38:40,536 - nlg_report - INFO - Making API request attempt 1/3
+2025-04-11 17:38:40,536 - nlg_report - INFO - Sending request to OpenRouter API
+2025-04-11 17:38:41,546 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-11 17:38:54,693 - nlg_report - INFO - Received full API response:
+{
+  "id": "gen-1744373323-04v9Bk8dFvui6VdbTKTn",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```markdown\n# Data Protection Compliance Report  \n**Overall Compliance Score: 26.0%**  \n**Compliance Level: Non-Compliant**  \n\n---\n\n## Executive Summary  \nThe organization's current compliance posture is **non-compliant**, with significant gaps across key data protection domains. While **Data Accuracy and Completeness** and **Grievance Redressal** are fully compliant, critical areas like **Data Breach Notification**, **Third-Party Processing**, and **Significant Data Fiduciary Obligations** scored 0%. Immediate action is required to address high-risk vulnerabilities, particularly in consent management, data security, and cross-border transfers.  \n\n**Key Risks**:  \n* Regulatory penalties due to non-adherence to breach notification timelines.  \n* Reputational damage from inadequate data security and third-party oversight.  \n* Legal exposure from non-compliance with children's data protection and cross-border transfer requirements.  \n\n---\n\n## Section Analysis & Recommendations  \n\n### 1. Data Collection and Processing (20.0%)  \n**Risk Level**: High  \n**Implications**: Non-compliance with consent and purpose limitation requirements may invalidate data processing activities.  \n\n**Action Items**:  \n1. Replace implicit consent with explicit, opt-in mechanisms using **Informatica Cloud Data Governance and Catalog (CDGC)** and **Cloud Data Access Management (CDAM)** to automate consent workflows.  \n2. Enforce purpose limitation policies via **Informatica Data Governance & Compliance** to align processing activities with regulatory requirements.  \n3. Classify and monitor sensitive data using **Informatica Data Privacy Management** to ensure adherence to processing restrictions.  \n\n---\n\n### 2. Data Principal Rights (10.0%)  \n**Risk Level**: High  \n**Implications**: Inefficient request handling may lead to missed deadlines and user dissatisfaction.  \n\n**Action Items**:  \n1. Deploy **Informatica Data Subject Rights Management** to streamline request submission and fulfillment.  \n2. Optimize website portals for user-friendly access, correction, and erasure requests.  \n3. Designate a dedicated team or automated system to manage requests within statutory timelines.  \n\n---\n\n### 3. Data Security Measures (20.0%)  \n**Risk Level**: Critical  \n**Implications**: Weak access controls and monitoring increase breach risks.  \n\n**Action Items**:  \n1. Implement **Informatica Cloud Data Access Management (CDAM)** for robust authentication, authorization, and access logging.  \n2. Enhance monitoring with real-time alerts and anomaly detection via **Informatica’s partnership with securiti.ai**.  \n3. Develop a backup and recovery plan using **Informatica Cloud Data Ingestion and Replication (CDIR)** for redundancy.  \n\n---\n\n### 4. Data Breach Notification (0.0%)  \n**Risk Level**: Critical  \n**Implications**: Failure to report breaches within 72 hours may trigger penalties.  \n\n**Action Items**:  \n1. Strengthen internal processes to meet strict notification deadlines.  \n\n---\n\n### 5. Data Retention and Erasure (25.0%)  \n**Risk Level**: Medium  \n**Implications**: Non-secure erasure risks data recovery and non-compliance.  \n\n**Action Items**:  \n1. Use **Informatica Cloud Application Integration (CAI)** to automate 48-hour deletion notifications.  \n2. Apply **NIST 800-88 standards** via Informatica tools for secure data erasure.  \n\n---\n\n### 6. Children’s Data Protection (33.3%)  \n**Risk Level**: High  \n**Implications**: Inadequate parental consent mechanisms violate DPDP Section 10.  \n\n**Action Items**:  \n1. Integrate digital signatures or government ID verification for parental consent.  \n2. Develop a technical framework for age and identity verification.  \n\n---\n\n### 7. Cross-Border Data Transfers (33.3%)  \n**Risk Level**: High  \n**Implications**: Unauthorized transfers may violate DPDP Section 14.  \n\n**Action Items**:  \n1. Implement **Informatica Cloud Data Governance Catalog (CDGC)** and **Cloud Data Privacy Management (CDPM)** to monitor and restrict transfers.  \n\n---\n\n### 8. Significant Data Fiduciary Obligations (0.0%)  \n**Risk Level**: Critical  \n**Implications**: Lack of DPIAs and audits risks non-compliance with DPDP Section 12.  \n\n**Action Items**:  \n1. Conduct annual DPIAs and audits using **Informatica Data Governance tools**.  \n2. Establish a due diligence framework for algorithmic risk assessment.  \n\n---\n\n## Strategic Recommendations  \n1. **Prioritize High-Risk Areas**: Focus on breach notification, security controls, and third-party oversight.  \n2. **Leverage Automation**: Deploy **Informatica Cloud Data Quality (CDQ)** and **Data Privacy Management (DPM)** for accuracy and compliance.  \n3. **Training & Awareness**: Conduct staff training on exemptions and children’s data requirements.  \n\n---\n\n**Partner with Informatica experts** to close gaps efficiently.  \nContact **info@datainfa.com** for further understanding and DPDP implementation.  \n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null,
+        "reasoning": null
+      },
+      "native_finish_reason": "stop"
+    }
+  ],
+  "created": 1744373323,
+  "model": "deepseek/deepseek-chat-v3-0324",
+  "object": "chat.completion",
+  "service_tier": null,
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 1042,
+    "prompt_tokens": 2149,
+    "total_tokens": 3191,
+    "completion_tokens_details": null,
+    "prompt_tokens_details": null
+  },
+  "provider": "Targon"
+}
+2025-04-11 17:38:54,696 - nlg_report - INFO - API call completed successfully in 14.16 seconds
+2025-04-11 17:38:54,696 - nlg_report - INFO - Received valid response with content length: 4909 characters
+2025-04-11 17:38:57,580 - nlg_report - INFO - Successfully generated AI report in 18.01 seconds
+2025-04-11 17:38:57,580 - views - INFO - Report generation completed in 18.02 seconds
+2025-04-11 17:38:57,581 - views - INFO - Report length: 4909 characters
+2025-04-11 17:38:57,588 - views - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:38:57,591 - views - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:38:57,619 - views - INFO - Temporary PDF output path: C:\Users\vella\AppData\Local\Temp\tmppt6h3dhv.pdf
+2025-04-11 17:38:57,620 - views - INFO - Attempting conversion and save to: C:\Users\vella\AppData\Local\Temp\tmppt6h3dhv.pdf
+2025-04-11 17:38:57,629 - views - INFO - markdown-pdf save operation completed for C:\Users\vella\AppData\Local\Temp\tmppt6h3dhv.pdf
+2025-04-11 17:38:57,630 - views - INFO - Output PDF file exists: C:\Users\vella\AppData\Local\Temp\tmppt6h3dhv.pdf
+2025-04-11 17:38:57,660 - views - INFO - Successfully read 151769 bytes from C:\Users\vella\AppData\Local\Temp\tmppt6h3dhv.pdf
+2025-04-11 17:38:57,661 - views - INFO - Cleaned up temporary PDF file: C:\Users\vella\AppData\Local\Temp\tmppt6h3dhv.pdf
+2025-04-11 17:39:08,325 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:41:21,134 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:41:21,136 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:41:21,229 - assessment - INFO - Loading questionnaire from: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Questionnaire\DPDP\Banking and finance.json
+2025-04-11 17:41:21,330 - views - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:41:21,331 - views - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:41:21,350 - views - INFO - Temporary PDF output path: C:\Users\vella\AppData\Local\Temp\tmp0chsndbh.pdf
+2025-04-11 17:41:21,352 - views - INFO - Attempting conversion and save to: C:\Users\vella\AppData\Local\Temp\tmp0chsndbh.pdf
+2025-04-11 17:41:21,368 - views - INFO - markdown-pdf save operation completed for C:\Users\vella\AppData\Local\Temp\tmp0chsndbh.pdf
+2025-04-11 17:41:21,368 - views - INFO - Output PDF file exists: C:\Users\vella\AppData\Local\Temp\tmp0chsndbh.pdf
+2025-04-11 17:41:21,390 - views - INFO - Successfully read 151817 bytes from C:\Users\vella\AppData\Local\Temp\tmp0chsndbh.pdf
+2025-04-11 17:41:21,391 - views - INFO - Cleaned up temporary PDF file: C:\Users\vella\AppData\Local\Temp\tmp0chsndbh.pdf
+2025-04-11 17:41:21,539 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:41:21,655 - views - INFO - Requesting AI report generation with the following configuration:
+2025-04-11 17:41:21,656 - views - INFO - AI enabled: True
+2025-04-11 17:41:21,657 - views - INFO - API key available: Yes
+2025-04-11 17:41:21,657 - views - INFO - API provider: openrouter
+2025-04-11 17:41:21,659 - nlg_report - INFO - Starting report generation process in markdown format
+2025-04-11 17:41:21,659 - nlg_report - INFO - Checking AI API configuration
+2025-04-11 17:41:21,660 - nlg_report - INFO - Got AI_API_KEY via function, length: 73
+2025-04-11 17:41:21,660 - nlg_report - INFO - API Key last 4 chars: a39e
+2025-04-11 17:41:21,661 - nlg_report - INFO - AI API is fully configured and enabled
+2025-04-11 17:41:21,661 - nlg_report - INFO - API key first 4 chars: sk-o
+2025-04-11 17:41:21,671 - nlg_report - INFO - AI API configuration status: enabled=True, use_external_api=True
+2025-04-11 17:41:21,672 - nlg_report - INFO - Attempting AI-powered report generation using openrouter API
+2025-04-11 17:41:21,673 - nlg_report - INFO - Preparing context data for openrouter API
+2025-04-11 17:41:21,675 - nlg_report - INFO - Using API provider: openrouter
+2025-04-11 17:41:21,675 - nlg_report - INFO - Using OpenRouter API for report generation
+2025-04-11 17:41:21,677 - nlg_report - INFO - Configuring OpenRouter API client
+2025-04-11 17:41:22,047 - nlg_report - INFO - OpenRouter client configured with model: deepseek/deepseek-chat-v3-0324:free
+2025-04-11 17:41:22,047 - nlg_report - INFO - Creating AI prompt for markdown format from context data
+2025-04-11 17:41:22,048 - nlg_report - INFO - Created prompt with length: 10919 characters
+2025-04-11 17:41:22,048 - nlg_report - INFO - Making API request attempt 1/3
+2025-04-11 17:41:22,049 - nlg_report - INFO - Sending request to OpenRouter API
+2025-04-11 17:41:22,669 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-11 17:41:35,478 - nlg_report - INFO - Received full API response:
+{
+  "id": "gen-1744373484-ytkYmgiDcpyhIIsTpfaR",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```markdown\n# Compliance Assessment Report  \n**Overall Compliance Score: 26.0%**  \n**Compliance Level: Non-Compliant**  \n\n---\n\n## Executive Summary  \nThe organization's current compliance posture is **non-compliant** with key data protection regulations, scoring **26.0%** overall. Significant gaps exist in **data breach notification, third-party processing, and cross-border data transfers**, which pose high regulatory risks. Immediate action is required to address critical deficiencies, particularly in consent management, data security, and retention practices.  \n\n**Key Risks:**  \n* High exposure to penalties due to lack of breach notification processes.  \n* Weak third-party controls increase liability for data misuse.  \n* Non-compliance with cross-border data transfer requirements may restrict international operations.  \n\n---\n\n## Section Analysis & Recommendations  \n\n### 1. Data Collection and Processing (20.0%)  \n**Risk Level:** High  \n**Implications:** Non-compliance with consent and purpose limitation requirements may invalidate data processing activities.  \n\n**Action Items:**  \n1. Replace implicit consent with explicit, opt-in mechanisms using **Informatica Cloud Data Governance and Catalog (CDGC)** to automate consent tracking.  \n2. Enforce purpose limitation policies via **Informatica Data Governance & Compliance** to align processing with regulatory requirements.  \n3. Classify and monitor sensitive data using **Informatica Data Privacy Management** to ensure lawful processing.  \n\n---\n\n### 2. Data Principal Rights (10.0%)  \n**Risk Level:** High  \n**Implications:** Inefficient request handling may lead to missed deadlines and reputational damage.  \n\n**Action Items:**  \n1. Deploy **Informatica Data Subject Rights Management** to streamline request submission and fulfillment.  \n2. Designate a dedicated team to manage requests within statutory timelines.  \n\n---\n\n### 3. Data Security Measures (20.0%)  \n**Risk Level:** Critical  \n**Implications:** Weak access controls and monitoring increase breach risks.  \n\n**Action Items:**  \n1. Implement **Informatica Cloud Data Access Management (CDAM)** for strict authentication and logging.  \n2. Enhance monitoring with real-time alerts using **Informatica’s partnership with securiti.ai**.  \n3. Adopt **Informatica Cloud Data Ingestion and Replication (CDIR)** for secure backup and recovery.  \n\n---\n\n### 4. Data Breach Notification (0.0%)  \n**Risk Level:** Critical  \n**Implications:** Failure to report breaches within 72 hours may result in severe penalties.  \n\n**Action Items:**  \n1. Establish an internal escalation protocol to meet notification deadlines.  \n\n---\n\n### 5. Data Retention and Erasure (25.0%)  \n**Risk Level:** Moderate  \n**Implications:** Non-secure erasure risks data recovery and non-compliance.  \n\n**Action Items:**  \n1. Use **Informatica’s NIST 800-88 implementation** for secure data erasure.  \n2. Automate customer notifications before deletion via **Informatica Cloud Application Integration (CAI)**.  \n\n---\n\n### 6. Children’s Data Protection (33.3%)  \n**Risk Level:** Moderate  \n**Implications:** Inadequate parental consent mechanisms may violate child data protections.  \n\n**Action Items:**  \n1. Integrate digital signatures or ID verification for parental consent.  \n\n---\n\n### 7. Third-Party Processing (0.0%)  \n**Risk Level:** High  \n**Implications:** Uncontrolled third-party access may lead to data misuse.  \n\n**Action Items:**  \n1. Develop formal contracts and audit processes for vendors.  \n\n---\n\n### 8. Cross-Border Data Transfers (33.3%)  \n**Risk Level:** High  \n**Implications:** Non-compliance may restrict data flows to foreign entities.  \n\n**Action Items:**  \n1. Align transfers with Central Government requirements using **Informatica Cloud Data Governance Catalog (CDGC)**.  \n\n---\n\n## Strategic Recommendations  \n1. **Prioritize High-Risk Areas:** Focus on breach notification, third-party controls, and security upgrades.  \n2. **Leverage Automation:** Deploy **Informatica Data Privacy Management** and **CDAM** to reduce manual compliance efforts.  \n3. **Training:** Conduct staff workshops on DPDP exemptions and breach response protocols.  \n\n---\n\n**Partner with Informatica experts to close gaps efficiently.**  \nContact **info@datainfa.com** for further understanding and DPDP implementation.  \n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null,
+        "reasoning": null
+      },
+      "native_finish_reason": "stop"
+    }
+  ],
+  "created": 1744373484,
+  "model": "deepseek/deepseek-chat-v3-0324",
+  "object": "chat.completion",
+  "service_tier": null,
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 908,
+    "prompt_tokens": 2149,
+    "total_tokens": 3057,
+    "completion_tokens_details": null,
+    "prompt_tokens_details": null
+  },
+  "provider": "Targon"
+}
+2025-04-11 17:41:35,479 - nlg_report - INFO - API call completed successfully in 13.43 seconds
+2025-04-11 17:41:35,480 - nlg_report - INFO - Received valid response with content length: 4326 characters
+2025-04-11 17:41:36,684 - nlg_report - INFO - Successfully generated AI report in 15.01 seconds
+2025-04-11 17:41:36,685 - views - INFO - Report generation completed in 15.03 seconds
+2025-04-11 17:41:36,686 - views - INFO - Report length: 4326 characters
+2025-04-11 17:41:44,818 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:42:02,886 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:42:02,920 - helpers - INFO - Navigating to page: privacy from report
+2025-04-11 17:42:03,087 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:42:08,841 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:42:10,193 - __main__ - INFO - Application started - Logging initialized
+2025-04-11 17:42:10,233 - privacy_policy_analyzer - INFO - Searching privacy policy for organization: Informatica
+2025-04-11 17:42:10,751 - privacy_policy_analyzer - INFO - Found privacy policy URL for Informatica: https://www.informatica.com/privacy-policy.html
+2025-04-11 17:42:10,752 - privacy_policy_analyzer - INFO - Fetching privacy policy content from: https://www.informatica.com/privacy-policy.html
+2025-04-11 17:42:11,362 - privacy_policy_analyzer - DEBUG - Successfully fetched content from https://www.informatica.com/privacy-policy.html on attempt 1
+2025-04-11 17:42:11,438 - privacy_policy_analyzer - DEBUG - Removed 37 unwanted elements
+2025-04-11 17:42:11,438 - privacy_policy_analyzer - DEBUG - Found content using selector: main
+2025-04-11 17:42:11,440 - privacy_policy_analyzer - INFO - Successfully extracted 36427 characters of content
+2025-04-11 17:42:11,446 - privacy_policy_analyzer - INFO - Sending request to OpenRouter for DPDP Act (India) analysis
+2025-04-11 17:43:07,307 - privacy_policy_analyzer - INFO - Received response from OpenRouter with status code: 200
+2025-04-11 17:43:07,309 - privacy_policy_analyzer - INFO - Successfully received analysis from OpenRouter
+2025-04-11 17:43:07,310 - privacy_policy_analyzer - INFO - Looking for logo at: C:\Users\vella\Downloads\DPDPAssesment\Modular_code\Modular_code\Assets\@logo.png
+2025-04-11 17:43:07,326 - privacy_policy_analyzer - INFO - Temporary PDF output path: C:\Users\vella\AppData\Local\Temp\tmpyogftl5k.pdf
+2025-04-11 17:43:07,326 - privacy_policy_analyzer - INFO - Attempting to save PDF to: C:\Users\vella\AppData\Local\Temp\tmpyogftl5k.pdf
+2025-04-11 17:43:07,346 - privacy_policy_analyzer - INFO - PDF save operation completed for C:\Users\vella\AppData\Local\Temp\tmpyogftl5k.pdf
+2025-04-11 17:43:07,347 - privacy_policy_analyzer - INFO - Reading PDF content from: C:\Users\vella\AppData\Local\Temp\tmpyogftl5k.pdf
+2025-04-11 17:43:07,382 - privacy_policy_analyzer - INFO - Successfully read 566935 bytes from PDF
+2025-04-11 17:43:07,383 - privacy_policy_analyzer - INFO - Cleaned up temporary PDF file: C:\Users\vella\AppData\Local\Temp\tmpyogftl5k.pdf
+2025-04-11 17:43:50,675 - config - INFO - Loaded 3 API key(s).
+2025-04-11 17:43:50,679 - __main__ - INFO - Application started - Logging initialized
