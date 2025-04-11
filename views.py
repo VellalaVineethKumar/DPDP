@@ -651,7 +651,26 @@ def render_assessment():
                 
                 # Check if we're at the last section
                 if next_section >= len(sections):
-
+                    # Final check for all questions across all sections
+                    all_sections_complete = True
+                    missing_sections = set()
+                    
+                    for section_idx, section in enumerate(sections):
+                        for q_idx, question in enumerate(section["questions"]):
+                            response_key = f"s{section_idx}_q{q_idx}"
+                            if response_key not in st.session_state.responses:
+                                all_sections_complete = False
+                                missing_sections.add(section_idx + 1)
+                    
+                    if not all_sections_complete:
+                        st.error("⚠️ Please answer all questions before completing the assessment.")
+                        with st.expander("View Missing Sections", expanded=True):
+                            st.write("The following sections have unanswered questions:")
+                            for section_num in sorted(missing_sections):
+                                st.write(f"• Section {section_num}")
+                        st.stop()
+                    
+                    # If we get here, all questions are answered
                     st.session_state.assessment_complete = True
                     st.session_state.results = calculate_compliance_score(
                         st.session_state.selected_regulation,
@@ -864,42 +883,63 @@ def render_report():
     if os.path.exists(html_path):
         with open(html_path, "r", encoding="utf-8") as f:
             html_content = f.read()
-        # Use CSS Grid for perfect centering with responsive scaling
+        # Use CSS for responsive scaling with container adjustments
         centered_html = f"""
         <style>
         .diagram-container {{
-            display: grid;
-            place-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            padding: 20px;
+            padding: 10px;
             margin-bottom: -60px;
-            overflow: hidden;
+            overflow: auto;
+            min-height: 500px;
         }}
         .diagram-content {{
-            margin: 0 auto;
-            max-width: 100%;
+            position: relative;
             width: 100%;
-            transform-origin: center center;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }}
+        .diagram-content svg {{
+            max-width: 100%;
+            height: auto;
+            transform-origin: center;
             transition: transform 0.3s ease;
         }}
         @media (max-width: 1200px) {{
-            .diagram-content {{
-                transform: scale(0.9);
+            .diagram-container {{
+                min-height: 450px;
+            }}
+            .diagram-content svg {{
+                transform: scale(0.85);
             }}
         }}
         @media (max-width: 992px) {{
-            .diagram-content {{
-                transform: scale(0.8);
+            .diagram-container {{
+                min-height: 400px;
+            }}
+            .diagram-content svg {{
+                transform: scale(0.75);
             }}
         }}
         @media (max-width: 768px) {{
-            .diagram-content {{
-                transform: scale(0.7);
+            .diagram-container {{
+                min-height: 350px;
+            }}
+            .diagram-content svg {{
+                transform: scale(0.65);
             }}
         }}
         @media (max-width: 576px) {{
-            .diagram-content {{
-                transform: scale(0.6);
+            .diagram-container {{
+                min-height: 300px;
+            }}
+            .diagram-content svg {{
+                transform: scale(0.5);
             }}
         }}
         </style>
@@ -909,7 +949,7 @@ def render_report():
             </div>
         </div>
         """
-        st.components.v1.html(centered_html, height=900, scrolling=False)
+        st.components.v1.html(centered_html, height=700, scrolling=True)
     else:
         st.warning("DPDP Implementation Framework diagram not found.")
     
@@ -924,38 +964,59 @@ def render_report():
         centered_html = f"""
         <style>
         .claire-container {{
-            display: grid;
-            place-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
             padding: 10px;
             margin-top: -40px;
-            overflow: hidden;
+            overflow: auto;
+            min-height: 500px;
         }}
         .claire-content {{
-            margin: 0 auto;
-            max-width: 100%;
+            position: relative;
             width: 100%;
-            transform-origin: center center;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }}
+        .claire-content svg {{
+            max-width: 100%;
+            height: auto;
+            transform-origin: center;
             transition: transform 0.3s ease;
         }}
         @media (max-width: 1200px) {{
-            .claire-content {{
-                transform: scale(0.9);
+            .claire-container {{
+                min-height: 450px;
+            }}
+            .claire-content svg {{
+                transform: scale(0.85);
             }}
         }}
         @media (max-width: 992px) {{
-            .claire-content {{
-                transform: scale(0.8);
+            .claire-container {{
+                min-height: 400px;
+            }}
+            .claire-content svg {{
+                transform: scale(0.75);
             }}
         }}
         @media (max-width: 768px) {{
-            .claire-content {{
-                transform: scale(0.7);
+            .claire-container {{
+                min-height: 350px;
+            }}
+            .claire-content svg {{
+                transform: scale(0.65);
             }}
         }}
         @media (max-width: 576px) {{
-            .claire-content {{
-                transform: scale(0.6);
+            .claire-container {{
+                min-height: 300px;
+            }}
+            .claire-content svg {{
+                transform: scale(0.5);
             }}
         }}
         </style>
@@ -965,7 +1026,7 @@ def render_report():
             </div>
         </div>
         """
-        st.components.v1.html(centered_html, height=800, scrolling=False)
+        st.components.v1.html(centered_html, height=600, scrolling=True)
     else:
         st.warning("CLAIRE Framework diagram not found.")
     # --- End of commented out section ---
@@ -999,9 +1060,11 @@ def render_report():
     if na_responses:
         with st.expander("View Not Applicable Responses", expanded=False):
             for item in na_responses:
+                # Strip HTML links from question text
+                clean_question = re.sub(r'\s*\[<a.*?</a>\]', '', item['question']).strip()
                 st.markdown(f"""
                 **{item['section']} - {item['question_number']}**  
-                {item['question']}
+                {clean_question}
                 """)
                 st.markdown("---")
     else:
