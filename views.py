@@ -2237,6 +2237,15 @@ def get_compliance_level_color(level):
     return colors.get(level, "#808080")  # Default to gray if level not found
 
 def convert_for_download():
+    """Convert report content to a downloadable PDF format.
+    Parameters:
+        - None
+    Returns:
+        - bytes: The binary data of the generated PDF if successful, otherwise None.
+    Processing Logic:
+        - Retrieves the report content and organization name from session state.
+        - Adds a header including current date and optional organization logo.
+        - Generates a PDF from combined header and report content, displaying success or error messages accordingly."""
     try:
         # Get the original report content from session state
         original_report_content = st.session_state.get('ai_report_content')
