@@ -10,5 +10,6 @@ pypandoc
 python-dotenv
 markdown-pdf
 xlsxwriter
+beautifulsoup4
 # streamlit-authenticator # Re-add if needed
 # werkzeug # Re-add if needed
