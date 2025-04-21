@@ -11,6 +11,6 @@ python-dotenv
 markdown-pdf
 xlsxwriter
 beautifulsoup4
-googlesearch
+googlesearch-python
 # streamlit-authenticator # Re-add if needed
 # werkzeug # Re-add if needed
