@@ -1,0 +1,29 @@
+{
+  "organization_name": "Bhp",
+  "assessment_date": "2025-06-27",
+  "selected_regulation": "OAIC",
+  "selected_industry": "General",
+  "responses": {
+    "s0_q0": "Partially: There is a privacy policy, but it is outdated or not fully comprehensive.",
+    "s0_q1": "Partially: Some, but not all, elements are addressed.",
+    "s0_q2": "Yes: The policy is always available free of charge in a suitable format.",
+    "s0_q3": "No: The organization does not provide the policy in different formats.",
+    "s1_q0": "No: The organization does not allow anonymous or pseudonymous interactions.",
+    "s1_q1": "Yes: Exceptions are only made when legally required or impracticable.",
+    "s2_q0": "No: Information is collected regardless of necessity.",
+    "s2_q1": "Yes: Sensitive information is collected only with consent or as legally permitted.",
+    "s2_q2": "Partially: Collection is usually lawful and fair, but not always.",
+    "s2_q3": "No: Information is regularly collected from third parties without valid exceptions.",
+    "s3_q0": "Yes: All unsolicited information is assessed for compliance with collection principles.",
+    "s3_q1": "Yes: Unnecessary unsolicited information is promptly destroyed or de-identified.",
+    "s4_q0": "Yes: Individuals are always notified of all required matters.",
+    "s5_q0": "Partially: Use/disclosure for secondary purposes occurs without proper basis.",
+    "s5_q1": "Yes: Secondary use/disclosure is always related and reasonably expected.",
+    "s5_q2": "No: Guidelines are not followed or not relevant.",
+    "s5_q3": "Partially: De-identification occurs inconsistently.",
+    "s6_q0": "Partially: Direct marketing occurs without proper consent or authority.",
+    "s7_q0": "Partially: Overseas disclosures are not always properly assessed."
+  },
+  "assessment_complete": false,
+  "saved_at": "2025-06-27T14:59:54.741583"
+}

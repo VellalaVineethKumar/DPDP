@@ -317,6 +317,49 @@ For each major section of the privacy policy, provide:
 - Relevant HIPAA sections
 - Compliance status
 - Recommendations"""
+    },
+
+    "oaic_australia": {
+        "name": "Australia",
+        "regulation": "Australian Privacy Principles (APPs)",
+        "file_path": "Assets/Documents/OAIC.txt",
+        "country": "Australia",
+        "website": "https://www.oaic.gov.au/privacy/australian-privacy-principles/",
+        "prompt_template": """You are a privacy policy compliance expert. Analyze the following privacy policy against the requirements of the Australian Privacy Principles (APPs) under the Privacy Act 1988 (Cth).
+
+Privacy Policy Content:
+---------------------
+{policy_content}
+---------------------
+
+APPs Requirements:
+---------------------
+{law_content}
+---------------------
+
+Your task is to:
+1. Identify any conflicts or gaps between the privacy policy and the APPs requirements
+2. Highlight specific APPs that are relevant to each finding, make sure to use hyperlink https://www.oaic.gov.au/privacy/australian-privacy-principles/
+3. Provide recommendations for compliance
+4. Clearly highlight key issues
+
+# Privacy Policy Analysis
+
+## Key Findings
+- List major findings with specific references to APPs
+
+## Compliance Gaps
+- List specific gaps with references to APPs requirements
+
+## Recommendations
+- Provide actionable recommendations to address each gap
+
+## Detailed Analysis
+For each major section of the privacy policy, provide:
+- What was found
+- Relevant APPs
+- Compliance status
+- Recommendations"""
     }
 }
 
@@ -583,9 +626,6 @@ def analyze_privacy_policy(policy_content: str, law_key: str, organization_name:
         result = response.json()
         analysis = result["choices"][0]["message"]["content"].strip()
         logger.info("Successfully received analysis from OpenRouter")
-        
-        # Clean the analysis to remove any follow-up questions or prompts
-        analysis = clean_analysis_content(analysis)
         
         # Generate PDF report
         pdf_content = generate_privacy_policy_pdf(

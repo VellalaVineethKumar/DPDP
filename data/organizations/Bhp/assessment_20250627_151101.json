@@ -1,0 +1,31 @@
+{
+  "organization_name": "Bhp",
+  "assessment_date": "2025-06-27",
+  "selected_regulation": "oaic_australia",
+  "selected_industry": "General",
+  "responses": {
+    "s0_q0": "Partially: There is a privacy policy, but it is outdated or not fully comprehensive.",
+    "s0_q1": "Yes: All these elements are clearly addressed in the policy.",
+    "s0_q2": "Yes: The policy is always available free of charge in a suitable format.",
+    "s0_q3": "Partially: The organization tries but may not always accommodate requests.",
+    "s1_q0": "Partially: Anonymity or pseudonymity is allowed in limited circumstances.",
+    "s1_q1": "No: Exceptions are not limited to these cases.",
+    "s2_q0": "No: Information is collected regardless of necessity.",
+    "s2_q1": "No: Sensitive information is collected without consent or legal basis.",
+    "s2_q2": "Yes: Collection methods are always lawful and fair.",
+    "s2_q3": "Yes: Information is collected directly unless an exception applies.",
+    "s3_q0": "Yes: All unsolicited information is assessed for compliance with collection principles.",
+    "s3_q1": "Yes: Unnecessary unsolicited information is promptly destroyed or de-identified.",
+    "s4_q0": "Partially: Notification is incomplete or inconsistent.",
+    "s5_q0": "Partially: Use/disclosure for secondary purposes occurs without proper basis.",
+    "s5_q1": "No: Secondary use/disclosure is unrelated and not reasonably expected.",
+    "s5_q2": "Partially: Guidelines are only partially followed.",
+    "s5_q3": "Partially: De-identification occurs inconsistently.",
+    "s6_q0": "Yes: Direct marketing only occurs with consent or legal basis.",
+    "s7_q0": "Yes: All overseas disclosures are assessed for compliance or equivalent protection.",
+    "s8_q0": "Yes: Government identifiers are only used/disclosed as legally permitted.",
+    "s9_q0": "Yes: Regular checks and updates are performed."
+  },
+  "assessment_complete": false,
+  "saved_at": "2025-06-27T15:11:01.551691"
+}

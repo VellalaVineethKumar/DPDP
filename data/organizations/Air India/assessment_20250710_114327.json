@@ -1,0 +1,14 @@
+{
+  "organization_name": "Air India",
+  "assessment_date": "2025-07-10",
+  "selected_regulation": "oaic_australia",
+  "selected_industry": "Banking and finance",
+  "responses": {
+    "s0_q0": "Yes: The organization has a comprehensive, current privacy policy addressing personal information management.",
+    "s0_q1": "Partially: Some, but not all, elements are addressed.",
+    "s0_q2": "Yes: The policy is always available free of charge in a suitable format.",
+    "s0_q3": "Partially: The organization tries but may not always accommodate requests."
+  },
+  "assessment_complete": false,
+  "saved_at": "2025-07-10T11:43:27.511553"
+}

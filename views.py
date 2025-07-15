@@ -2515,10 +2515,10 @@ def render_welcome_page():
                 regulation_key = "GDPR"
             elif selected_country == "Australia":
                 regulation_label = "Australian Privacy Principles (APPs)"
-                regulation_key = "OAIC"
+                regulation_key = "oaic_australia"
             elif selected_country == "Saudi Arabia":
                 regulation_label = "Personal Data Protection Law (PDPL)"
-                regulation_key = "PDPL"
+                regulation_key = "pdpl_saudi"
             else:  # India
                 regulation_label = "Digital Personal Data Protection Act (DPDP)"
                 regulation_key = "DPDP"
@@ -2775,7 +2775,7 @@ def render_privacy_policy_analyzer() -> None:
             # 2. Country (Qatar/India/Europe/Saudi Arabia only)
             from privacy_policy_analyzer import PRIVACY_LAWS
             country_options = {config["name"]: key for key, config in PRIVACY_LAWS.items()}
-            allowed_countries = ["Qatar", "India", "Europe", "Saudi Arabia"]
+            allowed_countries = ["Qatar", "India", "Europe", "Australia", "Saudi Arabia"]
             country_options = {k: v for k, v in country_options.items() if k in allowed_countries}
             country_names = list(country_options.keys())
             # Set default to 'Qatar' if available, otherwise use the first country
@@ -2796,6 +2796,9 @@ def render_privacy_policy_analyzer() -> None:
             elif selected_country == "Saudi Arabia":
                 regulation_label = "Personal Data Protection Law (PDPL)"
                 regulation_key = "pdpl_saudi"
+            elif selected_country == "Australia":
+                regulation_label = "Australian Privacy Principles (APPs)"
+                regulation_key = "oaic_australia"
             else:
                 regulation_label = PRIVACY_LAWS[selected_country_key]["regulation"]
                 regulation_key = selected_country_key

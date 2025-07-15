@@ -1,0 +1,11 @@
+2025-06-27 14:52:03,113 - privacy_policy_analyzer - INFO - Searching privacy policy for organization: Sbi in country: India
+2025-06-27 14:52:03,603 - privacy_policy_analyzer - INFO - Found privacy policy URL for Sbi: https://www.onlinesbi.sbi/sbijava/Privacy_Statement.html
+2025-06-27 14:52:03,605 - privacy_policy_analyzer - INFO - Fetching privacy policy content from: https://www.onlinesbi.sbi/sbijava/Privacy_Statement.html
+2025-06-27 14:52:03,718 - privacy_policy_analyzer - DEBUG - Successfully fetched content from https://www.onlinesbi.sbi/sbijava/Privacy_Statement.html on attempt 1
+2025-06-27 14:52:03,723 - privacy_policy_analyzer - DEBUG - Removed 4 unwanted elements
+2025-06-27 14:52:03,725 - privacy_policy_analyzer - WARNING - No specific content container found, using body or full document
+2025-06-27 14:52:03,726 - privacy_policy_analyzer - INFO - Successfully extracted 6669 characters of content
+2025-06-27 14:52:03,743 - privacy_policy_analyzer - INFO - Sending request to OpenRouter for India analysis
+2025-06-27 14:53:25,801 - privacy_policy_analyzer - INFO - Received response from OpenRouter with status code: 200
+2025-06-27 14:53:25,802 - privacy_policy_analyzer - INFO - Successfully received analysis from OpenRouter
+2025-06-27 14:53:25,803 - privacy_policy_analyzer - ERROR - Error analyzing privacy policy: name 'clean_analysis_content' is not defined

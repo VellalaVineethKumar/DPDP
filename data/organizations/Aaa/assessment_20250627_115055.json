@@ -1,0 +1,15 @@
+{
+  "organization_name": "Aaa",
+  "assessment_date": "2025-06-27",
+  "selected_regulation": "DPDP",
+  "selected_industry": "Banking and finance",
+  "responses": {
+    "s0_q0": "Partially, Notices are not provided in all required languages.",
+    "s0_q1": "Partially, but needs more detail: The notice includes some itemization and purpose descriptions, but lacks clarity or completeness.",
+    "s0_q2": "No, we rely on implicit consent or lack clear affirmative action: Consent is assumed without explicit action or is not clearly tied to specific purposes.",
+    "s0_q3": "Partially, but some processing may exceed specified purposes: While efforts are made to limit processing to specified purposes, there may be instances where data is used beyond those purposes.",
+    "s0_q4": "Yes, with clear verification processes: The organization has established procedures to verify that data is provided voluntarily for specific purposes where consent exemptions apply, ensuring compliance with DPDP Act requirements."
+  },
+  "assessment_complete": false,
+  "saved_at": "2025-06-27T11:50:55.605544"
+}

@@ -1,0 +1,7 @@
+2025-07-10 11:48:27,685 - privacy_policy_analyzer - INFO - Searching privacy policy for organization: Air India in country: India
+2025-07-10 11:48:28,224 - privacy_policy_analyzer - INFO - Found privacy policy URL for Air India: https://www.airindia.com/in/en/privacy-notice.html
+2025-07-10 11:48:28,226 - privacy_policy_analyzer - INFO - Fetching privacy policy content from: https://www.airindia.com/in/en/privacy-notice.html
+2025-07-10 11:48:58,521 - privacy_policy_analyzer - WARNING - Timeout error on attempt 1: HTTPSConnectionPool(host='www.airindia.com', port=443): Read timed out. (read timeout=30)
+2025-07-10 11:49:30,561 - privacy_policy_analyzer - WARNING - Timeout error on attempt 2: HTTPSConnectionPool(host='www.airindia.com', port=443): Read timed out. (read timeout=30)
+2025-07-10 11:50:02,623 - privacy_policy_analyzer - WARNING - Timeout error on attempt 3: HTTPSConnectionPool(host='www.airindia.com', port=443): Read timed out. (read timeout=30)
+2025-07-10 11:50:02,624 - privacy_policy_analyzer - ERROR - Request timed out after 3 attempts

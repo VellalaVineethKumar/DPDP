@@ -1,0 +1,416 @@
+2025-07-10 11:32:21,839 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:32:24,070 - numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+2025-07-10 11:41:10,405 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:41:10,449 - helpers - INFO - Admin token validated
+2025-07-10 11:41:10,532 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:41:31,521 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:41:31,544 - helpers - INFO - Navigating to page: privacy from welcome
+2025-07-10 11:41:31,669 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:41:39,594 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:41:39,620 - helpers - INFO - Navigating to page: welcome from privacy
+2025-07-10 11:41:39,746 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:41:48,724 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:41:48,763 - data_storage - INFO - Assessment data received - is_start: None, is_complete: None
+2025-07-10 11:41:48,770 - data_storage - INFO - Saved assessment data for Air India to C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\data\organizations\Air India\assessment_20250710_114148.json
+2025-07-10 11:42:02,720 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:42:09,039 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:42:14,746 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:42:17,001 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:42:17,046 - views - INFO - Starting assessment for Air India
+2025-07-10 11:42:17,047 - data_storage - INFO - Assessment data received - is_start: True, is_complete: None
+2025-07-10 11:42:17,048 - data_storage - INFO - Triggering start notification email for Air India
+2025-07-10 11:42:17,053 - data_storage - INFO - Attempting to connect to SMTP server...
+2025-07-10 11:42:20,314 - data_storage - INFO - Assessment notification email sent for Air India
+2025-07-10 11:42:20,317 - data_storage - INFO - Saved assessment data for Air India to C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\data\organizations\Air India\assessment_20250710_114220.json
+2025-07-10 11:42:20,318 - helpers - INFO - Navigating to page: assessment from welcome
+2025-07-10 11:42:20,417 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:42:20,450 - assessment - INFO - Loading questionnaire for regulation: PDPPL, industry: General
+2025-07-10 11:42:20,452 - assessment - INFO - Looking for questionnaire for general in C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Questionnaire\PDPPL
+2025-07-10 11:42:20,455 - assessment - WARNING - No PDPPL questionnaire found for general in C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Questionnaire\PDPPL, using default
+2025-07-10 11:42:20,456 - assessment - INFO - Loading questionnaire from: C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Questionnaire\PDPPL\Oil_and_Gas.json
+2025-07-10 11:42:20,461 - assessment - INFO - [CACHE] File exists: C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Questionnaire\PDPPL\Oil_and_Gas.json
+2025-07-10 11:42:20,462 - assessment - INFO - [CACHE] File preview: {
+  "sections": [
+    {
+      "name": "Applicability of the PDPPL",
+      "weight": 0.06,
+      "que...
+2025-07-10 11:42:20,463 - assessment - INFO - [CACHE] Loaded questionnaire first section: 'Applicability of the PDPPL'
+2025-07-10 11:42:20,467 - views - INFO - [render_assessment] Session selected_country: Australia
+2025-07-10 11:42:20,468 - views - INFO - [render_assessment] Session selected_industry: Banking and finance
+2025-07-10 11:42:20,468 - views - INFO - [render_assessment] Mapped industry_for_loader: Banking and finance
+2025-07-10 11:42:20,468 - views - INFO - [render_assessment] Using regulation: OAIC for country: Australia
+2025-07-10 11:42:20,475 - assessment - INFO - Loading questionnaire for regulation: OAIC, industry: Banking and finance
+2025-07-10 11:42:20,479 - assessment - WARNING - No OAIC questionnaire found for banking and finance, using General.json
+2025-07-10 11:42:20,479 - assessment - INFO - Loading questionnaire from: C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Questionnaire\OAIC\General.json
+2025-07-10 11:42:20,481 - assessment - INFO - [CACHE] File exists: C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Questionnaire\OAIC\General.json
+2025-07-10 11:42:20,484 - assessment - INFO - [CACHE] File preview: {
+  "sections": [
+    {
+      "name": "Open and Transparent Management of Personal Information",
+   ...
+2025-07-10 11:42:20,488 - assessment - INFO - [CACHE] Loaded questionnaire first section: 'Open and Transparent Management of Personal Information'
+2025-07-10 11:42:20,490 - views - INFO - [render_assessment] Loaded questionnaire for regulation: OAIC, industry: Banking and finance
+2025-07-10 11:43:27,445 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:27,486 - helpers - INFO - Saved response for s0_q0: 'Yes: The organization has a comprehensive, current privacy policy addressing personal information management.'
+2025-07-10 11:43:27,486 - data_storage - INFO - Assessment data received - is_start: None, is_complete: None
+2025-07-10 11:43:27,494 - data_storage - INFO - Saved assessment data for Air India to C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\data\organizations\Air India\assessment_20250710_114327.json
+2025-07-10 11:43:27,497 - helpers - INFO - Saved response for s0_q1: 'Partially: Some, but not all, elements are addressed.'
+2025-07-10 11:43:27,497 - data_storage - INFO - Assessment data received - is_start: None, is_complete: None
+2025-07-10 11:43:27,500 - data_storage - INFO - Saved assessment data for Air India to C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\data\organizations\Air India\assessment_20250710_114327.json
+2025-07-10 11:43:27,502 - helpers - INFO - Saved response for s0_q2: 'Yes: The policy is always available free of charge in a suitable format.'
+2025-07-10 11:43:27,502 - data_storage - INFO - Assessment data received - is_start: None, is_complete: None
+2025-07-10 11:43:27,506 - data_storage - INFO - Saved assessment data for Air India to C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\data\organizations\Air India\assessment_20250710_114327.json
+2025-07-10 11:43:27,508 - helpers - INFO - Saved response for s0_q3: 'Partially: The organization tries but may not always accommodate requests.'
+2025-07-10 11:43:27,509 - data_storage - INFO - Assessment data received - is_start: None, is_complete: None
+2025-07-10 11:43:27,513 - data_storage - INFO - Saved assessment data for Air India to C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\data\organizations\Air India\assessment_20250710_114327.json
+2025-07-10 11:43:27,663 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:27,700 - assessment - INFO - [CALC] calculate_compliance_score CALLED with regulation_code='PDPPL', industry_code='General'
+2025-07-10 11:43:27,700 - assessment - INFO - [CALC] Using passed parameters: regulation='PDPPL', industry='General'
+2025-07-10 11:43:27,702 - assessment - INFO - [CALC] About to call get_questionnaire('PDPPL', 'General')
+2025-07-10 11:43:27,702 - assessment - INFO - [CALC] Loaded questionnaire has 10 sections for PDPPL/General
+2025-07-10 11:43:27,703 - assessment - INFO - [CALC] First 3 section names: ['Applicability of the PDPPL', 'Principles of Data Privacy', 'Permitted Reasons']
+2025-07-10 11:43:27,703 - assessment - INFO - [CALC] ALL SECTION NAMES: ['Applicability of the PDPPL', 'Principles of Data Privacy', 'Permitted Reasons', 'Special Nature Processing & Security', "Individuals' Rights & Complaints", 'Governance & Training Awareness', 'Data Privacy Impact Assessment (DPIA) & Privacy by Design', 'Cross Border Data Flows & Third Party Agreements', 'Data Breaches', "Children's Websites"]
+2025-07-10 11:43:27,704 - assessment - ERROR - [CALC] CRITICAL ERROR: Loading PDPPL questionnaire when expecting PDPPL!
+2025-07-10 11:43:27,704 - assessment - INFO - [CALC] Answer points dictionary has 10 entries
+2025-07-10 11:43:27,704 - assessment - INFO - Answer points dictionary has 10 entries
+2025-07-10 11:43:27,704 - assessment - WARNING - Response 'Yes: The organization has a comprehensive, current privacy policy addressing personal information management.' not found in answer_points
+2025-07-10 11:43:27,705 - assessment - WARNING - Response 'Partially: Some, but not all, elements are addressed.' not found in answer_points
+2025-07-10 11:43:27,705 - assessment - WARNING - Response 'Yes: The policy is always available free of charge in a suitable format.' not found in answer_points
+2025-07-10 11:43:27,705 - assessment - WARNING - Response 'Partially: The organization tries but may not always accommodate requests.' not found in answer_points
+2025-07-10 11:43:27,706 - assessment - INFO - Processing scores for 10 sections
+2025-07-10 11:43:27,706 - assessment - INFO - Found responses for section indices: [0]
+2025-07-10 11:43:27,709 - assessment - INFO - ===== Calculating score for section: Applicability of the PDPPL =====
+2025-07-10 11:43:27,711 - assessment - INFO - Question 1: Response = 'Yes: The organization has a comprehensive, current privacy policy addressing personal information management.'
+2025-07-10 11:43:27,712 - assessment - WARNING - No points assigned for response: 'Yes: The organization has a comprehensive, current privacy policy addressing personal information management.'
+2025-07-10 11:43:27,712 - assessment - INFO - Section 'Applicability of the PDPPL' has all full compliance responses - should have perfect score
+2025-07-10 11:43:27,714 - assessment - INFO - Correcting Applicability of the PDPPL score from 0.0 to 1.0 based on full compliance pattern
+2025-07-10 11:43:27,714 - assessment - INFO - Section Applicability of the PDPPL score: BEFORE=0.0%, AFTER=100.0% (Corrected)
+2025-07-10 11:43:27,714 - assessment - INFO - Section Applicability of the PDPPL: total_points=0.0, max_points=1
+2025-07-10 11:43:27,714 - assessment - INFO - ===== Calculating score for section: Principles of Data Privacy =====
+2025-07-10 11:43:27,715 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,715 - assessment - INFO - Question 2: No response provided
+2025-07-10 11:43:27,715 - assessment - WARNING - Empty responses for section Principles of Data Privacy, using raw score None
+2025-07-10 11:43:27,715 - assessment - INFO - Section Principles of Data Privacy score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,715 - assessment - INFO - Section Principles of Data Privacy: No responses, score set to None
+2025-07-10 11:43:27,716 - assessment - INFO - Section Principles of Data Privacy: total_points=0.0, max_points=2
+2025-07-10 11:43:27,716 - assessment - INFO - ===== Calculating score for section: Permitted Reasons =====
+2025-07-10 11:43:27,716 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,716 - assessment - INFO - Question 2: No response provided
+2025-07-10 11:43:27,716 - assessment - INFO - Question 3: No response provided
+2025-07-10 11:43:27,716 - assessment - WARNING - Empty responses for section Permitted Reasons, using raw score None
+2025-07-10 11:43:27,717 - assessment - INFO - Section Permitted Reasons score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,717 - assessment - INFO - Section Permitted Reasons: No responses, score set to None
+2025-07-10 11:43:27,717 - assessment - INFO - Section Permitted Reasons: total_points=0.0, max_points=3
+2025-07-10 11:43:27,717 - assessment - INFO - ===== Calculating score for section: Special Nature Processing & Security =====
+2025-07-10 11:43:27,718 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,718 - assessment - INFO - Question 2: No response provided
+2025-07-10 11:43:27,718 - assessment - WARNING - Empty responses for section Special Nature Processing & Security, using raw score None
+2025-07-10 11:43:27,718 - assessment - INFO - Section Special Nature Processing & Security score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,718 - assessment - INFO - Section Special Nature Processing & Security: No responses, score set to None
+2025-07-10 11:43:27,718 - assessment - INFO - Section Special Nature Processing & Security: total_points=0.0, max_points=2
+2025-07-10 11:43:27,719 - assessment - INFO - ===== Calculating score for section: Individuals' Rights & Complaints =====
+2025-07-10 11:43:27,719 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,719 - assessment - INFO - Question 2: No response provided
+2025-07-10 11:43:27,719 - assessment - WARNING - Empty responses for section Individuals' Rights & Complaints, using raw score None
+2025-07-10 11:43:27,719 - assessment - INFO - Section Individuals' Rights & Complaints score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,719 - assessment - INFO - Section Individuals' Rights & Complaints: No responses, score set to None
+2025-07-10 11:43:27,720 - assessment - INFO - Section Individuals' Rights & Complaints: total_points=0.0, max_points=2
+2025-07-10 11:43:27,720 - assessment - INFO - ===== Calculating score for section: Governance & Training Awareness =====
+2025-07-10 11:43:27,720 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,720 - assessment - INFO - Question 2: No response provided
+2025-07-10 11:43:27,720 - assessment - INFO - Question 3: No response provided
+2025-07-10 11:43:27,722 - assessment - WARNING - Empty responses for section Governance & Training Awareness, using raw score None
+2025-07-10 11:43:27,724 - assessment - INFO - Section Governance & Training Awareness score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,725 - assessment - INFO - Section Governance & Training Awareness: No responses, score set to None
+2025-07-10 11:43:27,725 - assessment - INFO - Section Governance & Training Awareness: total_points=0.0, max_points=3
+2025-07-10 11:43:27,726 - assessment - INFO - ===== Calculating score for section: Data Privacy Impact Assessment (DPIA) & Privacy by Design =====
+2025-07-10 11:43:27,726 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,728 - assessment - INFO - Question 2: No response provided
+2025-07-10 11:43:27,728 - assessment - WARNING - Empty responses for section Data Privacy Impact Assessment (DPIA) & Privacy by Design, using raw score None
+2025-07-10 11:43:27,728 - assessment - INFO - Section Data Privacy Impact Assessment (DPIA) & Privacy by Design score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,728 - assessment - INFO - Section Data Privacy Impact Assessment (DPIA) & Privacy by Design: No responses, score set to None
+2025-07-10 11:43:27,728 - assessment - INFO - Section Data Privacy Impact Assessment (DPIA) & Privacy by Design: total_points=0.0, max_points=2
+2025-07-10 11:43:27,729 - assessment - INFO - ===== Calculating score for section: Cross Border Data Flows & Third Party Agreements =====
+2025-07-10 11:43:27,733 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,734 - assessment - INFO - Question 2: No response provided
+2025-07-10 11:43:27,734 - assessment - WARNING - Empty responses for section Cross Border Data Flows & Third Party Agreements, using raw score None
+2025-07-10 11:43:27,735 - assessment - INFO - Section Cross Border Data Flows & Third Party Agreements score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,735 - assessment - INFO - Section Cross Border Data Flows & Third Party Agreements: No responses, score set to None
+2025-07-10 11:43:27,736 - assessment - INFO - Section Cross Border Data Flows & Third Party Agreements: total_points=0.0, max_points=2
+2025-07-10 11:43:27,736 - assessment - INFO - ===== Calculating score for section: Data Breaches =====
+2025-07-10 11:43:27,737 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,737 - assessment - WARNING - Empty responses for section Data Breaches, using raw score None
+2025-07-10 11:43:27,737 - assessment - INFO - Section Data Breaches score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,737 - assessment - INFO - Section Data Breaches: No responses, score set to None
+2025-07-10 11:43:27,739 - assessment - INFO - Section Data Breaches: total_points=0.0, max_points=1
+2025-07-10 11:43:27,740 - assessment - INFO - ===== Calculating score for section: Children's Websites =====
+2025-07-10 11:43:27,742 - assessment - INFO - Question 1: No response provided
+2025-07-10 11:43:27,743 - assessment - WARNING - Empty responses for section Children's Websites, using raw score None
+2025-07-10 11:43:27,743 - assessment - INFO - Section Children's Websites score: AFTER=0.0% (Raw score was None)
+2025-07-10 11:43:27,743 - assessment - INFO - Section Children's Websites: No responses, score set to None
+2025-07-10 11:43:27,744 - assessment - INFO - Section Children's Websites: total_points=0.0, max_points=1
+2025-07-10 11:43:27,744 - assessment - INFO - Verifying all sections have scores...
+2025-07-10 11:43:27,744 - assessment - INFO - Calculated section scores: {'Applicability of the PDPPL': 1.0, 'Principles of Data Privacy': None, 'Permitted Reasons': None, 'Special Nature Processing & Security': None, "Individuals' Rights & Complaints": None, 'Governance & Training Awareness': None, 'Data Privacy Impact Assessment (DPIA) & Privacy by Design': None, 'Cross Border Data Flows & Third Party Agreements': None, 'Data Breaches': None, "Children's Websites": None}
+2025-07-10 11:43:27,745 - assessment - INFO - ===== Calculating weighted overall score =====
+2025-07-10 11:43:27,745 - assessment - INFO - Section Applicability of the PDPPL: score=1.00, weight=0.06, contribution=0.06
+2025-07-10 11:43:27,745 - assessment - INFO - Section Principles of Data Privacy: SKIPPED (no score)
+2025-07-10 11:43:27,746 - assessment - INFO - Section Permitted Reasons: SKIPPED (no score)
+2025-07-10 11:43:27,748 - assessment - INFO - Section Special Nature Processing & Security: SKIPPED (no score)
+2025-07-10 11:43:27,752 - assessment - INFO - Section Individuals' Rights & Complaints: SKIPPED (no score)
+2025-07-10 11:43:27,753 - assessment - INFO - Section Governance & Training Awareness: SKIPPED (no score)
+2025-07-10 11:43:27,753 - assessment - INFO - Section Data Privacy Impact Assessment (DPIA) & Privacy by Design: SKIPPED (no score)
+2025-07-10 11:43:27,753 - assessment - INFO - Section Cross Border Data Flows & Third Party Agreements: SKIPPED (no score)
+2025-07-10 11:43:27,754 - assessment - INFO - Section Data Breaches: SKIPPED (no score)
+2025-07-10 11:43:27,754 - assessment - INFO - Section Children's Websites: SKIPPED (no score)
+2025-07-10 11:43:27,757 - assessment - INFO - Total weighted score: 0.06, Total weight: 0.06
+2025-07-10 11:43:27,759 - assessment - INFO - Overall score calculation: (0.06 / total_weight) * 100 = 100.00%
+2025-07-10 11:43:43,823 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:43,966 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:44,959 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:45,122 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:45,847 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:45,979 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:47,049 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:47,212 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:47,732 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:47,897 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:48,382 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:48,566 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:49,012 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:49,177 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:49,763 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:49,915 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:50,393 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:50,548 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:51,790 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:51,950 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:52,465 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:52,618 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:53,277 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:53,440 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:54,039 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:54,197 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:55,223 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:55,381 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:55,956 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:56,101 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:57,082 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:57,231 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:58,378 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:58,524 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:59,438 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:43:59,583 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:00,383 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:00,528 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:01,514 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:01,707 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:02,526 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:02,792 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:03,807 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:03,956 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:04,734 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:04,898 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:05,479 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:05,530 - assessment - INFO - [CALC] calculate_compliance_score CALLED with regulation_code='OAIC', industry_code='Banking and finance'
+2025-07-10 11:44:05,531 - assessment - INFO - [CALC] Using passed parameters: regulation='OAIC', industry='Banking and finance'
+2025-07-10 11:44:05,531 - assessment - INFO - [CALC] About to call get_questionnaire('OAIC', 'Banking and finance')
+2025-07-10 11:44:05,532 - assessment - INFO - [CALC] Loaded questionnaire has 13 sections for OAIC/Banking and finance
+2025-07-10 11:44:05,532 - assessment - INFO - [CALC] First 3 section names: ['Open and Transparent Management of Personal Information', 'Anonymity and Pseudonymity', 'Collection of Solicited Personal Information']
+2025-07-10 11:44:05,533 - assessment - INFO - [CALC] ALL SECTION NAMES: ['Open and Transparent Management of Personal Information', 'Anonymity and Pseudonymity', 'Collection of Solicited Personal Information', 'Dealing with Unsolicited Personal Information', 'Notification of Collection', 'Use or Disclosure of Personal Information', 'Direct Marketing', 'Cross-Border Disclosure', 'Adoption, Use or Disclosure of Government Related Identifiers', 'Quality of Personal Information', 'Security of Personal Information', 'Access to Personal Information', 'Correction of Personal Information']
+2025-07-10 11:44:05,534 - assessment - WARNING - [CALC] UNKNOWN: Questionnaire type unclear for OAIC
+2025-07-10 11:44:05,534 - assessment - INFO - [CALC] Answer points dictionary has 72 entries
+2025-07-10 11:44:05,534 - assessment - INFO - Answer points dictionary has 72 entries
+2025-07-10 11:44:05,535 - assessment - INFO - Processing scores for 13 sections
+2025-07-10 11:44:05,535 - assessment - INFO - Found responses for section indices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+2025-07-10 11:44:05,536 - assessment - INFO - ===== Calculating score for section: Open and Transparent Management of Personal Information =====
+2025-07-10 11:44:05,537 - assessment - INFO - Question 1: Response = 'Yes: The organization has a comprehensive, current privacy policy addressing personal information management.'
+2025-07-10 11:44:05,537 - assessment - INFO - Question 1: Points = 1.0
+2025-07-10 11:44:05,537 - assessment - INFO - Question 1: Adding 1.0 points, running total = 1.0/1
+2025-07-10 11:44:05,539 - assessment - INFO - Question 2: Response = 'Partially: Some, but not all, elements are addressed.'
+2025-07-10 11:44:05,539 - assessment - INFO - Question 2: Points = 0.5
+2025-07-10 11:44:05,541 - assessment - INFO - Question 2: Adding 0.5 points, running total = 1.5/2
+2025-07-10 11:44:05,543 - assessment - INFO - Question 3: Response = 'Yes: The policy is always available free of charge in a suitable format.'
+2025-07-10 11:44:05,544 - assessment - INFO - Question 3: Points = 1.0
+2025-07-10 11:44:05,544 - assessment - INFO - Question 3: Adding 1.0 points, running total = 2.5/3
+2025-07-10 11:44:05,545 - assessment - INFO - Question 4: Response = 'Partially: The organization tries but may not always accommodate requests.'
+2025-07-10 11:44:05,546 - assessment - INFO - Question 4: Points = 0.5
+2025-07-10 11:44:05,548 - assessment - INFO - Question 4: Adding 0.5 points, running total = 3.0/4
+2025-07-10 11:44:05,549 - assessment - INFO - Section Open and Transparent Management of Personal Information score: BEFORE=75.0%, AFTER=75.0% (Corrected)
+2025-07-10 11:44:05,551 - assessment - INFO - Section Open and Transparent Management of Personal Information: total_points=3.0, max_points=4
+2025-07-10 11:44:05,551 - assessment - INFO - ===== Calculating score for section: Anonymity and Pseudonymity =====
+2025-07-10 11:44:05,552 - assessment - INFO - Question 1: Response = 'Partially: Anonymity or pseudonymity is allowed in limited circumstances.'
+2025-07-10 11:44:05,552 - assessment - INFO - Question 1: Points = 0.5
+2025-07-10 11:44:05,552 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-07-10 11:44:05,554 - assessment - INFO - Question 2: Response = 'No: Exceptions are not limited to these cases.'
+2025-07-10 11:44:05,555 - assessment - INFO - Question 2: Points = 0.0
+2025-07-10 11:44:05,563 - assessment - INFO - Question 2: Adding 0.0 points, running total = 0.5/2
+2025-07-10 11:44:05,564 - assessment - INFO - Section Anonymity and Pseudonymity score: BEFORE=25.0%, AFTER=25.0% (Corrected)
+2025-07-10 11:44:05,565 - assessment - INFO - Section Anonymity and Pseudonymity: total_points=0.5, max_points=2
+2025-07-10 11:44:05,565 - assessment - INFO - ===== Calculating score for section: Collection of Solicited Personal Information =====
+2025-07-10 11:44:05,567 - assessment - INFO - Question 1: Response = 'No: Information is collected regardless of necessity.'
+2025-07-10 11:44:05,567 - assessment - INFO - Question 1: Points = 0.0
+2025-07-10 11:44:05,568 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-07-10 11:44:05,569 - assessment - INFO - Question 2: Response = 'Yes: Sensitive information is collected only with consent or as legally permitted.'
+2025-07-10 11:44:05,570 - assessment - INFO - Question 2: Points = 1.0
+2025-07-10 11:44:05,570 - assessment - INFO - Question 2: Adding 1.0 points, running total = 1.0/2
+2025-07-10 11:44:05,571 - assessment - INFO - Question 3: Response = 'No: Collection methods are not always lawful or fair.'
+2025-07-10 11:44:05,573 - assessment - INFO - Question 3: Points = 0.0
+2025-07-10 11:44:05,578 - assessment - INFO - Question 3: Adding 0.0 points, running total = 1.0/3
+2025-07-10 11:44:05,583 - assessment - INFO - Question 4: Response = 'Partially: Information is sometimes collected from third parties without exception.'
+2025-07-10 11:44:05,585 - assessment - INFO - Question 4: Points = 0.5
+2025-07-10 11:44:05,587 - assessment - INFO - Question 4: Adding 0.5 points, running total = 1.5/4
+2025-07-10 11:44:05,589 - assessment - INFO - Section Collection of Solicited Personal Information score: BEFORE=37.5%, AFTER=37.5% (Corrected)
+2025-07-10 11:44:05,590 - assessment - INFO - Section Collection of Solicited Personal Information: total_points=1.5, max_points=4
+2025-07-10 11:44:05,590 - assessment - INFO - ===== Calculating score for section: Dealing with Unsolicited Personal Information =====
+2025-07-10 11:44:05,591 - assessment - INFO - Question 1: Response = 'Yes: All unsolicited information is assessed for compliance with collection principles.'
+2025-07-10 11:44:05,591 - assessment - INFO - Question 1: Points = 1.0
+2025-07-10 11:44:05,594 - assessment - INFO - Question 1: Adding 1.0 points, running total = 1.0/1
+2025-07-10 11:44:05,596 - assessment - INFO - Question 2: Response = 'Yes: Unnecessary unsolicited information is promptly destroyed or de-identified.'
+2025-07-10 11:44:05,597 - assessment - INFO - Question 2: Points = 1.0
+2025-07-10 11:44:05,597 - assessment - INFO - Question 2: Adding 1.0 points, running total = 2.0/2
+2025-07-10 11:44:05,598 - assessment - INFO - Section Dealing with Unsolicited Personal Information score: BEFORE=100.0%, AFTER=100.0% (Corrected)
+2025-07-10 11:44:05,599 - assessment - INFO - Section Dealing with Unsolicited Personal Information: total_points=2.0, max_points=2
+2025-07-10 11:44:05,599 - assessment - INFO - ===== Calculating score for section: Notification of Collection =====
+2025-07-10 11:44:05,599 - assessment - INFO - Question 1: Response = 'No: Individuals are not notified.'
+2025-07-10 11:44:05,601 - assessment - INFO - Question 1: Points = 0.0
+2025-07-10 11:44:05,601 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-07-10 11:44:05,601 - assessment - INFO - Section Notification of Collection score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-07-10 11:44:05,602 - assessment - INFO - Section Notification of Collection: total_points=0.0, max_points=1
+2025-07-10 11:44:05,602 - assessment - INFO - ===== Calculating score for section: Use or Disclosure of Personal Information =====
+2025-07-10 11:44:05,603 - assessment - INFO - Question 1: Response = 'Partially: Use/disclosure for secondary purposes occurs without proper basis.'
+2025-07-10 11:44:05,603 - assessment - INFO - Question 1: Points = 0.5
+2025-07-10 11:44:05,603 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-07-10 11:44:05,603 - assessment - INFO - Question 2: Response = 'Yes: Secondary use/disclosure is always related and reasonably expected.'
+2025-07-10 11:44:05,603 - assessment - INFO - Question 2: Points = 1.0
+2025-07-10 11:44:05,604 - assessment - INFO - Question 2: Adding 1.0 points, running total = 1.5/2
+2025-07-10 11:44:05,604 - assessment - INFO - Question 3: Response = 'Yes: All disclosures comply with guidelines.'
+2025-07-10 11:44:05,604 - assessment - INFO - Question 3: Points = 1.0
+2025-07-10 11:44:05,604 - assessment - INFO - Question 3: Adding 1.0 points, running total = 2.5/3
+2025-07-10 11:44:05,604 - assessment - INFO - Question 4: Response = 'Partially: De-identification occurs inconsistently.'
+2025-07-10 11:44:05,604 - assessment - INFO - Question 4: Points = 0.5
+2025-07-10 11:44:05,605 - assessment - INFO - Question 4: Adding 0.5 points, running total = 3.0/4
+2025-07-10 11:44:05,605 - assessment - INFO - Section Use or Disclosure of Personal Information score: BEFORE=75.0%, AFTER=75.0% (Corrected)
+2025-07-10 11:44:05,605 - assessment - INFO - Section Use or Disclosure of Personal Information: total_points=3.0, max_points=4
+2025-07-10 11:44:05,605 - assessment - INFO - ===== Calculating score for section: Direct Marketing =====
+2025-07-10 11:44:05,605 - assessment - INFO - Question 1: Response = 'No: Direct marketing is conducted without regard to consent or law.'
+2025-07-10 11:44:05,606 - assessment - INFO - Question 1: Points = 0.0
+2025-07-10 11:44:05,606 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-07-10 11:44:05,606 - assessment - INFO - Section Direct Marketing score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-07-10 11:44:05,606 - assessment - INFO - Section Direct Marketing: total_points=0.0, max_points=1
+2025-07-10 11:44:05,607 - assessment - INFO - ===== Calculating score for section: Cross-Border Disclosure =====
+2025-07-10 11:44:05,607 - assessment - INFO - Question 1: Response = 'Yes: All overseas disclosures are assessed for compliance or equivalent protection.'
+2025-07-10 11:44:05,607 - assessment - INFO - Question 1: Points = 1.0
+2025-07-10 11:44:05,607 - assessment - INFO - Question 1: Adding 1.0 points, running total = 1.0/1
+2025-07-10 11:44:05,608 - assessment - INFO - Section Cross-Border Disclosure score: BEFORE=100.0%, AFTER=100.0% (Corrected)
+2025-07-10 11:44:05,608 - assessment - INFO - Section Cross-Border Disclosure: total_points=1.0, max_points=1
+2025-07-10 11:44:05,610 - assessment - INFO - ===== Calculating score for section: Adoption, Use or Disclosure of Government Related Identifiers =====
+2025-07-10 11:44:05,610 - assessment - INFO - Question 1: Response = 'No: Government identifiers are used/disclosed without restriction.'
+2025-07-10 11:44:05,610 - assessment - INFO - Question 1: Points = 0.0
+2025-07-10 11:44:05,611 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-07-10 11:44:05,611 - assessment - INFO - Section Adoption, Use or Disclosure of Government Related Identifiers score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-07-10 11:44:05,613 - assessment - INFO - Section Adoption, Use or Disclosure of Government Related Identifiers: total_points=0.0, max_points=1
+2025-07-10 11:44:05,613 - assessment - INFO - ===== Calculating score for section: Quality of Personal Information =====
+2025-07-10 11:44:05,613 - assessment - INFO - Question 1: Response = 'Partially: Information is reviewed occasionally.'
+2025-07-10 11:44:05,613 - assessment - INFO - Question 1: Points = 0.5
+2025-07-10 11:44:05,614 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-07-10 11:44:05,614 - assessment - INFO - Section Quality of Personal Information score: BEFORE=50.0%, AFTER=50.0% (Corrected)
+2025-07-10 11:44:05,614 - assessment - INFO - Section Quality of Personal Information: total_points=0.5, max_points=1
+2025-07-10 11:44:05,615 - assessment - INFO - ===== Calculating score for section: Security of Personal Information =====
+2025-07-10 11:44:05,616 - assessment - INFO - Question 1: Response = 'No: There are no significant security measures.'
+2025-07-10 11:44:05,616 - assessment - INFO - Question 1: Points = 0.0
+2025-07-10 11:44:05,616 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-07-10 11:44:05,617 - assessment - INFO - Section Security of Personal Information score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-07-10 11:44:05,617 - assessment - INFO - Section Security of Personal Information: total_points=0.0, max_points=1
+2025-07-10 11:44:05,617 - assessment - INFO - ===== Calculating score for section: Access to Personal Information =====
+2025-07-10 11:44:05,618 - assessment - INFO - Question 1: Response = 'No: Access is generally not provided.'
+2025-07-10 11:44:05,618 - assessment - INFO - Question 1: Points = 0.0
+2025-07-10 11:44:05,619 - assessment - INFO - Question 1: Adding 0.0 points, running total = 0.0/1
+2025-07-10 11:44:05,619 - assessment - INFO - Section Access to Personal Information score: BEFORE=0.0%, AFTER=0.0% (Corrected)
+2025-07-10 11:44:05,619 - assessment - INFO - Section Access to Personal Information: total_points=0.0, max_points=1
+2025-07-10 11:44:05,619 - assessment - INFO - ===== Calculating score for section: Correction of Personal Information =====
+2025-07-10 11:44:05,619 - assessment - INFO - Question 1: Response = 'Partially: Corrections are made inconsistently.'
+2025-07-10 11:44:05,620 - assessment - INFO - Question 1: Points = 0.5
+2025-07-10 11:44:05,620 - assessment - INFO - Question 1: Adding 0.5 points, running total = 0.5/1
+2025-07-10 11:44:05,620 - assessment - INFO - Section Correction of Personal Information score: BEFORE=50.0%, AFTER=50.0% (Corrected)
+2025-07-10 11:44:05,620 - assessment - INFO - Section Correction of Personal Information: total_points=0.5, max_points=1
+2025-07-10 11:44:05,620 - assessment - INFO - Verifying all sections have scores...
+2025-07-10 11:44:05,620 - assessment - INFO - Calculated section scores: {'Open and Transparent Management of Personal Information': 0.75, 'Anonymity and Pseudonymity': 0.25, 'Collection of Solicited Personal Information': 0.375, 'Dealing with Unsolicited Personal Information': 1.0, 'Notification of Collection': 0.0, 'Use or Disclosure of Personal Information': 0.75, 'Direct Marketing': 0.0, 'Cross-Border Disclosure': 1.0, 'Adoption, Use or Disclosure of Government Related Identifiers': 0.0, 'Quality of Personal Information': 0.5, 'Security of Personal Information': 0.0, 'Access to Personal Information': 0.0, 'Correction of Personal Information': 0.5}
+2025-07-10 11:44:05,620 - assessment - INFO - ===== Calculating weighted overall score =====
+2025-07-10 11:44:05,622 - assessment - INFO - Section Open and Transparent Management of Personal Information: score=0.75, weight=0.12, contribution=0.09
+2025-07-10 11:44:05,622 - assessment - INFO - Section Anonymity and Pseudonymity: score=0.25, weight=0.05, contribution=0.01
+2025-07-10 11:44:05,623 - assessment - INFO - Section Collection of Solicited Personal Information: score=0.38, weight=0.11, contribution=0.04
+2025-07-10 11:44:05,624 - assessment - INFO - Section Dealing with Unsolicited Personal Information: score=1.00, weight=0.07, contribution=0.07
+2025-07-10 11:44:05,624 - assessment - INFO - Section Notification of Collection: score=0.00, weight=0.09, contribution=0.00
+2025-07-10 11:44:05,627 - assessment - INFO - Section Use or Disclosure of Personal Information: score=0.75, weight=0.11, contribution=0.08
+2025-07-10 11:44:05,628 - assessment - INFO - Section Direct Marketing: score=0.00, weight=0.06, contribution=0.00
+2025-07-10 11:44:05,632 - assessment - INFO - Section Cross-Border Disclosure: score=1.00, weight=0.07, contribution=0.07
+2025-07-10 11:44:05,634 - assessment - INFO - Section Adoption, Use or Disclosure of Government Related Identifiers: score=0.00, weight=0.06, contribution=0.00
+2025-07-10 11:44:05,635 - assessment - INFO - Section Quality of Personal Information: score=0.50, weight=0.06, contribution=0.03
+2025-07-10 11:44:05,635 - assessment - INFO - Section Security of Personal Information: score=0.00, weight=0.10, contribution=0.00
+2025-07-10 11:44:05,635 - assessment - INFO - Section Access to Personal Information: score=0.00, weight=0.07, contribution=0.00
+2025-07-10 11:44:05,636 - assessment - INFO - Section Correction of Personal Information: score=0.50, weight=0.03, contribution=0.01
+2025-07-10 11:44:05,637 - assessment - INFO - Total weighted score: 0.41125, Total weight: 1.0
+2025-07-10 11:44:05,637 - assessment - INFO - Overall score calculation: (0.41125 / total_weight) * 100 = 41.12%
+2025-07-10 11:44:05,746 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:44:08,619 - views - INFO - Requesting AI report generation with the following configuration:
+2025-07-10 11:44:08,620 - views - INFO - AI enabled: True
+2025-07-10 11:44:08,620 - views - INFO - API key available: Yes
+2025-07-10 11:44:08,620 - views - INFO - API provider: openrouter
+2025-07-10 11:44:08,620 - nlg_report - INFO - AI API is fully configured and enabled
+2025-07-10 11:44:08,622 - nlg_report - INFO - Configuring OpenRouter API client
+2025-07-10 11:44:09,318 - nlg_report - INFO - OpenRouter client configured with model: deepseek/deepseek-chat-v3-0324:free
+2025-07-10 11:44:09,318 - nlg_report - INFO - Creating AI prompt for markdown format from context data
+2025-07-10 11:44:09,319 - nlg_report - INFO - Created prompt with length: 6888 characters
+2025-07-10 11:44:09,319 - nlg_report - INFO - Making API request attempt 1/3
+2025-07-10 11:44:09,319 - nlg_report - INFO - Sending request to OpenRouter API
+2025-07-10 11:44:11,923 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-10 11:45:23,496 - nlg_report - INFO - Received full API response
+2025-07-10 11:45:23,497 - nlg_report - INFO - API call completed successfully in 74.18 seconds
+2025-07-10 11:45:23,497 - nlg_report - INFO - Received valid response with content length: 3933 characters
+2025-07-10 11:45:23,498 - views - INFO - Report generation completed in 74.88 seconds
+2025-07-10 11:45:23,498 - views - INFO - Report length: 3933 characters
+2025-07-10 11:45:23,506 - views - INFO - Looking for logo at: C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Assets\@DataINFA.png
+2025-07-10 11:45:23,532 - views - INFO - Looking for logo at: C:\Users\HP\OneDrive - DataInfa Solution Private Limited\Projects\DPDP-main\DPDP-main\Assets\@DataINFA.png
+2025-07-10 11:45:23,614 - views - INFO - Temporary PDF output path: C:\Users\HP\AppData\Local\Temp\tmp4jq531yv.pdf
+2025-07-10 11:45:23,615 - views - INFO - Attempting conversion and save to: C:\Users\HP\AppData\Local\Temp\tmp4jq531yv.pdf
+2025-07-10 11:45:23,659 - views - INFO - markdown-pdf save operation completed for C:\Users\HP\AppData\Local\Temp\tmp4jq531yv.pdf
+2025-07-10 11:45:23,663 - views - INFO - Output PDF file exists: C:\Users\HP\AppData\Local\Temp\tmp4jq531yv.pdf
+2025-07-10 11:45:23,739 - views - INFO - Successfully read 144058 bytes from C:\Users\HP\AppData\Local\Temp\tmp4jq531yv.pdf
+2025-07-10 11:45:23,741 - views - INFO - Cleaned up temporary PDF file: C:\Users\HP\AppData\Local\Temp\tmp4jq531yv.pdf
+2025-07-10 11:45:23,836 - views - INFO - [render_assessment] Mapped regulation_for_loader: OAIC
+2025-07-10 11:47:18,988 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:47:19,197 - views - INFO - [render_assessment] Mapped regulation_for_loader: OAIC
+2025-07-10 11:47:57,942 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:47:57,971 - helpers - INFO - Navigating to page: welcome from report
+2025-07-10 11:47:58,101 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:02,417 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:02,444 - helpers - INFO - Navigating to page: assessment from welcome
+2025-07-10 11:48:02,584 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:05,051 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:05,080 - helpers - INFO - Navigating to page: privacy from assessment
+2025-07-10 11:48:05,207 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:10,951 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:11,891 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:19,575 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:27,651 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:48:27,685 - privacy_policy_analyzer - INFO - Searching privacy policy for organization: Air India in country: India
+2025-07-10 11:48:28,224 - privacy_policy_analyzer - INFO - Found privacy policy URL for Air India: https://www.airindia.com/in/en/privacy-notice.html
+2025-07-10 11:48:28,226 - privacy_policy_analyzer - INFO - Fetching privacy policy content from: https://www.airindia.com/in/en/privacy-notice.html
+2025-07-10 11:48:58,521 - privacy_policy_analyzer - WARNING - Timeout error on attempt 1: HTTPSConnectionPool(host='www.airindia.com', port=443): Read timed out. (read timeout=30)
+2025-07-10 11:49:30,561 - privacy_policy_analyzer - WARNING - Timeout error on attempt 2: HTTPSConnectionPool(host='www.airindia.com', port=443): Read timed out. (read timeout=30)
+2025-07-10 11:50:02,623 - privacy_policy_analyzer - WARNING - Timeout error on attempt 3: HTTPSConnectionPool(host='www.airindia.com', port=443): Read timed out. (read timeout=30)
+2025-07-10 11:50:02,624 - privacy_policy_analyzer - ERROR - Request timed out after 3 attempts
+2025-07-10 11:51:16,003 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:51:16,029 - helpers - INFO - Navigating to page: discovery from privacy
+2025-07-10 11:51:16,151 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:51:28,467 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:53:56,050 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:53:56,094 - helpers - INFO - Navigating to page: welcome from discovery
+2025-07-10 11:53:56,363 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:53:58,646 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:53:58,675 - helpers - INFO - Navigating to page: report from welcome
+2025-07-10 11:53:58,786 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 11:53:59,040 - views - INFO - [render_assessment] Mapped regulation_for_loader: OAIC
+2025-07-10 13:21:40,195 - __main__ - INFO - Application started - Logging initialized
+2025-07-10 13:21:43,294 - views - INFO - [render_assessment] Mapped regulation_for_loader: OAIC
